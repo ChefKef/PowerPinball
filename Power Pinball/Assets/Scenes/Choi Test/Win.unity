@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 74164455}
   - component: {fileID: 74164454}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,6 +338,14 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 857392378061460992, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: Retry Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581687932110469816, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: You Win! 500 clams
+      objectReference: {fileID: 0}
     - target: {fileID: 3581687932110469817, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_SizeDelta.x
       value: 350
@@ -475,6 +483,10 @@ PrefabInstance:
       value: 'Main Menu
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990182368129944356, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: Main Menu Button
       objectReference: {fileID: 0}
     - target: {fileID: 7744480610033951430, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_AnchoredPosition.y

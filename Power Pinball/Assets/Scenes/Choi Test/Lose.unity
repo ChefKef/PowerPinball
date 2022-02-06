@@ -285,6 +285,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Retry
       objectReference: {fileID: 0}
+    - target: {fileID: 857392378061460992, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: Retry Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581687932110469816, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: You Lose. Gimme yer moneh
+      objectReference: {fileID: 0}
     - target: {fileID: 3581687932110469817, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_SizeDelta.x
       value: 500
@@ -412,6 +420,10 @@ PrefabInstance:
     - target: {fileID: 5784046982275203384, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_text
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990182368129944356, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
+      propertyPath: m_Name
+      value: Main Menu Button
       objectReference: {fileID: 0}
     - target: {fileID: 7995053211148988270, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
