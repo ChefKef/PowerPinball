@@ -28,8 +28,6 @@ public delegate void OnStateChangeHandler();
 /// </summary>
 public class StateManager : MonoBehaviour
 {
-    private static StateManager instance;
-
     /// <summary>
     /// Event that gets invoked when game state is altered.
     /// </summary>
@@ -43,6 +41,9 @@ public class StateManager : MonoBehaviour
     /// </summary>
     public GameStates GameState { get; private set; }
 
+    private static StateManager instance;
+
+    #region Singleton Necessities
     public static StateManager Instance
     {
         get
@@ -72,7 +73,9 @@ public class StateManager : MonoBehaviour
             return instance;
         }
     }
+    #endregion
 
+    #region FSM
     /// <summary>
     /// Changes the game's state and fires all necessary callbacks.
     /// </summary>
@@ -80,7 +83,7 @@ public class StateManager : MonoBehaviour
     public void SetState(GameStates newState)
     {
         // TODO: load new scenes here.
-        //GameState = newState;
+        GameState = newState;
         //OnStateChange.Invoke();
         //Debug.Log("Score: " + ScoreManager.Score);
 
@@ -90,7 +93,7 @@ public class StateManager : MonoBehaviour
                 SceneManager.LoadSceneAsync("Title");
                 break;
             case GameStates.MainMenu:
-                SceneManager.LoadSceneAsync("MainMenu");
+                SceneManager.LoadSceneAsync("Main Menu");
                 break;
             case GameStates.Game:
                 SceneManager.LoadSceneAsync("Game");
@@ -103,7 +106,9 @@ public class StateManager : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
+    #region Lifecycle Hooks
     public virtual void Awake()
     {
         if (!instance)
@@ -124,4 +129,5 @@ public class StateManager : MonoBehaviour
         // memory allocated for it can be garbage collected.
         instance = null;
     }
+    #endregion
 }
