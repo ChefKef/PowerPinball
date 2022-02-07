@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class FGRenderer : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private List<GameObject> hurtboxPool;
+    private List<GameObject> hitboxPool;
+
+
+    void Awake()
+    {
+        hurtboxPool = new List<GameObject>();
+        hitboxPool = new List<GameObject>();
+    }
+
     void Start()
     {
         
