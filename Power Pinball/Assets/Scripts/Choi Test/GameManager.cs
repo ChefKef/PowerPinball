@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
+
         Score = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.
+    //Set to 60FPS in Start()
+    void FixedUpdate() 
     {
 
     }
