@@ -16,6 +16,8 @@ public enum FGFighterState
     dead
 }
 
+namespace FGScript {
+
 public class FGFighter
 {
     //consts
@@ -72,5 +74,7 @@ public class FGFighter
     {
         currentAction.FGADraw(renderer);
     }
+
+}
 
 }

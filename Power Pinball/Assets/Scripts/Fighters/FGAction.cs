@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace FGScript {
+
 public class FGAction
 {
 
@@ -27,5 +29,7 @@ public class FGAction
 
     }
 
+
+}
 
 }

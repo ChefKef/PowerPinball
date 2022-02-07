@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace FGScript {
+
 public class FGRenderer : MonoBehaviour
 {
 
@@ -25,4 +27,6 @@ public class FGRenderer : MonoBehaviour
     {
         
     }
+}
+
 }
