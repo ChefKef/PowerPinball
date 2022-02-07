@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Choi Test/Title.unity
+    guid: c171887897d06574b8033ae0edb90fb8
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/Main Menu.unity
+    guid: 012bd45b0d8d3354dafc36b691aec91a
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/Game.unity
+    guid: 50797c76dd9211343b618b0e3db83275
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/Win.unity
+    guid: 78f3d98b465b8c447a1adc8b7840844b
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/Lose.unity
+    guid: 6458e6aae1d538946b999a41ecfe36c2
   m_configObjects: {}
