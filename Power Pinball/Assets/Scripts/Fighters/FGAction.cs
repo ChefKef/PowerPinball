@@ -7,13 +7,14 @@ namespace FGScript {
 public class FGAction
 {
 
-    public readonly FGHurtbox[,] hurtboxes; //both 2D arrays. outer layer = frame. inner layer = multiple hitboxes in one frame
-    public readonly FGHitbox[,] hitboxes;   //to avoid storing a lot of data, if any given frame has 0 data we go to the most recent frame with data.
+    //I want these to be readonly, but I'm waiting until content complete to make a constructor
+    public FGHurtbox[,] hurtboxes;          //both 2D arrays. outer layer = frame. inner layer = multiple hitboxes in one frame
+    public FGHitbox[,] hitboxes;            //to avoid storing a lot of data, if any given frame has 0 data we go to the most recent frame with data.
     private FGHurtbox[] lastHurt;           //These two variables are references to that "most recent frame", to avoid looping through the array every frame.
     private FGHitbox[] lastHit;
-    private int duration;                   //in frames. measures the length of the move, not drawn animation frames
-    private bool looping;                   //Whether or not this action "ends" at lastFrame
-    private int loopFrame = 0;              //Which frame to return to at the end of a looping animation. default 0.
+    public int duration;                    //in frames. measures the length of the move, not drawn animation frames
+    public bool looping;                    //Whether or not this action "ends" at lastFrame
+    public int loopFrame = 0;               //Which frame to return to at the end of a looping animation. default 0.
     //Sprites[] sprites //im not doing this right now
     
     public readonly int frame;
@@ -29,6 +30,22 @@ public class FGAction
 
     }
 
+    
+    //Creates a default action - a 1 frame looping animation of a hurtbox, ideal for Idle poses
+    public static FGAction newDefaultAction()
+    {
+        FGAction val = new FGAction();
+
+        val.looping = true;
+        val.duration = 1;
+        val.hurtboxes = new FGHurtbox[1,1];
+        val.hitboxes = new FGHitbox[1,1];
+
+        val.hurtboxes[0,0] = new FGHurtbox();
+        val.hurtboxes[0,0].rect = new Rect(-0.5f, 2, 0.5f, 0);
+
+        return val;
+    }
 
 }
 
