@@ -1,5 +1,5 @@
 
-
+/*
 public class Hipster : FGFighter
 {
 
@@ -7,3 +7,5 @@ public class Hipster : FGFighter
     //This is cringe I'm just too lazy to do File IO in the next ~3 days
 
 }
+*/
+//Commmenting everything out so that it compiles - John

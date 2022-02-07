@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
-        player1 = new Hipster();
+        //player1 = new Hipster(); commenting out so that everything compiles - John
         //player2 = new Hipster();
 
     }
