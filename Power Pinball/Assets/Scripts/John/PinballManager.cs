@@ -22,6 +22,18 @@ public class PinballManager : MonoBehaviour
         rb.AddForce(transform.up * 1000f);
     }
 
+    public float movementMagnitue()
+    {
+        //Debug.Log("Velocity: " + rb.velocity.x + ", " + rb.velocity.y);
+        //Debug.Log("Magnitude: " + rb.velocity.magnitude);
+        return rb.velocity.magnitude;
+    }
+
+    public void setVelocity(Vector2 vel)
+    {
+        rb.velocity = vel;
+    }
+
     //*****************DEBUG FUNCS******************
     private void forceTest()
     {
