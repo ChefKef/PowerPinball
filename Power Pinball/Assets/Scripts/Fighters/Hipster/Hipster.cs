@@ -12,18 +12,23 @@ public class Hipster : FGFighter
         maxGroundSpeed = 0.2f;
         maxAirSpeed = 0.18f;
 
-        actions["crouch"].hurtboxes = new FGHurtbox[3][];
+        actions["crouch"].hurtboxes = new FGHurtbox[4][];
+        actions["crouch"].hitboxes = new FGHitbox[4][];
         actions["crouch"].hurtboxes[0] = new FGHurtbox[1];
         actions["crouch"].hurtboxes[1] = new FGHurtbox[1];
         actions["crouch"].hurtboxes[2] = new FGHurtbox[1];
+        actions["crouch"].hurtboxes[3] = new FGHurtbox[1];
         actions["crouch"].hurtboxes[0][0] = new FGHurtbox();
         actions["crouch"].hurtboxes[1][0] = new FGHurtbox();
         actions["crouch"].hurtboxes[2][0] = new FGHurtbox();
-        actions["crouch"].hurtboxes[0][0].rect = new UnityEngine.Rect(-0.5f, 1.7f, 1, 1.7f);
-        actions["crouch"].hurtboxes[1][0].rect = new UnityEngine.Rect(-0.5f, 1.4f, 1, 1.4f);
-        actions["crouch"].hurtboxes[2][0].rect = new UnityEngine.Rect(-0.5f, 1f, 1, 1f);
-        actions["crouch"].duration = 3;
-        actions["crouch"].loopFrame = 2;
+        actions["crouch"].hurtboxes[3][0] = new FGHurtbox();
+        actions["crouch"].hurtboxes[0][0].rect = new UnityEngine.Rect(-0.5f, 1.8f, 1, 1.8f);
+        actions["crouch"].hurtboxes[1][0].rect = new UnityEngine.Rect(-0.5f, 1.6f, 1, 1.6f);
+        actions["crouch"].hurtboxes[2][0].rect = new UnityEngine.Rect(-0.5f, 1.3f, 1, 1.3f);
+        actions["crouch"].hurtboxes[3][0].rect = new UnityEngine.Rect(-0.5f, 1f, 1, 1f);
+        actions["crouch"].duration = 4;
+        actions["crouch"].loopFrame = 3;
+        actions["crouch"].looping = true;
 
     }
 

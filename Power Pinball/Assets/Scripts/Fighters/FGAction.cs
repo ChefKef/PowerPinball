@@ -27,18 +27,18 @@ public class FGAction
         {
             frame++;
 
-            if(frame >= duration)
-            {
-                if (looping)
-                    frame = loopFrame;
-                else
-                {
-                    ended = true;
-                    return;
-                }
-            }
+            if(frame >= duration && looping)
+                frame = loopFrame;
+            else if (frame >= duration - 1 && !looping) //We need to flag "ended" in advance, because we can't/won't react to it until next frame
+                ended = true;
+
 
             //Find the most recent hurtbox with any data
+            if (hurtboxes[frame] != null) lastHurt = hurtboxes[frame];
+            if(hitboxes != null)
+                if (hitboxes[frame] != null) lastHit = hitboxes[frame];         //To signal the end of a hitbox, simply have an empty array at the given frame.
+            
+
 
         }
 
