@@ -54,9 +54,37 @@ public class FGFighter
         protected bool oldSpike;
         protected bool launch;
         protected bool oldLaunch;
+        protected bool jump;
+        protected bool oldJump;
     
         //Button callbacks
-    
+        public void MoveStick(Vector2 stick)
+        {
+            if (stick.x == 0) joystick.x = 0;
+            else if (stick.x > 0) joystick.x = 1;
+            else joystick.x = -1;
+
+            if (stick.y == 0) joystick.y = 0;
+            else if (stick.y > 0) joystick.x = 1;
+            else joystick.y = -1;
+        }
+        public void PokeBtn(bool btn)
+        {
+            poke = btn;
+        }
+        public void SpikeBtn(bool btn)
+        {
+            spike = btn;
+        }
+        public void LaunchBtn(bool btn)
+        {
+            launch = btn;
+        }
+        public void JumpBtn(bool btn)
+        {
+            jump = btn;
+        }
+
         public FGFighter(FGRenderer renderer)
         {
             actions = new Dictionary<string, FGAction>();

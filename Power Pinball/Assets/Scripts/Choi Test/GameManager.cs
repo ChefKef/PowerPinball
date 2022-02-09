@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
         //player2 = new Hipster();
         //player2Renderer.fighter = player2;
 
+        player1.position.x = -6;
+        //player2.position.x = 6;
+
     }
 
     //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.

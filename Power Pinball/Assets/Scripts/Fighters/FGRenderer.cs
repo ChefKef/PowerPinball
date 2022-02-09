@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace FGScript {
 
@@ -15,6 +16,34 @@ public class FGRenderer : MonoBehaviour
         public FGFighter fighter;
 
         private float scale = 100;
+
+
+        //We Need to "handle" Inputs here because this is the Unity object
+        //In reality, we are passing them along to the Fighter
+        #region Input
+
+        public void OnMove(InputValue input)
+        {
+            fighter.MoveStick(input.Get<Vector2>());
+        }
+        public void OnJump(InputValue input)
+        {
+            fighter.JumpBtn(input.Get<float>() == 1);
+        }
+        public void OnPoke(InputValue input)
+        {
+            fighter.PokeBtn(input.Get<float>() == 1);
+        }
+        public void OnSpike(InputValue input)
+        {
+            fighter.SpikeBtn(input.Get<float>() == 1);
+        }
+        public void OnLaunch(InputValue input)
+        {
+            fighter.LaunchBtn(input.Get<float>() == 1);
+        }
+
+        #endregion
 
         void Awake()
         {
