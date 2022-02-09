@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static int Score { get; private set; }
 
     //Game-Loop Data
+    [SerializeField] public FGRenderer player1Renderer, player2Renderer;
     FGFighter player1, player2;
 
     
@@ -33,8 +34,10 @@ public class GameManager : MonoBehaviour
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
-        //player1 = new Hipster();
+        player1 = new Hipster(player1Renderer);
+        player1Renderer.fighter = player1;
         //player2 = new Hipster();
+        //player2Renderer.fighter = player2;
 
     }
 
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
          */
 
         player1.FGDraw();
+        player1.FGDrawHitboxes();
         //player2.FGDraw();
 
     }
