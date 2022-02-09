@@ -12,7 +12,7 @@ public class Hipster : FGFighter
         maxGroundSpeed = 0.2f;
         maxAirSpeed = 0.18f;
         groundAcceleration = 0.04f;
-        friction = 0.75f;
+        friction = 0.55f;
         airAcceleration = 0.0055f;
         jumpVelocity = 0.55f;
         gravity = 0.04f;
