@@ -11,6 +11,9 @@ public class Hipster : FGFighter
 
         maxGroundSpeed = 0.2f;
         maxAirSpeed = 0.18f;
+        groundAcceleration = 0.04f;
+        friction = 0.75f;
+        airAcceleration = 0f;
 
         actions["crouch"].hurtboxes = new FGHurtbox[4][];
         actions["crouch"].hitboxes = new FGHitbox[4][];

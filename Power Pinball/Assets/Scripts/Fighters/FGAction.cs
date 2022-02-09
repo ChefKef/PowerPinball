@@ -10,9 +10,9 @@ public class FGAction
         //I want these to be readonly, but I'm waiting until content complete to make a constructor
         public FGHurtbox[][] hurtboxes;          //both 2D arrays. outer layer = frame. inner layer = multiple hitboxes in one frame
         public FGHitbox[][] hitboxes;            //to avoid storing a lot of data, if any given frame has 0 data we go to the most recent frame with data.
-        private FGHurtbox[] lastHurt;           //These two variables are references to that "most recent frame", to avoid looping through the array every frame.
+        private FGHurtbox[] lastHurt;           //These two variables are references to that "most recent frame" with data, to avoid looping through the array every frame.
         private FGHitbox[] lastHit;
-        public int duration;                    //in frames. measures the length of the move, not drawn animation frames
+        public int duration;                    //in frames. measures the length of the move, not drawn animation frames (so you could animate at less than 60fps)
         public bool looping;                    //Whether or not this action "ends" at lastFrame
         public int loopFrame = 0;               //Which frame to return to at the end of a looping animation. default 0.
         //Sprites[] sprites //im not doing this right now

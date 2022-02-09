@@ -27,6 +27,8 @@ public class FGFighter
         protected Dictionary<string, FGAction> actions;
         protected float maxGroundSpeed;
         protected float maxAirSpeed; //horizontal
+        protected float groundAcceleration;
+        protected float friction;
         protected float airAcceleration;
     
         //State data
@@ -126,21 +128,19 @@ public class FGFighter
                 case FGFighterState.idle:
                 case FGFighterState.crouch:
                     position = new Vector2(position.x + velocity.x, 0);
-                    velocity *= 0.8f;
+                    velocity *= friction;
 
                     if (joystick.x == 1 && joystick.y != -1)
                     {
                         state = FGFighterState.run;
                         CurrentAction = actions["run"];
                         facingLeft = false;
-                        velocity = new Vector2(maxGroundSpeed, 0);
                     }
                     else if (joystick.x == -1 && joystick.y != -1)
                     {
                         state = FGFighterState.run;
                         CurrentAction = actions["run"];
                         facingLeft = true;
-                        velocity = new Vector2(-maxGroundSpeed, 0);
                     }
                     else if(joystick.y == -1 && state != FGFighterState.crouch)
                     {
@@ -156,6 +156,7 @@ public class FGFighter
 
                     break;
                 case FGFighterState.run:
+                    velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), 0);
                     position = new Vector2(position.x + velocity.x, 0);
 
                     if(joystick.y == -1 && oldJoystick.y != -1)
