@@ -60,10 +60,10 @@ public class FGRenderer : MonoBehaviour
             //Or, if we have too many, hide some
 
             //Positive means we have enough/too many. Negative means make more.
-            bool hurt = action.currentHurt == null ? false : true;
-            bool hit = action.currentHit == null ? false : true;
-            int hurtDiff = !hurt ? 0 : hurtboxPool.Count - action.currentHurt.Length;
-            int hitDiff = !hit ? 0 : hitboxPool.Count - action.currentHit.Length;
+            bool hurt = action.CurrentHurt == null ? false : true;
+            bool hit = action.CurrentHit == null ? false : true;
+            int hurtDiff = !hurt ? 0 : hurtboxPool.Count - action.CurrentHurt.Length;
+            int hitDiff = !hit ? 0 : hitboxPool.Count - action.CurrentHit.Length;
 
             if(hurtDiff < 0)
             {
@@ -88,12 +88,12 @@ public class FGRenderer : MonoBehaviour
             if(hurt)
                 for (int i = 0; i < hurtboxPool.Count; i++)
                 {
-                    if(i < action.currentHurt.Length)
+                    if(i < action.CurrentHurt.Length)
                     {
                         hurtboxPool[i].enabled = true;
                         hurtboxPool[i].color = new Color(0, 0, 1, 0.5f);
-                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x + action.currentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.currentHurt[i].rect.y, 5);
-                        hurtboxPool[i].transform.localScale = new Vector3(action.currentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.currentHurt[i].rect.height, 1) * scale;
+                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.CurrentHurt[i].rect.y, 5);
+                        hurtboxPool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * scale;
 
                     }
                     else
@@ -104,12 +104,12 @@ public class FGRenderer : MonoBehaviour
             if(hit)
                 for (int i = 0; i < hitboxPool.Count; i++)
                 {
-                    if (i < action.currentHit.Length)
+                    if (i < action.CurrentHit.Length)
                     {
                         hitboxPool[i].enabled = true;
                         hitboxPool[i].color = new Color(1, 0, 0, 0.5f);
-                        hitboxPool[i].transform.position = new Vector3(fighter.position.x + action.currentHit[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.currentHit[i].rect.y, 5);
-                        hitboxPool[i].transform.localScale = new Vector3(action.currentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.currentHit[i].rect.height, 1) * scale;
+                        hitboxPool[i].transform.position = new Vector3(fighter.position.x + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.CurrentHit[i].rect.y, 5);
+                        hitboxPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * scale;
 
                     }
                     else

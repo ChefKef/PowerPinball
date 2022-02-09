@@ -8,11 +8,22 @@ public class Hipster : FGFighter
 
     public Hipster(FGRenderer renderer) : base (renderer)
     {
-        actions["idle"] = FGAction.newDefaultAction();
 
+        maxGroundSpeed = 0.2f;
+        maxAirSpeed = 0.18f;
 
-        currentAction = actions["idle"];
-        state = FGFighterState.idle;
+        actions["crouch"].hurtboxes = new FGHurtbox[3][];
+        actions["crouch"].hurtboxes[0] = new FGHurtbox[1];
+        actions["crouch"].hurtboxes[1] = new FGHurtbox[1];
+        actions["crouch"].hurtboxes[2] = new FGHurtbox[1];
+        actions["crouch"].hurtboxes[0][0] = new FGHurtbox();
+        actions["crouch"].hurtboxes[1][0] = new FGHurtbox();
+        actions["crouch"].hurtboxes[2][0] = new FGHurtbox();
+        actions["crouch"].hurtboxes[0][0].rect = new UnityEngine.Rect(-0.5f, 1.7f, 1, 1.7f);
+        actions["crouch"].hurtboxes[1][0].rect = new UnityEngine.Rect(-0.5f, 1.4f, 1, 1.4f);
+        actions["crouch"].hurtboxes[2][0].rect = new UnityEngine.Rect(-0.5f, 1f, 1, 1f);
+        actions["crouch"].duration = 3;
+        actions["crouch"].loopFrame = 2;
 
     }
 
