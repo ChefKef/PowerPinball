@@ -30,11 +30,13 @@ public class FGFighter
         protected float groundAcceleration;
         protected float friction;
         protected float airAcceleration;
+        protected float gravity;
+        protected float jumpVelocity;
     
         //State data
         public Vector2 position, velocity; //coordinate system: x horizontal y vertical, positive is up & right
         public FGFighterState state = FGFighterState.idle; //this is useful as a separate concept from currentAction, so we can do things like handle air drift the same regardless of if attacking or not.
-        private FGAction currentAction;
+        private FGAction _currentAction;
         protected int cFrame; //current frame; how far along we are in a given action.
         protected int hitstunFrames; //if > 0, we skip updating that frame for visual/gamefeel reasons
         protected bool hit; //generally: whether the attack we used connected. Set to true when it's possible to cancel into an action
@@ -42,11 +44,11 @@ public class FGFighter
     
         //Passthroughs
         public FGAction CurrentAction {
-            get => currentAction;
+            get => _currentAction;
             set
             {
-                currentAction = value;
-                currentAction.SetActive();
+                _currentAction = value;
+                _currentAction.SetActive();
             }
         
         }
@@ -116,7 +118,7 @@ public class FGFighter
     
         public virtual void FGUpdate()
         {
-            if(currentAction.ended)
+            if(CurrentAction.ended)
             {
                 throw new System.NotImplementedException();
             }
@@ -127,7 +129,7 @@ public class FGFighter
                 default:
                 case FGFighterState.idle:
                 case FGFighterState.crouch:
-                    position = new Vector2(position.x + velocity.x, 0);
+                    position = new Vector2(position.x + velocity.x, groundLocationY);
                     velocity *= friction;
 
                     if (joystick.x == 1 && joystick.y != -1)
@@ -152,11 +154,17 @@ public class FGFighter
                         state = FGFighterState.idle;
                         CurrentAction = actions["idle"];
                     }
-
+                    else if(jump && !oldJump)
+                    {
+                        state = FGFighterState.air;
+                        CurrentAction = actions["air"];
+                        velocity.x = maxAirSpeed * joystick.x;
+                        velocity.y = jumpVelocity;
+                    }
 
                     break;
                 case FGFighterState.run:
-                    velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), 0);
+                    velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), groundLocationY);
                     position = new Vector2(position.x + velocity.x, 0);
 
                     if(joystick.y == -1 && oldJoystick.y != -1)
@@ -169,10 +177,34 @@ public class FGFighter
                         state = FGFighterState.idle;
                         CurrentAction = actions["idle"];
                     }
+                    else if (jump && !oldJump)
+                    {
+                        state = FGFighterState.air;
+                        CurrentAction = actions["air"];
+                        velocity.x = maxAirSpeed * joystick.x;
+                        velocity.y = jumpVelocity;
+                    }
+                    break;
+
+                case FGFighterState.air:
+                case FGFighterState.airAttack:
+                    float vel = velocity.x + (joystick.x * airAcceleration);
+                    if (vel > maxAirSpeed) vel = maxAirSpeed;
+                    if (vel < -maxAirSpeed) vel = -maxAirSpeed;
+                    velocity = new Vector2(vel, velocity.y - gravity);
+                    position = new Vector2(position.x + velocity.x, position.y + velocity.y);
+
+                    if(position.y <= groundLocationY)
+                    {
+                        state = FGFighterState.idle;
+                        position.y = groundLocationY;
+                        CurrentAction = actions["idle"];
+                    }
+
                     break;
             }
 
-            currentAction.FGAUpdate(this);
+            CurrentAction.FGAUpdate(this);
 
 
             oldJoystick = joystick;
@@ -186,12 +218,12 @@ public class FGFighter
         //Not that we're necessarily doing netcode, but it's better to be proactive
         public virtual void FGDraw()
         {
-            currentAction.FGADraw(renderer);
+            CurrentAction.FGADraw(renderer);
         }
     
         public virtual void FGDrawHitboxes()
         {
-            currentAction.FGADrawHitboxes(renderer);
+            CurrentAction.FGADrawHitboxes(renderer);
         }
 
 }
