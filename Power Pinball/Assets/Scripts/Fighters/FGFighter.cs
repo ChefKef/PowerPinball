@@ -79,7 +79,7 @@ public class FGFighter
             else joystick.x = -1;
 
             if (stick.y == 0) joystick.y = 0;
-            else if (stick.y > 0) joystick.x = 1;
+            else if (stick.y > 0) joystick.y = 1;
             else joystick.y = -1;
         }
         public void PokeBtn(bool btn)
@@ -132,7 +132,14 @@ public class FGFighter
                     position = new Vector2(position.x + velocity.x, groundLocationY);
                     velocity *= friction;
 
-                    if (joystick.x == 1 && joystick.y != -1)
+                    if (jump && !oldJump)
+                    {
+                        state = FGFighterState.air;
+                        CurrentAction = actions["air"];
+                        velocity.x = maxAirSpeed * joystick.x;
+                        velocity.y = jumpVelocity;
+                    }
+                    else if (joystick.x == 1 && joystick.y != -1)
                     {
                         state = FGFighterState.run;
                         CurrentAction = actions["run"];
@@ -154,20 +161,20 @@ public class FGFighter
                         state = FGFighterState.idle;
                         CurrentAction = actions["idle"];
                     }
-                    else if(jump && !oldJump)
-                    {
-                        state = FGFighterState.air;
-                        CurrentAction = actions["air"];
-                        velocity.x = maxAirSpeed * joystick.x;
-                        velocity.y = jumpVelocity;
-                    }
 
                     break;
                 case FGFighterState.run:
                     velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), groundLocationY);
                     position = new Vector2(position.x + velocity.x, 0);
 
-                    if(joystick.y == -1 && oldJoystick.y != -1)
+                    if (jump && !oldJump)
+                    {
+                        state = FGFighterState.air;
+                        CurrentAction = actions["air"];
+                        velocity.x = maxAirSpeed * joystick.x;
+                        velocity.y = jumpVelocity;
+                    }
+                    else if (joystick.y == -1 && oldJoystick.y != -1)
                     {
                         state = FGFighterState.crouch;
                         CurrentAction = actions["crouch"];
@@ -176,13 +183,6 @@ public class FGFighter
                     {
                         state = FGFighterState.idle;
                         CurrentAction = actions["idle"];
-                    }
-                    else if (jump && !oldJump)
-                    {
-                        state = FGFighterState.air;
-                        CurrentAction = actions["air"];
-                        velocity.x = maxAirSpeed * joystick.x;
-                        velocity.y = jumpVelocity;
                     }
                     break;
 
