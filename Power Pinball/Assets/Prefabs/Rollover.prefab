@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8634524375776799864}
   - component: {fileID: 8634524375776799865}
   - component: {fileID: 8634524375776799866}
+  - component: {fileID: 3531386248554406711}
   m_Layer: 0
   m_Name: Rollover
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8634524375776799867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.111324, y: 20.55495, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,9 +96,23 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.032904625, y: 0}
   serializedVersion: 2
   m_Radius: 1.4270334
+--- !u!114 &3531386248554406711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634524375776799867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ce3d4f08120d6499634e62d17c03ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 50
+  cooldown: 0.1
