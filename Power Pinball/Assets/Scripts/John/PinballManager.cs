@@ -5,6 +5,7 @@ using UnityEngine;
 public class PinballManager : MonoBehaviour
 {
     Rigidbody2D rb;
+    public int player = 1;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,5 +41,10 @@ public class PinballManager : MonoBehaviour
         Debug.Log("Applying upward force");
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * 1000f);
-    }    
+    } 
+    
+    public int getPlayer()
+    {
+        return player;
+    }
 }

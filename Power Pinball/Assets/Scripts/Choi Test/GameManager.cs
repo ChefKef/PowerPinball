@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Static Score property that persists between Scenes.
     /// </summary>
-    public static int Score { get; private set; }
+    public static int scoreP1 { get; private set; }
+    public static int scoreP2 { get; private set; }
 
     //Game-Loop Data
     FGFighter player1, player2;
@@ -16,19 +17,19 @@ public class GameManager : MonoBehaviour
     
     public void GetPoints()
     {
-        Score++;
+        scoreP1++;
     }
 
     public static void Reset()
     {
-        Score = 0;
+        scoreP1 = 0;
     }
 
     void Start()
     {
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
-        Score = 0;
+        scoreP1 = 0;
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
@@ -53,5 +54,17 @@ public class GameManager : MonoBehaviour
         player1.FGDraw();
         //player2.FGDraw();
 
+    }
+
+    public static void issuePoints(int points, int player = 1)
+    {
+        if (player == 1)
+        {
+            scoreP1 += points;
+        }
+        if (player == 2)
+        {
+            scoreP2 += points;
+        }
     }
 }

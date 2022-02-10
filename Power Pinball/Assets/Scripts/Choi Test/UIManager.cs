@@ -17,6 +17,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "Score: " + GameManager.Score;
+        scoreText.text = "Score: " + GameManager.scoreP1;
     }
 }
