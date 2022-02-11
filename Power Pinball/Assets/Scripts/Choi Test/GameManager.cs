@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using FGScript;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class GameManager : MonoBehaviour
     public static int scoreP2 { get; private set; }
 
     //Game-Loop Data
+    [SerializeField] public FGRenderer player1Renderer, player2Renderer;
+    [SerializeField] private GameObject player1Pinball;
     FGFighter player1, player2;
+    int p1Hitstop, p2Hitstop;
 
     
     public void GetPoints()
@@ -33,8 +37,13 @@ public class GameManager : MonoBehaviour
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
-        //player1 = new Hipster(); commenting out so that everything compiles - John
+        player1 = new Hipster(player1Renderer);
+        player1Renderer.fighter = player1;
         //player2 = new Hipster();
+        //player2Renderer.fighter = player2;
+
+        player1.position.x = -6;
+        //player2.position.x = 6;
 
     }
 
@@ -42,17 +51,35 @@ public class GameManager : MonoBehaviour
     //Set to 60FPS in Start()
     void FixedUpdate() 
     {
-        player1.FGUpdate();
-        //player2.FGUpdate();
+        if (p1Hitstop <= 0)
+        {
+            player1.FGUpdate();
+            p1Hitstop += player1Renderer.CheckCollision();
+            if (p1Hitstop > 0)
+                player1Pinball.GetComponent<Rigidbody2D>().simulated = false;
+        }
+        else
+        {
+            p1Hitstop--;
+            if(p1Hitstop == 0)
+            {
+                player1Pinball.GetComponent<Rigidbody2D>().simulated = true;
+                player1.Hitstop = false;
+            }
+        }
 
-        /*
-         * 
-         *  HANDLE COLLISIONS HERE (probably just a function call..?)
-         * 
-         */
+        if (p2Hitstop <= 0)
+        {
+            //player2.FGUpdate();
+            //p2Hitstop += player2Renderer.CheckCollision();
+        }
+        else
+            p2Hitstop--;
 
         player1.FGDraw();
+        player1.FGDrawHitboxes();
         //player2.FGDraw();
+        //player2.FGDrawHitboxes();
 
     }
 
