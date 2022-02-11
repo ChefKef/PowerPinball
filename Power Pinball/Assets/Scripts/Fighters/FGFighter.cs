@@ -263,7 +263,15 @@ public class FGFighter
                 case FGFighterState.attack:
                     if(hit)
                     {
-                        if (poke && !oldPoke)
+                        if (jump && !oldJump)
+                        {
+                            state = FGFighterState.air;
+                            CurrentAction = actions["air"];
+                            velocity.x = maxAirSpeed * joystick.x;
+                            velocity.y = jumpVelocity;
+                            hit = false;
+                        }
+                        else if (poke && !oldPoke)
                         {
                             state = FGFighterState.attack;
                             CurrentAction = actions["poke"];
