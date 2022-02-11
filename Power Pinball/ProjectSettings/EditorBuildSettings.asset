@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/John Scenes/BallTest.unity
+    guid: 73f0b34ceda289041aca2a675f0cd324
+  - enabled: 1
     path: Assets/Scenes/Choi Test/Title.unity
     guid: c171887897d06574b8033ae0edb90fb8
   - enabled: 1
