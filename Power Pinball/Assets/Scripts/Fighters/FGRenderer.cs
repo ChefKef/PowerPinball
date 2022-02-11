@@ -76,7 +76,7 @@ public class FGRenderer : MonoBehaviour
             }
             if (hitDiff < 0)
             {
-                for (int i = hurtDiff; i < 0; i++)
+                for (int i = hitDiff; i < 0; i++)
                 {
                     GameObject go = Instantiate(whitePixel);
                     hitboxPool.Add(go.GetComponent<SpriteRenderer>());
@@ -101,6 +101,13 @@ public class FGRenderer : MonoBehaviour
                         hurtboxPool[i].enabled = false;
                     }
                 }
+            else
+            {
+                for (int i = 0; i < hurtboxPool.Count; i++)
+                {
+                    hurtboxPool[i].enabled = false;
+                }
+            }
             if(hit)
                 for (int i = 0; i < hitboxPool.Count; i++)
                 {
@@ -117,6 +124,13 @@ public class FGRenderer : MonoBehaviour
                         hitboxPool[i].enabled = false;
                     }
                 }
+            else
+            {
+                for (int i = 0; i < hitboxPool.Count; i++)
+                {
+                    hitboxPool[i].enabled = false;
+                }
+            }
 
         }
 

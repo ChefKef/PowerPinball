@@ -120,13 +120,21 @@ public class FGFighter
         {
             if(CurrentAction.ended)
             {
-                throw new System.NotImplementedException();
+                if(state == FGFighterState.attack)
+                {
+                    state = FGFighterState.idle;
+                    CurrentAction = actions["idle"];
+                }
+                else if(state == FGFighterState.airAttack)
+                {
+                    state = FGFighterState.air;
+                    CurrentAction = actions["air"];
+                }
             }
 
             
             switch (state)
             {
-                default:
                 case FGFighterState.idle:
                 case FGFighterState.crouch:
                     position = new Vector2(position.x + velocity.x, groundLocationY);
@@ -138,6 +146,21 @@ public class FGFighter
                         CurrentAction = actions["air"];
                         velocity.x = maxAirSpeed * joystick.x;
                         velocity.y = jumpVelocity;
+                    }
+                    else if(poke && !oldPoke)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["poke"];
+                    }
+                    else if (spike && !oldSpike)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["spike"];
+                    }
+                    else if (launch && !oldLaunch)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["launch"];
                     }
                     else if (joystick.x == 1 && joystick.y != -1)
                     {
@@ -174,6 +197,21 @@ public class FGFighter
                         velocity.x = maxAirSpeed * joystick.x;
                         velocity.y = jumpVelocity;
                     }
+                    else if (poke && !oldPoke)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["poke"];
+                    }
+                    else if (spike && !oldSpike)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["spike"];
+                    }
+                    else if (launch && !oldLaunch)
+                    {
+                        state = FGFighterState.attack;
+                        CurrentAction = actions["launch"];
+                    }
                     else if (joystick.y == -1 && oldJoystick.y != -1)
                     {
                         state = FGFighterState.crouch;
@@ -199,6 +237,21 @@ public class FGFighter
                         state = FGFighterState.idle;
                         position.y = groundLocationY;
                         CurrentAction = actions["idle"];
+                    }
+                    else if (poke && !oldPoke && state == FGFighterState.air)
+                    {
+                        state = FGFighterState.airAttack;
+                        CurrentAction = actions["airPoke"];
+                    }
+                    else if (spike && !oldSpike && state == FGFighterState.air)
+                    {
+                        state = FGFighterState.airAttack;
+                        CurrentAction = actions["airSpike"];
+                    }
+                    else if (launch && !oldLaunch && state == FGFighterState.air)
+                    {
+                        state = FGFighterState.airAttack;
+                        CurrentAction = actions["airLaunch"];
                     }
 
                     break;

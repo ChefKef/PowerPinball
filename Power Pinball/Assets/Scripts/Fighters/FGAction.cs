@@ -22,6 +22,22 @@ public class FGAction
         public FGHurtbox[] CurrentHurt { get => lastHurt; }
         public FGHitbox[] CurrentHit { get => lastHit;  }
 
+        /// <summary>
+        /// Makes a new default action.
+        /// </summary>
+        /// <param name="duration">The length of the animation from start to finish</param>
+        /// <param name="looping">Whether or not to repeat the animation after it finishes</param>
+        /// <param name="loopFrame">Which frame to jump to after finishing, if looping is enabled.</param>
+        public FGAction(int duration, bool looping, int loopFrame = 0)
+        {
+            hurtboxes = new FGHurtbox[duration][];
+            hitboxes = new FGHitbox[duration][];
+
+            this.duration = duration;
+            this.looping = looping;
+            this.loopFrame = loopFrame;
+
+        }
 
         public void FGAUpdate(FGFighter parent)
         {
@@ -55,6 +71,7 @@ public class FGAction
         public void SetActive()
         {
             frame = -1; //Update will 100% get called sometime after this function call, but before Draw(). If it doesn't, we messed up somewhere.
+            ended = false;
             lastHurt = hurtboxes[0];
             lastHit = hitboxes[0];
         }
@@ -62,20 +79,11 @@ public class FGAction
         //Creates a default action - a 1 frame looping animation of a hurtbox, ideal for Idle poses
         public static FGAction newDefaultAction()
         {
-            FGAction val = new FGAction();
+            FGAction val = new FGAction(1, true);
 
-            val.looping = true;
-            val.duration = 1;
-            val.hurtboxes = new FGHurtbox[1][];
             val.hurtboxes[0] = new FGHurtbox[1];
-            val.hitboxes = new FGHitbox[1][];
-
             val.hurtboxes[0][0] = new FGHurtbox();
             val.hurtboxes[0][0].rect = new Rect(-0.5f, 2, 1, 2);
-
-
-            //TEMP
-            val.lastHurt = val.hurtboxes[0];
 
             return val;
         }
