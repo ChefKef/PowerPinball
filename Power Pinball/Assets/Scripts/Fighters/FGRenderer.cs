@@ -18,7 +18,7 @@ public class FGRenderer : MonoBehaviour
 
         public FGFighter fighter;
 
-        private float scale = 4;
+        private float scale = 8;
 
 
         //We Need to "handle" Inputs here because this is the Unity object

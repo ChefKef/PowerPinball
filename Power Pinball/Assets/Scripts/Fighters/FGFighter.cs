@@ -21,7 +21,7 @@ namespace FGScript {
 public class FGFighter
 {
         //consts
-        protected const float groundLocationY = -11; //TODO don't fucking do this
+        protected const float groundLocationY = -18; //TODO don't fucking do this
     
         //Serialized Data
         protected Dictionary<string, FGAction> actions;
