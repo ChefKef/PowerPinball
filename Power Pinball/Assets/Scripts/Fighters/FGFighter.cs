@@ -21,7 +21,7 @@ namespace FGScript {
 public class FGFighter
 {
         //consts
-        protected const float groundLocationY = 0; //TODO don't fucking do this
+        protected const float groundLocationY = -11; //TODO don't fucking do this
     
         //Serialized Data
         protected Dictionary<string, FGAction> actions;
@@ -188,7 +188,7 @@ public class FGFighter
                     break;
                 case FGFighterState.run:
                     velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), groundLocationY);
-                    position = new Vector2(position.x + velocity.x, 0);
+                    position = new Vector2(position.x + velocity.x, groundLocationY);
 
                     if (jump && !oldJump)
                     {

@@ -15,7 +15,7 @@ public class FGRenderer : MonoBehaviour
 
         public FGFighter fighter;
 
-        private float scale = 100;
+        private float scale = 4;
 
 
         //We Need to "handle" Inputs here because this is the Unity object
@@ -92,8 +92,8 @@ public class FGRenderer : MonoBehaviour
                     {
                         hurtboxPool[i].enabled = true;
                         hurtboxPool[i].color = new Color(0, 0, 1, 0.5f);
-                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.CurrentHurt[i].rect.y, 5);
-                        hurtboxPool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * scale;
+                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHurt[i].rect.y * scale, -5);
+                        hurtboxPool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * 100 * scale;
 
                     }
                     else
@@ -115,8 +115,8 @@ public class FGRenderer : MonoBehaviour
                     {
                         hitboxPool[i].enabled = true;
                         hitboxPool[i].color = new Color(1, 0, 0, 0.5f);
-                        hitboxPool[i].transform.position = new Vector3(fighter.position.x + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1), fighter.position.y + action.CurrentHit[i].rect.y, 5);
-                        hitboxPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * scale;
+                        hitboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5);
+                        hitboxPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * 100 * scale;
 
                     }
                     else
