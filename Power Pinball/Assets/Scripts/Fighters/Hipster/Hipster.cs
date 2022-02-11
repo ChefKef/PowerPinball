@@ -22,26 +22,33 @@ public class Hipster : FGFighter
         actions["crouch"].hurtboxes[1] = new FGHurtbox[1];
         actions["crouch"].hurtboxes[2] = new FGHurtbox[1];
         actions["crouch"].hurtboxes[3] = new FGHurtbox[1];
-        actions["crouch"].hurtboxes[0][0] = new FGHurtbox();
-        actions["crouch"].hurtboxes[1][0] = new FGHurtbox();
-        actions["crouch"].hurtboxes[2][0] = new FGHurtbox();
-        actions["crouch"].hurtboxes[3][0] = new FGHurtbox();
-        actions["crouch"].hurtboxes[0][0].rect = new UnityEngine.Rect(-0.5f, 1.8f, 1, 1.8f);
-        actions["crouch"].hurtboxes[1][0].rect = new UnityEngine.Rect(-0.5f, 1.6f, 1, 1.6f);
-        actions["crouch"].hurtboxes[2][0].rect = new UnityEngine.Rect(-0.5f, 1.3f, 1, 1.3f);
-        actions["crouch"].hurtboxes[3][0].rect = new UnityEngine.Rect(-0.5f, 1f, 1, 1f);
+        actions["crouch"].hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.8f, 1, 1.8f));
+        actions["crouch"].hurtboxes[1][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.6f, 1, 1.6f));
+        actions["crouch"].hurtboxes[2][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.3f, 1, 1.3f));
+        actions["crouch"].hurtboxes[3][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1f, 1, 1f));
 
 
         actions["poke"] = new FGAction(18, false);
         actions["poke"].hurtboxes[0] = new FGHurtbox[1];
-        actions["poke"].hurtboxes[0][0] = new FGHurtbox();
-        actions["poke"].hurtboxes[0][0].rect = new UnityEngine.Rect(-0.5f, 2f, 1, 2);
+        actions["poke"].hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 2f, 1, 2));
         actions["poke"].hitboxes[3] = new FGHitbox[1];
-        actions["poke"].hitboxes[3][0] = new FGHitbox();
-        actions["poke"].hitboxes[3][0].rect = new UnityEngine.Rect(0, 1.8f, 1.5f, 1);
+        actions["poke"].hitboxes[3][0] = new FGHitbox(new UnityEngine.Rect(0, 1.8f, 1.3f, 1));
         actions["poke"].hitboxes[6] = new FGHitbox[0];
 
+        actions["spike"] = new HipsterSpike();
+
+        actions["launch"] = new HipsterLaunch();
+
         actions["airPoke"] = actions["poke"];
+
+        actions["airSpike"] = new FGAction(18, false);
+        actions["airSpike"].hurtboxes[0] = new FGHurtbox[1];
+        actions["airSpike"].hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 2f, 1, 2));
+        actions["airSpike"].hitboxes[3] = new FGHitbox[1];
+        actions["airSpike"].hitboxes[3][0] = new FGHitbox(new UnityEngine.Rect(0, 0.5f, 1.5f, 1.5f));
+        actions["airSpike"].hitboxes[6] = new FGHitbox[0];
+
+        actions["airLaunch"] = actions["launch"];
 
 
     }

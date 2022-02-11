@@ -39,7 +39,7 @@ public class FGAction
 
         }
 
-        public void FGAUpdate(FGFighter parent)
+        public virtual void FGAUpdate(FGFighter parent)
         {
             frame++;
 
@@ -58,12 +58,12 @@ public class FGAction
 
         }
 
-        public void FGADraw(FGRenderer renderer)
+        public virtual void FGADraw(FGRenderer renderer)
         {
 
         }
 
-        public void FGADrawHitboxes(FGRenderer renderer)
+        public virtual void FGADrawHitboxes(FGRenderer renderer)
         {
             renderer.DrawCollision(this);
         }
@@ -82,8 +82,7 @@ public class FGAction
             FGAction val = new FGAction(1, true);
 
             val.hurtboxes[0] = new FGHurtbox[1];
-            val.hurtboxes[0][0] = new FGHurtbox();
-            val.hurtboxes[0][0].rect = new Rect(-0.5f, 2, 1, 2);
+            val.hurtboxes[0][0] = new FGHurtbox(new Rect(-0.5f, 2, 1, 2));
 
             return val;
         }

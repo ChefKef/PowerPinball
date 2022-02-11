@@ -6,15 +6,26 @@ namespace FGScript {
 
 //ALL SIZES MEASURED IN UNITY UNITS (FOR NOW)
 
-public class FGHurtbox
-{
-    public Rect rect;
+    public class FGHurtbox
+    {
+        public Rect rect;
 
-}
+        public FGHurtbox(Rect rect)
+        {
+            this.rect = rect;
+        }
 
-public class FGHitbox{
-    public Rect rect;
+    }
 
-}
+    public class FGHitbox
+    {
+        public Rect rect;
+
+        public FGHitbox(Rect rect)
+        {
+            this.rect = rect;
+        }
+
+    }
 
 }
