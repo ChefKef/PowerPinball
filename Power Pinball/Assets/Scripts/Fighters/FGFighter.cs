@@ -39,7 +39,7 @@ public class FGFighter
         private FGAction _currentAction;
         protected int cFrame; //current frame; how far along we are in a given action.
         protected int hitstunFrames; //if > 0, we skip updating that frame for visual/gamefeel reasons
-        protected bool hit; //generally: whether the attack we used connected. Set to true when it's possible to cancel into an action
+        public bool hit; //generally: whether the attack we used connected. Set to true when it's possible to cancel into an action
         public bool facingLeft;
     
         //Passthroughs
@@ -124,11 +124,13 @@ public class FGFighter
                 {
                     state = FGFighterState.idle;
                     CurrentAction = actions["idle"];
+                    hit = false;
                 }
                 else if(state == FGFighterState.airAttack)
                 {
                     state = FGFighterState.air;
                     CurrentAction = actions["air"];
+                    hit = false;
                 }
             }
 
@@ -238,22 +240,48 @@ public class FGFighter
                         position.y = groundLocationY;
                         CurrentAction = actions["idle"];
                     }
-                    else if (poke && !oldPoke && state == FGFighterState.air)
+                    else if (poke && !oldPoke && (state == FGFighterState.air || hit))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airPoke"];
+                        hit = false;
                     }
-                    else if (spike && !oldSpike && state == FGFighterState.air)
+                    else if (spike && !oldSpike && (state == FGFighterState.air || hit))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airSpike"];
+                        hit = false;
                     }
-                    else if (launch && !oldLaunch && state == FGFighterState.air)
+                    else if (launch && !oldLaunch && (state == FGFighterState.air || hit))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airLaunch"];
+                        hit = false;
                     }
 
+                    break;
+                case FGFighterState.attack:
+                    if(hit)
+                    {
+                        if (poke && !oldPoke)
+                        {
+                            state = FGFighterState.attack;
+                            CurrentAction = actions["poke"];
+                            hit = false;
+                        }
+                        else if (spike && !oldSpike)
+                        {
+                            state = FGFighterState.attack;
+                            CurrentAction = actions["spike"];
+                            hit = false;
+                        }
+                        else if (launch && !oldLaunch)
+                        {
+                            state = FGFighterState.attack;
+                            CurrentAction = actions["launch"];
+                            hit = false;
+                        }
+                    }
                     break;
             }
 

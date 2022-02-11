@@ -20,10 +20,12 @@ namespace FGScript {
     public class FGHitbox
     {
         public Rect rect;
+        public Vector2 velocity; //where the ball is getting sent
 
-        public FGHitbox(Rect rect)
+        public FGHitbox(Rect rect, Vector2 vel)
         {
             this.rect = rect;
+            this.velocity = vel;
         }
 
     }

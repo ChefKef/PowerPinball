@@ -471,6 +471,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &891464741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4292922640626825686, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
+  m_PrefabInstance: {fileID: 4292922640657150443}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1017590898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -627,6 +632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Renderer: {fileID: 1017590899}
   player2Renderer: {fileID: 0}
+  player1Pinball: {fileID: 891464741}
 --- !u!4 &2086484402
 Transform:
   m_ObjectHideFlags: 0
@@ -635,7 +641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086484399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 623.6063, y: 266.79346, z: -3.404272}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -764,6 +770,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825686, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_Name
+      value: Pinball
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292922640626825686, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
+      propertyPath: m_TagString
       value: Pinball
       objectReference: {fileID: 0}
     m_RemovedComponents: []

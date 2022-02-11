@@ -9,9 +9,12 @@ public class FGRenderer : MonoBehaviour
 {
 
         [SerializeField] private GameObject whitePixel;
+        [SerializeField] private GameObject collisionChecker;
 
         private List<SpriteRenderer> hurtboxPool;
         private List<SpriteRenderer> hitboxPool;
+        private List<BoxCollider2D> hitdetectPool;
+        private List<Collider2D> collisions;
 
         public FGFighter fighter;
 
@@ -49,8 +52,69 @@ public class FGRenderer : MonoBehaviour
         {
             hurtboxPool = new List<SpriteRenderer>();
             hitboxPool = new List<SpriteRenderer>();
+            hitdetectPool = new List<BoxCollider2D>();
+            collisions = new List<Collider2D>();
         }
 
+
+        public void CheckCollision()
+        {
+            FGAction action = fighter.CurrentAction;
+
+            bool hit = action.CurrentHit == null ? false : true;
+            int hitDiff = !hit ? 0 : hitdetectPool.Count - action.CurrentHit.Length;
+
+            if (hitDiff < 0)
+            {
+                for (int i = hitDiff; i < 0; i++)
+                {
+                    GameObject go = Instantiate(collisionChecker);
+                    hitdetectPool.Add(go.GetComponent<BoxCollider2D>());
+                    go.transform.SetParent(this.transform);
+                }
+            }
+
+            if (hit)
+            {
+                for (int i = 0; i < hitdetectPool.Count; i++)
+                {
+                    if (i < action.CurrentHit.Length)
+                    {
+                        hitdetectPool[i].enabled = true;
+                        hitdetectPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5);
+                        hitdetectPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * 100 * scale;
+
+                    }
+                    else
+                    {
+                        hitdetectPool[i].enabled = false;
+                    }
+                }
+
+                for (int i = 0; i < action.CurrentHit.Length; i++)
+                {
+                    if(hitdetectPool[i].IsTouchingLayers(7) && !fighter.hit)
+                    {
+                        //Debug.Log("Collision");
+                        ContactFilter2D filter = new ContactFilter2D();
+                        filter.SetLayerMask(7);
+                        collisions.Clear();
+                        hitdetectPool[i].OverlapCollider(filter, collisions);
+                        collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y);
+
+                        fighter.hit = true;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < hitboxPool.Count; i++)
+                {
+                    hitdetectPool[i].enabled = false;
+                }
+            }
+
+        }
 
         public void DrawCollision(FGAction action)
         {

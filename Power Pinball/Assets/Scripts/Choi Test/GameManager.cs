@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     //Game-Loop Data
     [SerializeField] public FGRenderer player1Renderer, player2Renderer;
+    [SerializeField] private GameObject player1Pinball;
     FGFighter player1, player2;
 
     
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 
         player1.FGDraw();
         player1.FGDrawHitboxes();
+        player1Renderer.CheckCollision();
         //player2.FGDraw();
 
     }

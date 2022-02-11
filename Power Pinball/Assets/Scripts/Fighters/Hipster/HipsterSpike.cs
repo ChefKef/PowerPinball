@@ -22,7 +22,7 @@ public class HipsterSpike : FGAction
         hurtboxes[5][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.0f, 1, 1.0f));
 
         hitboxes[6] = new FGHitbox[1];
-        hitboxes[6][0] = new FGHitbox(new UnityEngine.Rect(0, 0.4f, 2f, 0.4f));
+        hitboxes[6][0] = new FGHitbox(new UnityEngine.Rect(0, 0.4f, 2f, 0.4f), new UnityEngine.Vector2(20f, 30));
         hitboxes[25] = new FGHitbox[0];
 
         hurtboxes[43] = hurtboxes[0];
