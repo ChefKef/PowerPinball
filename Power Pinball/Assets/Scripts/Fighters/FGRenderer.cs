@@ -57,13 +57,14 @@ public class FGRenderer : MonoBehaviour
         }
 
 
-        public void CheckCollision()
+        public int CheckCollision()
         {
             FGAction action = fighter.CurrentAction;
 
             bool hit = action.CurrentHit == null ? false : true;
             int hitDiff = !hit ? 0 : hitdetectPool.Count - action.CurrentHit.Length;
 
+            //This is just resource pooling- making exactly as many colliders as we need, no more.
             if (hitDiff < 0)
             {
                 for (int i = hitDiff; i < 0; i++)
@@ -91,6 +92,7 @@ public class FGRenderer : MonoBehaviour
                     }
                 }
 
+                //This is where collision actually happens.
                 for (int i = 0; i < action.CurrentHit.Length; i++)
                 {
                     if(hitdetectPool[i].IsTouchingLayers(7) && !fighter.hit)
@@ -100,9 +102,18 @@ public class FGRenderer : MonoBehaviour
                         filter.SetLayerMask(7);
                         collisions.Clear();
                         hitdetectPool[i].OverlapCollider(filter, collisions);
+
+                        //This threw an error once idk why
                         collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y);
 
                         fighter.hit = true;
+                        fighter.Hitstop = true;
+
+                        int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
+                        //Debug.Log(hitstop);
+
+                        return hitstop;
+
                     }
                 }
             }
@@ -113,6 +124,8 @@ public class FGRenderer : MonoBehaviour
                     hitdetectPool[i].enabled = false;
                 }
             }
+
+            return 0;
 
         }
 

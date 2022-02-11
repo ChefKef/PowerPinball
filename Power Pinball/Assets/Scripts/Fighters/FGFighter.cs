@@ -40,6 +40,7 @@ public class FGFighter
         protected int cFrame; //current frame; how far along we are in a given action.
         protected int hitstunFrames; //if > 0, we skip updating that frame for visual/gamefeel reasons
         public bool hit; //generally: whether the attack we used connected. Set to true when it's possible to cancel into an action
+        private bool _hitstop;
         public bool facingLeft;
     
         //Passthroughs
@@ -51,6 +52,12 @@ public class FGFighter
                 _currentAction.SetActive();
             }
         
+        }
+        //This is for buffering things out of hitstop. I know, it's gross.
+        public bool Hitstop
+        {
+            get => _hitstop;
+            set => _hitstop = value;
         }
         public FGHurtbox[][] Hurtboxes { get => CurrentAction.hurtboxes; }
         public FGHitbox[][] Hitboxes { get => CurrentAction.hitboxes; }
@@ -69,6 +76,11 @@ public class FGFighter
         protected bool oldLaunch;
         protected bool jump;
         protected bool oldJump;
+        //Hitstop buffer
+        private bool bffPoke;
+        private bool bffSpike;
+        private bool bffLaunch;
+        private bool bffJump;
 
         //Button callbacks
 #region Input
@@ -85,18 +97,22 @@ public class FGFighter
         public void PokeBtn(bool btn)
         {
             poke = btn;
+            if (btn && Hitstop) bffPoke = true;
         }
         public void SpikeBtn(bool btn)
         {
             spike = btn;
+            if (btn && Hitstop) bffSpike = true;
         }
         public void LaunchBtn(bool btn)
         {
             launch = btn;
+            if (btn && Hitstop) bffLaunch = true;
         }
         public void JumpBtn(bool btn)
         {
             jump = btn;
+            if (btn && Hitstop) bffJump = true;
         }
 #endregion
 
@@ -149,17 +165,17 @@ public class FGFighter
                         velocity.x = maxAirSpeed * joystick.x;
                         velocity.y = jumpVelocity;
                     }
-                    else if(poke && !oldPoke)
+                    else if((poke && !oldPoke) || bffPoke)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["poke"];
                     }
-                    else if (spike && !oldSpike)
+                    else if ((spike && !oldSpike) || bffSpike)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["spike"];
                     }
-                    else if (launch && !oldLaunch)
+                    else if ((launch && !oldLaunch) || bffLaunch)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["launch"];
@@ -199,17 +215,17 @@ public class FGFighter
                         velocity.x = maxAirSpeed * joystick.x;
                         velocity.y = jumpVelocity;
                     }
-                    else if (poke && !oldPoke)
+                    else if ((poke && !oldPoke) || bffPoke)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["poke"];
                     }
-                    else if (spike && !oldSpike)
+                    else if ((spike && !oldSpike) || bffSpike)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["spike"];
                     }
-                    else if (launch && !oldLaunch)
+                    else if ((launch && !oldLaunch) || bffLaunch)
                     {
                         state = FGFighterState.attack;
                         CurrentAction = actions["launch"];
@@ -241,19 +257,19 @@ public class FGFighter
                         CurrentAction = actions["idle"];
                         hit = false;
                     }
-                    else if (poke && !oldPoke && (state == FGFighterState.air || hit))
+                    else if (bffPoke || (poke && !oldPoke && (state == FGFighterState.air || hit)))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airPoke"];
                         hit = false;
                     }
-                    else if (spike && !oldSpike && (state == FGFighterState.air || hit))
+                    else if (bffSpike || (spike && !oldSpike && (state == FGFighterState.air || hit)))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airSpike"];
                         hit = false;
                     }
-                    else if (launch && !oldLaunch && (state == FGFighterState.air || hit))
+                    else if (bffLaunch || (launch && !oldLaunch && (state == FGFighterState.air || hit)))
                     {
                         state = FGFighterState.airAttack;
                         CurrentAction = actions["airLaunch"];
@@ -264,7 +280,7 @@ public class FGFighter
                 case FGFighterState.attack:
                     if(hit)
                     {
-                        if (jump && !oldJump)
+                        if ((jump && !oldJump) || bffJump)
                         {
                             state = FGFighterState.air;
                             CurrentAction = actions["air"];
@@ -272,19 +288,19 @@ public class FGFighter
                             velocity.y = jumpVelocity;
                             hit = false;
                         }
-                        else if (poke && !oldPoke)
+                        else if ((poke && !oldPoke) || bffPoke)
                         {
                             state = FGFighterState.attack;
                             CurrentAction = actions["poke"];
                             hit = false;
                         }
-                        else if (spike && !oldSpike)
+                        else if ((spike && !oldSpike) || bffSpike)
                         {
                             state = FGFighterState.attack;
                             CurrentAction = actions["spike"];
                             hit = false;
                         }
-                        else if (launch && !oldLaunch)
+                        else if ((launch && !oldLaunch) || bffLaunch)
                         {
                             state = FGFighterState.attack;
                             CurrentAction = actions["launch"];
@@ -298,10 +314,11 @@ public class FGFighter
 
 
             oldJoystick = joystick;
+            oldJump = jump;
             oldPoke = poke;
             oldSpike = spike;
             oldLaunch = launch;
-            oldJump = jump;
+            if (bffJump || bffPoke || bffSpike || bffLaunch) bffPoke = bffSpike = bffLaunch = bffJump = false;
         }
     
         //This is a separate call/structure for netcode reasons.
