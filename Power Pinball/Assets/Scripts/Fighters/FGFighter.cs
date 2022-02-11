@@ -239,6 +239,7 @@ public class FGFighter
                         state = FGFighterState.idle;
                         position.y = groundLocationY;
                         CurrentAction = actions["idle"];
+                        hit = false;
                     }
                     else if (poke && !oldPoke && (state == FGFighterState.air || hit))
                     {
