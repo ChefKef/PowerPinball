@@ -21,7 +21,8 @@ namespace FGScript {
 public class FGFighter
 {
         //consts
-        protected const float groundLocationY = -18; //TODO don't fucking do this
+        protected const float groundLocationY = -17.62f; //TODO don't fucking do this
+        protected const float wallLocationX = 11; //mirrored
     
         //Serialized Data
         protected Dictionary<string, FGAction> actions;
@@ -120,6 +121,9 @@ public class FGFighter
         {
             actions = new Dictionary<string, FGAction>();
             this.renderer = renderer;
+
+            position = new Vector2(0, groundLocationY);
+            velocity = new Vector2();
 
             //Saves some time in testing.
             actions["idle"] = FGAction.newDefaultAction();
@@ -312,6 +316,8 @@ public class FGFighter
 
             CurrentAction.FGAUpdate(this);
 
+            if(position.x > wallLocationX) position.x = wallLocationX;
+            if(position.x < -wallLocationX) position.x = -wallLocationX;
 
             oldJoystick = joystick;
             oldJump = jump;

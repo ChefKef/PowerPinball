@@ -9,10 +9,10 @@ public class Hipster : FGFighter
     public Hipster(FGRenderer renderer) : base (renderer)
     {
 
-        maxGroundSpeed = 0.2f;
-        maxAirSpeed = 0.18f;
-        groundAcceleration = 0.04f;
-        friction = 0.55f;
+        maxGroundSpeed = 0.23f;
+        maxAirSpeed = 0.21f;
+        groundAcceleration = 0.067f;
+        friction = 0.65f;
         airAcceleration = 0.0055f;
         jumpVelocity = 0.55f;
         gravity = 0.04f;

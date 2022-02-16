@@ -45,19 +45,19 @@ public class HipsterSpike : FGAction
 
         if (frame >= 6 && frame < 25)
         {
-            parent.velocity = new UnityEngine.Vector2(0.27f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.3f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if (frame >= 35)
         {
-            parent.velocity = new UnityEngine.Vector2(0.05f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.08f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if (frame >= 30)
         {
-            parent.velocity = new UnityEngine.Vector2(0.10f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.13f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if(frame >= 25)
         {
-            parent.velocity = new UnityEngine.Vector2(0.20f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.23f * (parent.facingLeft ? -1 : 1), 0);
         }
         
 
