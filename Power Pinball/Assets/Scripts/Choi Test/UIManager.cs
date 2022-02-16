@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        scoreText.transform.position = new Vector3(50, 50);
     }
 
     // Update is called once per frame
