@@ -19,10 +19,12 @@ public class GameManager : MonoBehaviour
     int p1Hitstop, p2Hitstop;
 
     
-    public void GetPoints()
-    {
-        scoreP1++;
-    }
+    //public void GetPoints()
+    //{
+    //    scoreP1++;
+    //}
+
+
 
     public static void Reset()
     {
