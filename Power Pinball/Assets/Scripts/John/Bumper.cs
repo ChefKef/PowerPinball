@@ -8,8 +8,7 @@ public class Bumper : MonoBehaviour
     /// Base point value to be added to player's score when this component is
     /// interacted with.
     /// </summary>
-    [SerializeField]
-    private int points;
+    [SerializeField] private int points;
 
     private CircleCollider2D hitReg;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
