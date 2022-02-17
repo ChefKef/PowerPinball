@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Rollover : MonoBehaviour
 {
-    public int points = 50;
+    /// <summary>
+    /// Base point value to be added to player's score when this component is
+    /// interacted with.
+    /// </summary>
+    [SerializeField]
+    private int points; // 50
+
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
     private bool active;

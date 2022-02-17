@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+    /// <summary>
+    /// Base point value to be added to player's score when this component is
+    /// interacted with.
+    /// </summary>
+    [SerializeField]
+    private int points;
+    
     private EdgeCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
@@ -50,6 +57,9 @@ public class Slingshot : MonoBehaviour
             ballDir = new Vector2(ballDir.x + (slingshotUp.x - ballDir.x) / angleManipulation, ballDir.y + (slingshotUp.y - ballDir.y) / angleManipulation);
             ballDir *= launchMagnitude;
             ballsManager.setVelocity(ballDir);
+
+            // Update player score.
+            GameManager.issuePoints(points, ballsManager.player);
         }
     }
 }

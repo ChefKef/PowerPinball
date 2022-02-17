@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Bumper : MonoBehaviour
 {
+    /// <summary>
+    /// Base point value to be added to player's score when this component is
+    /// interacted with.
+    /// </summary>
+    [SerializeField]
+    private int points;
+
     private CircleCollider2D hitReg;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
     public float minimumLaunch = 50f; //The minimum amount of force with witch the ball will be launched after hitting the bumper
@@ -41,6 +48,9 @@ public class Bumper : MonoBehaviour
             ballDir.Normalize();
             ballDir *= launchMagnitude;
             ballsManager.setVelocity(ballDir);
+
+            // Update player score.
+            GameManager.issuePoints(points, ballsManager.player);
         }
     }
 }
