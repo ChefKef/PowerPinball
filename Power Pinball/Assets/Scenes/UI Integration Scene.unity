@@ -1011,6 +1011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1574806427}
+  leftMargin: 50
+  bottomMargin: 50
 --- !u!114 &758697628
 MonoBehaviour:
   m_ObjectHideFlags: 0
