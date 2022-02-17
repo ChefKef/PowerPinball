@@ -17,7 +17,7 @@ public class Rollover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        counter = cooldown;
     }
 
     // Update is called once per frame
@@ -25,8 +25,8 @@ public class Rollover : MonoBehaviour
     {
         if(!active)
         {
-            cooldown -= Time.deltaTime;
-            if(cooldown <= 0)
+            counter -= Time.deltaTime;
+            if(counter <= 0)
             {
                 active = true;
             }
@@ -46,5 +46,23 @@ public class Rollover : MonoBehaviour
             }
         }
         
+    }
+
+    // OnTriggerExit used because Rollovers are Triggers in the scene.
+    // Alternatively, OnTriggernEnter can also be used.
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (active)
+        {
+            if (collision.gameObject.GetComponent<PinballManager>())
+            {
+                PinballManager ballsManager = collision.gameObject.GetComponent<PinballManager>();
+                counter = cooldown;
+                active = false;
+
+                // Update player score.
+                GameManager.issuePoints(points, ballsManager.player);
+            }
+        }
     }
 }
