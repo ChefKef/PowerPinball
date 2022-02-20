@@ -32,24 +32,8 @@ public class Rollover : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(active)
-        {
-            if (collision.gameObject.GetComponent<PinballManager>())
-            {
-                PinballManager ballsManager = collision.gameObject.GetComponent<PinballManager>();
-                counter = cooldown;
-                active = false;
-                GameManager.issuePoints(points, ballsManager.player);
-            }
-        }
-        
-    }
-
-    // OnTriggerExit used because Rollovers are Triggers in the scene.
-    // Alternatively, OnTriggernEnter can also be used.
-    private void OnTriggerExit2D(Collider2D collision)
+    // OnTriggerEnter used because Rollovers are Triggers in the scene.
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (active)
         {
