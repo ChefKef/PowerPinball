@@ -2969,6 +2969,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1Renderer
       objectReference: {fileID: 0}
+    - target: {fileID: 5182295346211333714, guid: ff2e0441b83eae54daeb40eb98a02f40, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 6534132726436268638, guid: 537168d368cb0ca43b74862d83b44c01, type: 3}
     - target: {fileID: 5182295346211333715, guid: ff2e0441b83eae54daeb40eb98a02f40, type: 3}
       propertyPath: m_RootOrder
       value: 9

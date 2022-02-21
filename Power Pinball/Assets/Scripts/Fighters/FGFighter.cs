@@ -126,10 +126,10 @@ public class FGFighter
             velocity = new Vector2();
 
             //Saves some time in testing.
-            actions["idle"] = FGAction.newDefaultAction();
-            actions["run"] = FGAction.newDefaultAction();
-            actions["crouch"] = FGAction.newDefaultAction();
-            actions["air"] = FGAction.newDefaultAction();
+            actions["idle"] = FGAction.newDefaultAction(1);
+            actions["run"] = FGAction.newDefaultAction(1);
+            actions["crouch"] = FGAction.newDefaultAction(1);
+            actions["air"] = FGAction.newDefaultAction(1);
 
             CurrentAction = actions["idle"];
             state = FGFighterState.idle;

@@ -9,10 +9,12 @@ public class FGRenderer : MonoBehaviour
 {
 
         [SerializeField] private GameObject whitePixel;
+        [SerializeField] private GameObject spriteRenderer;
         [SerializeField] private GameObject collisionChecker;
 
         private List<SpriteRenderer> hurtboxPool;
         private List<SpriteRenderer> hitboxPool;
+        private List<SpriteRenderer> spritePool;
         private List<BoxCollider2D> hitdetectPool;
         private List<Collider2D> collisions;
 
@@ -52,6 +54,7 @@ public class FGRenderer : MonoBehaviour
         {
             hurtboxPool = new List<SpriteRenderer>();
             hitboxPool = new List<SpriteRenderer>();
+            spritePool = new List<SpriteRenderer>();
             hitdetectPool = new List<BoxCollider2D>();
             collisions = new List<Collider2D>();
         }
@@ -211,7 +214,47 @@ public class FGRenderer : MonoBehaviour
 
         }
 
+        public void Draw(FGAction action)
+        {
+            bool sprite = action.CurrentSprite == null ? false : true;
+            int spriteDiff = !sprite ? 0 : spritePool.Count - action.CurrentSprite.Length;
 
+            if(spriteDiff < 0)
+            {
+                for (int i = spriteDiff; i < 0; i++)
+                {
+                    GameObject go = Instantiate(spriteRenderer);
+                    spritePool.Add(go.GetComponent<SpriteRenderer>());
+                    go.transform.SetParent(this.transform);
+                }
+            }
+
+            //Actually draw
+            if(sprite)
+                for (int i = 0; i < spritePool.Count; i++)
+                {
+                    if(i < action.CurrentSprite.Length)
+                    {
+                        spritePool[i].enabled = true;
+                        //spritePool[i].color = new Color(0, 0, 1, 0.5f);
+                        //spritePool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHurt[i].rect.y * scale, 0 - 0.1f*i);
+                        //spritePool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * 100 * scale;
+
+                    }
+                    else
+                    {
+                        spritePool[i].enabled = false;
+                    }
+                }
+            else
+            {
+                for (int i = 0; i < hurtboxPool.Count; i++)
+                {
+                    spritePool[i].enabled = false;
+                }
+            }
+
+        }
 
 }
 
