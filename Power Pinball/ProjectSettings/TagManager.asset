@@ -42,3 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Skin
+    uniqueID: 2046640541
+    locked: 0
+  - name: Clothes
+    uniqueID: 2086388739
+    locked: 0
