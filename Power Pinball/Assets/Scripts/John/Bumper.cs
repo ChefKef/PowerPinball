@@ -10,6 +10,8 @@ public class Bumper : MonoBehaviour
     /// </summary>
     [SerializeField] private int points;
 
+    [SerializeField] private GameObject ui;
+
     private CircleCollider2D hitReg;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
     public float minimumLaunch = 50f; //The minimum amount of force with witch the ball will be launched after hitting the bumper
@@ -50,6 +52,13 @@ public class Bumper : MonoBehaviour
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
+
+            // Request a TMPro object from the object pool.
+            GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+            pooledObject.transform.SetParent(ui.transform);
+            HitScore hitScore = pooledObject.GetComponent<HitScore>();
+            hitScore.SetText(points.ToString());
+            hitScore.SetPosition(transform.position);
         }
     }
 }

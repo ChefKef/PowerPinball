@@ -10,6 +10,8 @@ public class Slingshot : MonoBehaviour
     /// interacted with.
     /// </summary>
     [SerializeField] private int points;
+
+    [SerializeField] private GameObject ui;
     
     private EdgeCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
@@ -63,9 +65,11 @@ public class Slingshot : MonoBehaviour
 
             // Request a TMPro object from the object pool.
             GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+            pooledObject.transform.SetParent(ui.transform);
             HitScore hitScore = pooledObject.GetComponent<HitScore>();
             hitScore.SetText(points.ToString());
-            hitScore.SetPosition(transform.position.x, transform.position.y);
+            hitScore.SetPosition(transform.position);
+            //hitScore.SetPosition(transform.position.x, transform.position.y);
         }
     }
 }

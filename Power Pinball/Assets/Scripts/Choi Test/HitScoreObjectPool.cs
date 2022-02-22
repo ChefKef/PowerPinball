@@ -72,6 +72,9 @@ public class HitScoreObjectPool : MonoBehaviour
         {
             if (!pool[i].activeInHierarchy)
             {
+                // Set transparency.
+                pool[i].GetComponent<HitScore>().ResetAlpha();
+
                 // Set the pooled object to active and visible in the
                 // Scene before returning it to the caller.
                 pool[i].SetActive(true);
