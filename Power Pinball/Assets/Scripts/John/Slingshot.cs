@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Slingshot : MonoBehaviour
 {
@@ -59,6 +60,12 @@ public class Slingshot : MonoBehaviour
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
+
+            // Request a TMPro object from the object pool.
+            GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+            HitScore hitScore = pooledObject.GetComponent<HitScore>();
+            hitScore.SetText(points.ToString());
+            hitScore.SetPosition(transform.position.x, transform.position.y);
         }
     }
 }
