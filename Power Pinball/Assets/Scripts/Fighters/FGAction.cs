@@ -87,7 +87,7 @@ public class FGAction
             FGAction val = new FGAction(duration, true);
 
             val.hurtboxes[0] = new FGHurtbox[1];
-            val.hurtboxes[0][0] = new FGHurtbox(new Rect(-0.5f, 2, 1, 2));
+            val.hurtboxes[0][0] = new FGHurtbox(new Rect(-0.4f, 2.45f, 1f, 2.45f));
             
             val.sprites[0] = new Sprite[5];
             val.sprites[0][0] = Resources.Load<Sprite>("CustomCharacter/Side_skin") as Sprite;

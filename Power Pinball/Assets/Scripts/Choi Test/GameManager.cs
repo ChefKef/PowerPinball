@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
         player1 = new Hipster(player1Renderer);
         player1Renderer.fighter = player1;
+        player1.FGUpdate();
+        player1.FGDraw();
         //player2 = new Hipster();
         //player2Renderer.fighter = player2;
 
