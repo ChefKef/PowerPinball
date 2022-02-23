@@ -18,24 +18,6 @@ public class GameManager : MonoBehaviour
     FGFighter player1, player2;
     int p1Hitstop, p2Hitstop;
 
-    /// <summary>
-    /// The UI parent GameObject.
-    /// </summary>
-    [SerializeField] private GameObject ui;
-
-    /// <summary>
-    /// UIManager script reference.
-    /// </summary>
-    private UIManager uiManager;
-
-    /// <summary>
-    /// The Countdown UI parent GameObject.
-    /// </summary>
-    // There is no need to dynamically resize the panel to fit the screen,
-    // since it automatically adjusts to fit its parent. Just make sure the
-    // parent is of the desired size.
-    [SerializeField] private GameObject countdown;
-
     //public void GetPoints()
     //{
     //    scoreP1++;
@@ -64,20 +46,14 @@ public class GameManager : MonoBehaviour
         player1.position.x = -6;
         //player2.position.x = 6;
 
-        uiManager = ui.GetComponent<UIManager>();
-
         // Wait until the countdown completes.
         Time.timeScale = 0;
     }
 
     private void Update()
     {
-        // Display countdown and pause everything else.
-        if (!uiManager.IsCountingDown)
-        {
-            countdown.SetActive(false);
-            Time.timeScale = 1;
-        }
+        // Countdown finished. Run game.
+        if (!UIManager.isCountingDown) Time.timeScale = 1;
     }
 
     //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.

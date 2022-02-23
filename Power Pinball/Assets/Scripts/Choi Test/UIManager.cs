@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
-
     [SerializeField] private TextMeshProUGUI roundTimerText;
-
     [SerializeField] private TextMeshProUGUI countdownTimerText;
+    [SerializeField] private GameObject countdown;
+    [SerializeField] private GameObject overlay;
 
     /// <summary>
     /// How far to push the TMP rectangle right.
@@ -40,7 +40,9 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Flag to determine whether to set timeScale to 0 or 1.
     /// </summary>
-    public bool IsCountingDown { get; private set; }
+    public static bool isCountingDown;
+
+    private bool gameOver;
 
     // Start is called before the first frame update
     void Start()
@@ -65,14 +67,17 @@ public class UIManager : MonoBehaviour
         scoreText.text = "Score: 0";
         roundTimerText.text = ((int)roundTimer).ToString();
 
-        IsCountingDown = true;
+        isCountingDown = true;
+        gameOver = false;
+
+        overlay.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Show the countdown panel.
-        if (IsCountingDown)
+        if (isCountingDown)
         {
             if (countdownTimer > 0)
             {
@@ -82,18 +87,32 @@ public class UIManager : MonoBehaviour
                 countdownTimerText.text = ((int)countdownTimer + 1).ToString();
             }
             // Hide the countdown panel and begin play.
-            else IsCountingDown = false;
+            else isCountingDown = false;
         }
         // Update UI text values.
         else
         {
-            // Don't let the timer display negative values.
-            if (roundTimer > 0) roundTimer -= Time.deltaTime;
+            // Hide the countdown.
+            countdown.SetActive(false);
 
-            scoreText.text = "Score: " + GameManager.scoreP1;
+            // Show game UI.
+            if (!gameOver)
+            {
+                // Don't let the timer display negative values.
+                if (roundTimer > 0) roundTimer -= Time.deltaTime;
+                // TODO: add case where game ends once score target is reached
+                else gameOver = true;
 
-            // Only show the remaining time as an integer.
-            roundTimerText.text = ((int)roundTimer).ToString();
+                scoreText.text = "Score: " + GameManager.scoreP1;
+
+                // Only show the remaining time as an integer.
+                roundTimerText.text = ((int)roundTimer).ToString();
+            }
+            // Show game over overlay.
+            else
+            {
+                overlay.SetActive(true);
+            }
         }
     }
 }
