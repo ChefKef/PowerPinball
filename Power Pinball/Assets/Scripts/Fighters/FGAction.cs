@@ -90,11 +90,11 @@ public class FGAction
             val.hurtboxes[0][0] = new FGHurtbox(new Rect(-0.5f, 2, 1, 2));
             
             val.sprites[0] = new Sprite[5];
-            val.sprites[0][1] = Resources.Load("Sprites/Side_skin") as Sprite;
-            val.sprites[0][2] = Resources.Load("Sprites/Side_Pants") as Sprite;
-            val.sprites[0][3] = Resources.Load("Sprites/Side_Shoes") as Sprite;
-            val.sprites[0][4] = Resources.Load("Sprites/Side_Shirt") as Sprite;
-            val.sprites[0][0] = Resources.Load("Sprites/Side_Hair") as Sprite;
+            val.sprites[0][0] = Resources.Load<Sprite>("CustomCharacter/Side_skin") as Sprite;
+            val.sprites[0][1] = Resources.Load<Sprite>("CustomCharacter/Side_Pants") as Sprite;
+            val.sprites[0][2] = Resources.Load<Sprite>("CustomCharacter/Side_Shoes") as Sprite;
+            val.sprites[0][3] = Resources.Load<Sprite>("CustomCharacter/Side_Shirt") as Sprite;
+            val.sprites[0][4] = Resources.Load<Sprite>("CustomCharacter/Side_Hair") as Sprite;
 
             return val;
         }

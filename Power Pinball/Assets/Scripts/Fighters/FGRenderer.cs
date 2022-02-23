@@ -21,6 +21,7 @@ public class FGRenderer : MonoBehaviour
         public FGFighter fighter;
 
         private float scale = 8;
+        private float spriteScale = 0.5f;
 
 
         //We Need to "handle" Inputs here because this is the Unity object
@@ -236,9 +237,12 @@ public class FGRenderer : MonoBehaviour
                     if(i < action.CurrentSprite.Length)
                     {
                         spritePool[i].enabled = true;
-                        //spritePool[i].color = new Color(0, 0, 1, 0.5f);
-                        //spritePool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHurt[i].rect.y * scale, 0 - 0.1f*i);
-                        //spritePool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * 100 * scale;
+                        spritePool[i].sprite = action.CurrentSprite[i];
+                        if(fighter.facingLeft) spritePool[i].flipX = true;
+                        else spritePool[i].flipX = false;
+                        spritePool[i].color = new Color(1, 0, 0, 1);
+                        spritePool[i].transform.position = new Vector3(fighter.position.x * scale - spritePool[i].bounds.size.x/2 * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i);
+                        spritePool[i].transform.localScale = new Vector3(1,1,1) * spriteScale;
 
                     }
                     else
@@ -248,7 +252,7 @@ public class FGRenderer : MonoBehaviour
                 }
             else
             {
-                for (int i = 0; i < hurtboxPool.Count; i++)
+                for (int i = 0; i < spritePool.Count; i++)
                 {
                     spritePool[i].enabled = false;
                 }
