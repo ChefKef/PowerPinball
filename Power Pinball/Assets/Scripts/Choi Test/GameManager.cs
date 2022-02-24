@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
     public static int scoreP1 { get; private set; }
     public static int scoreP2 { get; private set; }
 
+    public enum RailType
+    {
+        curved = 0,
+        ramp = 1
+    }
+
     //Game-Loop Data
     FGFighter player1, player2;
 
