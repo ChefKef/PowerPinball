@@ -23,15 +23,20 @@ public class GameManager : MonoBehaviour
     //    scoreP1++;
     //}
 
+    [SerializeField] private GameObject ui;
+    private UIManager uiManager;
 
+    [SerializeField] private GameObject pinball;
+    private PinballManager pinballManager;
 
-    public static void Reset()
+    /// <summary>
+    /// Initialisation method.
+    /// </summary>
+    private void Init()
     {
-        scoreP1 = 0;
-    }
+        uiManager = ui.GetComponent<UIManager>();
+        pinballManager = pinball.GetComponent<PinballManager>();
 
-    void Start()
-    {
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
         scoreP1 = 0;
@@ -50,10 +55,18 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    void Start()
+    {
+        Init();
+    }
+
     private void Update()
     {
         // Countdown finished. Run game.
         if (!UIManager.isCountingDown) Time.timeScale = 1;
+
+        // Game over. Stop game.
+        if (UIManager.gameOver) Time.timeScale = 0;
     }
 
     //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.
@@ -102,5 +115,12 @@ public class GameManager : MonoBehaviour
         {
             scoreP2 += points;
         }
+    }
+
+    public void Rematch()
+    {
+        pinballManager.Init();
+        Init();
+        uiManager.Init();
     }
 }

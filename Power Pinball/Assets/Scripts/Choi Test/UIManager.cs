@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI roundTimerText;
     [SerializeField] private TextMeshProUGUI countdownTimerText;
+    [SerializeField] private TextMeshProUGUI overlayScoreText;
     [SerializeField] private GameObject countdown;
     [SerializeField] private GameObject overlay;
 
@@ -38,19 +39,26 @@ public class UIManager : MonoBehaviour
     private float countdownTimer;
 
     /// <summary>
-    /// Flag to determine whether to set timeScale to 0 or 1.
+    /// Flag to determine whether to set timeScale to 0 or 1 based on whether 
+    /// the countdown has ended.
     /// </summary>
     public static bool isCountingDown;
 
-    private bool gameOver;
+    /// <summary>
+    /// Flag to determine whether to set timeScale to 0 or 1 based on whether
+    /// the round has ended.
+    /// </summary>
+    public static bool gameOver;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Initialisation method.
+    /// </summary>
+    public void Init()
     {
         // Leverage width and height of scoreText's rectangle to ensure it fits
         // wholly onscreen.
         scoreText.rectTransform.position = new Vector3(
-            scoreText.rectTransform.rect.width + leftMargin, 
+            scoreText.rectTransform.rect.width + leftMargin,
             scoreText.rectTransform.rect.height + bottomMargin);
 
         // Do the same for the round timer.
@@ -73,12 +81,21 @@ public class UIManager : MonoBehaviour
         overlay.SetActive(false);
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        Init();
+    }
+
     // Update is called once per frame
     void Update()
     {
         // Show the countdown panel.
         if (isCountingDown)
         {
+            // Hide the countdown.
+            countdown.SetActive(true);
+
             if (countdownTimer > 0)
             {
                 // timeScale is set to 0 in GameManager, so we need to use
@@ -111,6 +128,7 @@ public class UIManager : MonoBehaviour
             // Show game over overlay.
             else
             {
+                overlayScoreText.text = "Final Score: " + GameManager.scoreP1;
                 overlay.SetActive(true);
             }
         }
