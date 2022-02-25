@@ -93,6 +93,9 @@ public class GameManager : MonoBehaviour
             p1Hitstop--;
             if(p1Hitstop == 0)
             {
+                Vector2 ballDI = new Vector2(player1.Joystick.x, 0) * 0.2f;
+
+                player1Pinball.GetComponent<Rigidbody2D>().velocity = new Vector2(player1Renderer.hitDetected.velocity.x * (player1.facingLeft ? -1 : 1), player1Renderer.hitDetected.velocity.y) + (ballDI * player1Renderer.hitDetected.velocity.magnitude);
                 player1Pinball.GetComponent<Rigidbody2D>().simulated = true;
                 player1.Hitstop = false;
             }

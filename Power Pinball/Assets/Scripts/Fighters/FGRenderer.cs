@@ -23,6 +23,7 @@ public class FGRenderer : MonoBehaviour
         private float scale = 8;
         private float spriteScale = 0.5f;
 
+        public FGHitbox hitDetected;
 
         //We Need to "handle" Inputs here because this is the Unity object
         //In reality, we are passing them along to the Fighter
@@ -114,6 +115,9 @@ public class FGRenderer : MonoBehaviour
 
                         int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
 
+                        hitDetected = action.CurrentHit[i];
+
+                        if (hitstop > 0) return hitstop;
                         Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
 
                         collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y) + (ballDI * action.CurrentHit[i].velocity.magnitude);
