@@ -83,6 +83,8 @@ public class FGFighter
         private bool bffLaunch;
         private bool bffJump;
 
+        public Vector2 Joystick { get => joystick; }
+
         //Button callbacks
 #region Input
         public void MoveStick(Vector2 stick)

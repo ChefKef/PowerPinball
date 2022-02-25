@@ -108,13 +108,15 @@ public class FGRenderer : MonoBehaviour
                         hitdetectPool[i].OverlapCollider(filter, collisions);
 
                         //This threw an error once idk why
-                        collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y);
 
                         fighter.hit = true;
                         fighter.Hitstop = true;
 
                         int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
-                        //Debug.Log(hitstop);
+
+                        Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
+
+                        collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y) + (ballDI * action.CurrentHit[i].velocity.magnitude);
 
                         return hitstop;
 
