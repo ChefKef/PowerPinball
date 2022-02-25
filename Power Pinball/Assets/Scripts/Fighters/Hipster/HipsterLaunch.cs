@@ -18,9 +18,9 @@ public class HipsterLaunch : FGAction
 
 
         hitboxes[2] = new FGHitbox[1];
-        hitboxes[2][0] = new FGHitbox(new UnityEngine.Rect(-0.3f, 2.2f, 1.6f, 1.6f), new UnityEngine.Vector2(15f, 90) * 7);
+        hitboxes[2][0] = new FGHitbox(new UnityEngine.Rect(-0.3f, 2.2f, 1.6f, 1.6f), new UnityEngine.Vector2(15f, 90) * 4);
         hitboxes[4] = new FGHitbox[1];
-        hitboxes[4][0] = new FGHitbox(new UnityEngine.Rect(0.2f, 2.4f, 0.6f, 1.2f), new UnityEngine.Vector2(10f, 50) * 7);
+        hitboxes[4][0] = new FGHitbox(new UnityEngine.Rect(0.2f, 2.4f, 0.6f, 1.2f), new UnityEngine.Vector2(10f, 50) * 4);
         hitboxes[14] = new FGHitbox[0];
 
     }
