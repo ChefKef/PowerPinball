@@ -9,6 +9,9 @@ public class PinballManager : MonoBehaviour
     private Vector2[] railPoints;
     private int nextPoint = -1;
     private float ballTravelTime = 0f;
+    private float previousTravelTime = 0f;
+    private float timeElapsed = 0f;
+    private float rampTimeCoefficient;
     private Vector2 distanceToNextPoint;
 
     //Public vars
@@ -44,21 +47,27 @@ public class PinballManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nextPoint > 0)
+        if(nextPoint >= 0)
         {
-            ballTravelTime += (Time.deltaTime * 6f);
+            ballTravelTime += (Time.deltaTime * rampTimeCoefficient);
             ballTravelTime = ballTravelTime > 1f ? 1f : ballTravelTime;
-            transform.position = new Vector3(transform.position.x + (distanceToNextPoint.x / ballTravelTime), transform.position.y + (distanceToNextPoint.y / ballTravelTime), transform.position.z);
             if(ballTravelTime >= 1f)
             {
+                transform.position = new Vector3(railPoints[nextPoint].x, railPoints[nextPoint].y, transform.position.z);
+                //Debug.Log("Ball position after full travel time: (" + transform.position.x + ", " + transform.position.y + ")");
                 ballTravelTime = 0;
+                previousTravelTime = 0;
+                timeElapsed = 0;
                 if(nextPoint + 1 < railPoints.Length)
                 {
                     nextPoint++;
+                    distanceToNextPoint = railPoints[nextPoint] - (Vector2)transform.position;
+                    //Debug.Log("Distance between points: (" + distanceToNextPoint.x + ", " + distanceToNextPoint.y + ")");
                 }
                 else
                 {
                     nextPoint = -1;
+                    gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
                     if (curvedRail) //Change to a switch statement if more ramps get introduced.
                     {
                         //Issue points and update game state for curved rail here.
@@ -69,6 +78,14 @@ public class PinballManager : MonoBehaviour
                     }
 
                 }
+            }
+            else
+            {
+                //Debug.Log("timeElapsed: " + timeElapsed + ", ballTravelTime: " + ballTravelTime);
+                timeElapsed = ballTravelTime - previousTravelTime;
+                transform.position = new Vector3(transform.position.x + (distanceToNextPoint.x * timeElapsed), transform.position.y + (distanceToNextPoint.y * timeElapsed), transform.position.z);
+                //Debug.Log("Ball position mid travel: (" + transform.position.x + ", " + transform.position.y + ") Time traveled so far: " + ballTravelTime);
+                previousTravelTime = ballTravelTime;
             }
         }
     }
@@ -95,10 +112,11 @@ public class PinballManager : MonoBehaviour
         return player;
     }
 
-    public void rideRail(Vector2[] points, GameManager.RailType rail)
+    public void rideRail(Vector2[] points, GameManager.RailType rail, float totalAnimationTime)
     {
         if(points.Length > 0)
         {
+            Debug.Log("Number of points found: " + points.Length);
             railPoints = points;
             nextPoint = 0;
             distanceToNextPoint = points[0] - (Vector2)transform.position;
@@ -110,6 +128,8 @@ public class PinballManager : MonoBehaviour
             {
                 steepRail = false;
             }
+            rampTimeCoefficient = points.Length / totalAnimationTime;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
         }
         else
         {
