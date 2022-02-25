@@ -9,17 +9,21 @@ public class FGRenderer : MonoBehaviour
 {
 
         [SerializeField] private GameObject whitePixel;
+        [SerializeField] private GameObject spriteRenderer;
         [SerializeField] private GameObject collisionChecker;
 
         private List<SpriteRenderer> hurtboxPool;
         private List<SpriteRenderer> hitboxPool;
+        private List<SpriteRenderer> spritePool;
         private List<BoxCollider2D> hitdetectPool;
         private List<Collider2D> collisions;
 
         public FGFighter fighter;
 
         private float scale = 8;
+        private float spriteScale = 0.5f;
 
+        public FGHitbox hitDetected;
 
         //We Need to "handle" Inputs here because this is the Unity object
         //In reality, we are passing them along to the Fighter
@@ -52,6 +56,7 @@ public class FGRenderer : MonoBehaviour
         {
             hurtboxPool = new List<SpriteRenderer>();
             hitboxPool = new List<SpriteRenderer>();
+            spritePool = new List<SpriteRenderer>();
             hitdetectPool = new List<BoxCollider2D>();
             collisions = new List<Collider2D>();
         }
@@ -104,13 +109,18 @@ public class FGRenderer : MonoBehaviour
                         hitdetectPool[i].OverlapCollider(filter, collisions);
 
                         //This threw an error once idk why
-                        collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y);
 
                         fighter.hit = true;
                         fighter.Hitstop = true;
 
                         int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
-                        //Debug.Log(hitstop);
+
+                        hitDetected = action.CurrentHit[i];
+
+                        if (hitstop > 0) return hitstop;
+                        Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
+
+                        collisions[0].attachedRigidbody.velocity = new Vector2(action.CurrentHit[i].velocity.x * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].velocity.y) + (ballDI * action.CurrentHit[i].velocity.magnitude);
 
                         return hitstop;
 
@@ -211,7 +221,50 @@ public class FGRenderer : MonoBehaviour
 
         }
 
+        public void Draw(FGAction action)
+        {
+            bool sprite = action.CurrentSprite == null ? false : true;
+            int spriteDiff = !sprite ? 0 : spritePool.Count - action.CurrentSprite.Length;
 
+            if(spriteDiff < 0)
+            {
+                for (int i = spriteDiff; i < 0; i++)
+                {
+                    GameObject go = Instantiate(spriteRenderer);
+                    spritePool.Add(go.GetComponent<SpriteRenderer>());
+                    go.transform.SetParent(this.transform);
+                }
+            }
+
+            //Actually draw
+            if(sprite)
+                for (int i = 0; i < spritePool.Count; i++)
+                {
+                    if(i < action.CurrentSprite.Length)
+                    {
+                        spritePool[i].enabled = true;
+                        spritePool[i].sprite = action.CurrentSprite[i];
+                        if(fighter.facingLeft) spritePool[i].flipX = true;
+                        else spritePool[i].flipX = false;
+                        spritePool[i].color = new Color(1, 0, 0, 1);
+                        spritePool[i].transform.position = new Vector3(fighter.position.x * scale - spritePool[i].bounds.size.x/2 * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i);
+                        spritePool[i].transform.localScale = new Vector3(1,1,1) * spriteScale;
+
+                    }
+                    else
+                    {
+                        spritePool[i].enabled = false;
+                    }
+                }
+            else
+            {
+                for (int i = 0; i < spritePool.Count; i++)
+                {
+                    spritePool[i].enabled = false;
+                }
+            }
+
+        }
 
 }
 

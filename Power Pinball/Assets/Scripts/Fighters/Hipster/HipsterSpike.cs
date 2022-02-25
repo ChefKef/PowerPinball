@@ -9,17 +9,17 @@ public class HipsterSpike : FGAction
     {
 
         hurtboxes[0] = new FGHurtbox[1];
-        hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 2f, 1, 2));
+        hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 2f, 1, 2));
         hurtboxes[1] = new FGHurtbox[1];
-        hurtboxes[1][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.8f, 1, 1.8f));
+        hurtboxes[1][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.8f, 1, 1.8f));
         hurtboxes[2] = new FGHurtbox[1];
-        hurtboxes[2][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.6f, 1, 1.6f));
+        hurtboxes[2][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.6f, 1, 1.6f));
         hurtboxes[3] = new FGHurtbox[1];
-        hurtboxes[3][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.4f, 1, 1.4f));
+        hurtboxes[3][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.4f, 1, 1.4f));
         hurtboxes[4] = new FGHurtbox[1];
-        hurtboxes[4][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.2f, 1, 1.2f));
+        hurtboxes[4][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.2f, 1, 1.2f));
         hurtboxes[5] = new FGHurtbox[1];
-        hurtboxes[5][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.0f, 1, 1.0f));
+        hurtboxes[5][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.0f, 1, 1.0f));
 
         hitboxes[6] = new FGHitbox[2];
         hitboxes[6][0] = new FGHitbox(new UnityEngine.Rect(0, 0.5f, 2f, 0.5f), new UnityEngine.Vector2(20f, 30));
@@ -45,19 +45,19 @@ public class HipsterSpike : FGAction
 
         if (frame >= 6 && frame < 25)
         {
-            parent.velocity = new UnityEngine.Vector2(0.27f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.3f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if (frame >= 35)
         {
-            parent.velocity = new UnityEngine.Vector2(0.05f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.08f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if (frame >= 30)
         {
-            parent.velocity = new UnityEngine.Vector2(0.10f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.13f * (parent.facingLeft ? -1 : 1), 0);
         }
         else if(frame >= 25)
         {
-            parent.velocity = new UnityEngine.Vector2(0.20f * (parent.facingLeft ? -1 : 1), 0);
+            parent.velocity = new UnityEngine.Vector2(0.23f * (parent.facingLeft ? -1 : 1), 0);
         }
         
 

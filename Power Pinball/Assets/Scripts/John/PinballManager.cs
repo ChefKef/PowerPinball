@@ -18,10 +18,30 @@ public class PinballManager : MonoBehaviour
     public int player = 1;
     public bool curvedRail = false;
     public bool steepRail = false;
+    [SerializeField] private Vector2 startPos; // (33, 129)
+
+    /// <summary>
+    /// Resets pinball physics.
+    /// </summary>
+    public void Init()
+    {
+        // Move pinball to spawn location.
+        transform.position = startPos;
+
+        rb = GetComponent<Rigidbody2D>();
+        
+        // Reset linear/angular velocity AND rotation.
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        transform.rotation = Quaternion.Euler(Vector2.zero);
+
+        // Launch ball upwards.
+        applyForce(transform.up, 1000f);
+    }
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        applyForce(transform.up, 100f);
+        Init();
     }
 
     // Update is called once per frame

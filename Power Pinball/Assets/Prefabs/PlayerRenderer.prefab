@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whitePixel: {fileID: 2537176700859575478, guid: 083d3d33703f113499696c7031625361, type: 3}
+  spriteRenderer: {fileID: 6534132726436268638, guid: 537168d368cb0ca43b74862d83b44c01, type: 3}
   collisionChecker: {fileID: 1209605326647172794, guid: d2b2ee1217c27234d9b200283eddd1de, type: 3}
 --- !u!114 &5182295346211333716
 MonoBehaviour:

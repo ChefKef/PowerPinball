@@ -24,19 +24,25 @@ public class GameManager : MonoBehaviour
     FGFighter player1, player2;
     int p1Hitstop, p2Hitstop;
 
-    
-    public void GetPoints()
-    {
-        scoreP1++;
-    }
+    //public void GetPoints()
+    //{
+    //    scoreP1++;
+    //}
 
-    public static void Reset()
-    {
-        scoreP1 = 0;
-    }
+    [SerializeField] private GameObject ui;
+    private UIManager uiManager;
 
-    void Start()
+    [SerializeField] private GameObject pinball;
+    private PinballManager pinballManager;
+
+    /// <summary>
+    /// Initialisation method.
+    /// </summary>
+    private void Init()
     {
+        uiManager = ui.GetComponent<UIManager>();
+        pinballManager = pinball.GetComponent<PinballManager>();
+
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
         scoreP1 = 0;
@@ -45,12 +51,30 @@ public class GameManager : MonoBehaviour
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
         player1 = new Hipster(player1Renderer);
         player1Renderer.fighter = player1;
+        player1.FGUpdate();
+        player1.FGDraw();
         //player2 = new Hipster();
         //player2Renderer.fighter = player2;
 
         player1.position.x = -6;
         //player2.position.x = 6;
 
+        // Wait until the countdown completes.
+        Time.timeScale = 0;
+    }
+
+    void Start()
+    {
+        Init();
+    }
+
+    private void Update()
+    {
+        // Countdown finished. Run game.
+        if (!UIManager.isCountingDown) Time.timeScale = 1;
+
+        // Game over. Stop game.
+        if (UIManager.gameOver) Time.timeScale = 0;
     }
 
     //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.
@@ -69,6 +93,9 @@ public class GameManager : MonoBehaviour
             p1Hitstop--;
             if(p1Hitstop == 0)
             {
+                Vector2 ballDI = new Vector2(player1.Joystick.x, 0) * 0.2f;
+
+                player1Pinball.GetComponent<Rigidbody2D>().velocity = new Vector2(player1Renderer.hitDetected.velocity.x * (player1.facingLeft ? -1 : 1), player1Renderer.hitDetected.velocity.y) + (ballDI * player1Renderer.hitDetected.velocity.magnitude);
                 player1Pinball.GetComponent<Rigidbody2D>().simulated = true;
                 player1.Hitstop = false;
             }
@@ -99,5 +126,12 @@ public class GameManager : MonoBehaviour
         {
             scoreP2 += points;
         }
+    }
+
+    public void Rematch()
+    {
+        pinballManager.Init();
+        Init();
+        uiManager.Init();
     }
 }
