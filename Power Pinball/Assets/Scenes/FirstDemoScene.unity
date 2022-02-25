@@ -1732,6 +1732,10 @@ PrefabInstance:
       value: Slingshot
       objectReference: {fileID: 0}
     - target: {fileID: 3442687922380447091, guid: d78cf198f0f342e45a780e87b1436dfa, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 2073996488}
+    - target: {fileID: 3442687922380447091, guid: d78cf198f0f342e45a780e87b1436dfa, type: 3}
       propertyPath: minimumLaunch
       value: 50
       objectReference: {fileID: 0}
