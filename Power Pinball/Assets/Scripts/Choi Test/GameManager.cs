@@ -24,38 +24,25 @@ public class GameManager : MonoBehaviour
     FGFighter player1, player2;
     int p1Hitstop, p2Hitstop;
 
-    /// <summary>
-    /// The UI parent GameObject.
-    /// </summary>
-    [SerializeField] private GameObject ui;
-
-    /// <summary>
-    /// UIManager script reference.
-    /// </summary>
-    private UIManager uiManager;
-
-    /// <summary>
-    /// The Countdown UI parent GameObject.
-    /// </summary>
-    // There is no need to dynamically resize the panel to fit the screen,
-    // since it automatically adjusts to fit its parent. Just make sure the
-    // parent is of the desired size.
-    [SerializeField] private GameObject countdown;
-
     //public void GetPoints()
     //{
     //    scoreP1++;
     //}
 
+    [SerializeField] private GameObject ui;
+    private UIManager uiManager;
 
+    [SerializeField] private GameObject pinball;
+    private PinballManager pinballManager;
 
-    public static void Reset()
+    /// <summary>
+    /// Initialisation method.
+    /// </summary>
+    private void Init()
     {
-        scoreP1 = 0;
-    }
+        uiManager = ui.GetComponent<UIManager>();
+        pinballManager = pinball.GetComponent<PinballManager>();
 
-    void Start()
-    {
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
         scoreP1 = 0;
@@ -72,20 +59,22 @@ public class GameManager : MonoBehaviour
         player1.position.x = -6;
         //player2.position.x = 6;
 
-        uiManager = ui.GetComponent<UIManager>();
-
         // Wait until the countdown completes.
         Time.timeScale = 0;
     }
 
+    void Start()
+    {
+        Init();
+    }
+
     private void Update()
     {
-        // Display countdown and pause everything else.
-        if (!uiManager.IsCountingDown)
-        {
-            countdown.SetActive(false);
-            Time.timeScale = 1;
-        }
+        // Countdown finished. Run game.
+        if (!UIManager.isCountingDown) Time.timeScale = 1;
+
+        // Game over. Stop game.
+        if (UIManager.gameOver) Time.timeScale = 0;
     }
 
     //Updates at a fixed rate, as opposed to Update() which is reliant on the rendering pipeline.
@@ -134,5 +123,12 @@ public class GameManager : MonoBehaviour
         {
             scoreP2 += points;
         }
+    }
+
+    public void Rematch()
+    {
+        pinballManager.Init();
+        Init();
+        uiManager.Init();
     }
 }

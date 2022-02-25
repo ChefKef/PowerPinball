@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
 
     public void ToGame()
     {
-        GameManager.Reset();
+        //GameManager.Init();
         StateManager.Instance.SetState(GameStates.Game);
     }
 

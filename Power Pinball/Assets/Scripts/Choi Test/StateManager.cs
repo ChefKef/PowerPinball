@@ -96,7 +96,7 @@ public class StateManager : MonoBehaviour
                 SceneManager.LoadSceneAsync("Main Menu");
                 break;
             case GameStates.Game:
-                SceneManager.LoadSceneAsync("Game");
+                SceneManager.LoadSceneAsync("UI Integration Scene");
                 break;
             case GameStates.Win:
                 SceneManager.LoadSceneAsync("Win");

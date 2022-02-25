@@ -10,6 +10,8 @@ public class Rollover : MonoBehaviour
     /// </summary>
     [SerializeField] private int points; // 50
 
+    [SerializeField] private GameObject ui;
+
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
     private bool active;
@@ -45,6 +47,17 @@ public class Rollover : MonoBehaviour
 
                 // Update player score.
                 GameManager.issuePoints(points, ballsManager.player);
+
+                // Request a TMPro object from the object pool and parent it to the
+                // UIManager GameObject in the Hierarchy.
+                GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+                pooledObject.transform.SetParent(ui.transform);
+
+                // Modify the text values so they correspond to the component's
+                // value and position onscreen.
+                HitScore hitScore = pooledObject.GetComponent<HitScore>();
+                hitScore.SetText(points.ToString());
+                hitScore.SetPosition(transform.position);
             }
         }
     }

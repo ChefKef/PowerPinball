@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
-
     [SerializeField] private TextMeshProUGUI roundTimerText;
-
     [SerializeField] private TextMeshProUGUI countdownTimerText;
+    [SerializeField] private TextMeshProUGUI overlayScoreText;
+    [SerializeField] private GameObject countdown;
+    [SerializeField] private GameObject overlay;
 
     /// <summary>
     /// How far to push the TMP rectangle right.
@@ -38,17 +39,26 @@ public class UIManager : MonoBehaviour
     private float countdownTimer;
 
     /// <summary>
-    /// Flag to determine whether to set timeScale to 0 or 1.
+    /// Flag to determine whether to set timeScale to 0 or 1 based on whether 
+    /// the countdown has ended.
     /// </summary>
-    public bool IsCountingDown { get; private set; }
+    public static bool isCountingDown;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Flag to determine whether to set timeScale to 0 or 1 based on whether
+    /// the round has ended.
+    /// </summary>
+    public static bool gameOver;
+
+    /// <summary>
+    /// Initialisation method.
+    /// </summary>
+    public void Init()
     {
         // Leverage width and height of scoreText's rectangle to ensure it fits
         // wholly onscreen.
         scoreText.rectTransform.position = new Vector3(
-            scoreText.rectTransform.rect.width + leftMargin, 
+            scoreText.rectTransform.rect.width + leftMargin,
             scoreText.rectTransform.rect.height + bottomMargin);
 
         // Do the same for the round timer.
@@ -65,15 +75,27 @@ public class UIManager : MonoBehaviour
         scoreText.text = "Score: 0";
         roundTimerText.text = ((int)roundTimer).ToString();
 
-        IsCountingDown = true;
+        isCountingDown = true;
+        gameOver = false;
+
+        overlay.SetActive(false);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Init();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Show the countdown panel.
-        if (IsCountingDown)
+        if (isCountingDown)
         {
+            // Hide the countdown.
+            countdown.SetActive(true);
+
             if (countdownTimer > 0)
             {
                 // timeScale is set to 0 in GameManager, so we need to use
@@ -82,18 +104,33 @@ public class UIManager : MonoBehaviour
                 countdownTimerText.text = ((int)countdownTimer + 1).ToString();
             }
             // Hide the countdown panel and begin play.
-            else IsCountingDown = false;
+            else isCountingDown = false;
         }
         // Update UI text values.
         else
         {
-            // Don't let the timer display negative values.
-            if (roundTimer > 0) roundTimer -= Time.deltaTime;
+            // Hide the countdown.
+            countdown.SetActive(false);
 
-            scoreText.text = "Score: " + GameManager.scoreP1;
+            // Show game UI.
+            if (!gameOver)
+            {
+                // Don't let the timer display negative values.
+                if (roundTimer > 0) roundTimer -= Time.deltaTime;
+                // TODO: add case where game ends once score target is reached
+                else gameOver = true;
 
-            // Only show the remaining time as an integer.
-            roundTimerText.text = ((int)roundTimer).ToString();
+                scoreText.text = "Score: " + GameManager.scoreP1;
+
+                // Only show the remaining time as an integer.
+                roundTimerText.text = ((int)roundTimer).ToString();
+            }
+            // Show game over overlay.
+            else
+            {
+                overlayScoreText.text = "Final Score: " + GameManager.scoreP1;
+                overlay.SetActive(true);
+            }
         }
     }
 }

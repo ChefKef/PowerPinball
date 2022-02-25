@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Slingshot : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Slingshot : MonoBehaviour
     /// interacted with.
     /// </summary>
     [SerializeField] private int points;
+
+    [SerializeField] private GameObject ui;
     
     private EdgeCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
@@ -59,6 +62,17 @@ public class Slingshot : MonoBehaviour
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
+
+            // Request a TMPro object from the object pool and parent it to the
+            // UIManager GameObject in the Hierarchy.
+            GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+            pooledObject.transform.SetParent(ui.transform);
+
+            // Modify the text values so they correspond to the component's
+            // value and position onscreen.
+            HitScore hitScore = pooledObject.GetComponent<HitScore>();
+            hitScore.SetText(points.ToString());
+            hitScore.SetPosition(transform.position);
         }
     }
 }
