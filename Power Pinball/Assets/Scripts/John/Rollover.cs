@@ -11,6 +11,7 @@ public class Rollover : MonoBehaviour
     [SerializeField] private int points; // 50
 
     [SerializeField] private GameObject ui;
+    private SEAudioSource seAudioSource;
 
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
@@ -18,6 +19,7 @@ public class Rollover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        seAudioSource = GetComponent<SEAudioSource>();
         counter = cooldown;
     }
 
@@ -44,6 +46,9 @@ public class Rollover : MonoBehaviour
                 PinballManager ballsManager = collision.gameObject.GetComponent<PinballManager>();
                 counter = cooldown;
                 active = false;
+
+                // Play SE.
+                seAudioSource.PlayAudio();
 
                 // Update player score.
                 GameManager.issuePoints(points, ballsManager.player);
