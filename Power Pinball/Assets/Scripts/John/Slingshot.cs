@@ -12,7 +12,8 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private int points;
 
     [SerializeField] private GameObject ui;
-    
+    private SEAudioSource seAudioSource;
+
     private EdgeCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
@@ -20,6 +21,7 @@ public class Slingshot : MonoBehaviour
     private bool isFlipped = false;
     void Start()
     {
+        seAudioSource = GetComponent<SEAudioSource>();
         hitReg = GetComponent<EdgeCollider2D>();
         if (transform.localScale.y < 0) //If slingshot is flipped, mark it as so, and alter it's up vector accordingly.
         {
@@ -59,6 +61,9 @@ public class Slingshot : MonoBehaviour
             ballDir = new Vector2(ballDir.x + (slingshotUp.x - ballDir.x) / angleManipulation, ballDir.y + (slingshotUp.y - ballDir.y) / angleManipulation);
             ballDir *= launchMagnitude;
             ballsManager.setVelocity(ballDir);
+
+            // Play SE.
+            seAudioSource.PlayAudio();
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
