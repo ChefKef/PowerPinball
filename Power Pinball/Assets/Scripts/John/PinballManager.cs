@@ -12,7 +12,10 @@ public class PinballManager : MonoBehaviour
     private float previousTravelTime = 0f;
     private float timeElapsed = 0f;
     private float rampTimeCoefficient;
+    private float holdTime;
+    private float holdTimer;
     private Vector2 distanceToNextPoint;
+    private bool holdBall = false;
 
     //Public vars
     public int player = 1;
@@ -47,48 +50,21 @@ public class PinballManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nextPoint >= 0)
+        if(holdBall)
         {
-            ballTravelTime += (Time.deltaTime * rampTimeCoefficient);
-            ballTravelTime = ballTravelTime > 1f ? 1f : ballTravelTime;
-            if(ballTravelTime >= 1f)
+            if(holdTimer >= holdTime)
             {
-                transform.position = new Vector3(railPoints[nextPoint].x, railPoints[nextPoint].y, transform.position.z);
-                //Debug.Log("Ball position after full travel time: (" + transform.position.x + ", " + transform.position.y + ")");
-                ballTravelTime = 0;
-                previousTravelTime = 0;
-                timeElapsed = 0;
-                if(nextPoint + 1 < railPoints.Length)
-                {
-                    nextPoint++;
-                    distanceToNextPoint = railPoints[nextPoint] - (Vector2)transform.position;
-                    //Debug.Log("Distance between points: (" + distanceToNextPoint.x + ", " + distanceToNextPoint.y + ")");
-                }
-                else
-                {
-                    nextPoint = -1;
-                    gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
-                    if (curvedRail) //Change to a switch statement if more ramps get introduced.
-                    {
-                        //Issue points and update game state for curved rail here.
-                        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-                    }
-                    else
-                    {
-                        //Issue points and update game state for ramp rail here.
-                        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-                    }
-
-                }
+                holdBall = false;
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
             else
             {
-                //Debug.Log("timeElapsed: " + timeElapsed + ", ballTravelTime: " + ballTravelTime);
-                timeElapsed = ballTravelTime - previousTravelTime;
-                transform.position = new Vector3(transform.position.x + (distanceToNextPoint.x * timeElapsed), transform.position.y + (distanceToNextPoint.y * timeElapsed), transform.position.z);
-                //Debug.Log("Ball position mid travel: (" + transform.position.x + ", " + transform.position.y + ") Time traveled so far: " + ballTravelTime);
-                previousTravelTime = ballTravelTime;
+                holdTimer += Time.deltaTime;
             }
+        }
+        if(nextPoint >= 0)
+        {
+            railUpdate();
         }
     }
 
@@ -109,9 +85,22 @@ public class PinballManager : MonoBehaviour
         rb.velocity = vel;
     }
 
+    public void setPos(Vector2 pos)
+    {
+        transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+    }
+
     public int getPlayer()
     {
         return player;
+    }
+
+    public void holdBallForTime(float time)
+    {
+        holdBall = true;
+        holdTimer = 0f;
+        holdTime = time;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
     }
 
     public void rideRail(Vector2[] points, GameManager.RailType rail, float totalAnimationTime)
@@ -140,13 +129,59 @@ public class PinballManager : MonoBehaviour
         }
     }
 
+    public void moveToOverTime(Vector2 target, float elapsed)
+    {
+        transform.position = new Vector3(transform.position.x + (target.x * elapsed), transform.position.y + (target.y * elapsed), transform.position.z);
+    }
+
+    private void railUpdate()
+    {
+        ballTravelTime += (Time.deltaTime * rampTimeCoefficient);
+        ballTravelTime = ballTravelTime > 1f ? 1f : ballTravelTime;
+        if (ballTravelTime >= 1f)
+        {
+            setPos(railPoints[nextPoint]);
+            ballTravelTime = 0;
+            previousTravelTime = 0;
+            timeElapsed = 0;
+            if (nextPoint + 1 < railPoints.Length)
+            {
+                nextPoint++;
+                distanceToNextPoint = railPoints[nextPoint] - (Vector2)transform.position;
+                //Debug.Log("Distance between points: (" + distanceToNextPoint.x + ", " + distanceToNextPoint.y + ")");
+            }
+            else
+            {
+                nextPoint = -1;
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
+                if (curvedRail) //Change to a switch statement if more ramps get introduced.
+                {
+                    //Issue points and update game state for curved rail here.
+                    transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+                }
+                else
+                {
+                    //Issue points and update game state for ramp rail here.
+                    transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+                }
+
+            }
+        }
+        else
+        {
+            timeElapsed = ballTravelTime - previousTravelTime;
+            moveToOverTime(distanceToNextPoint, timeElapsed);
+            previousTravelTime = ballTravelTime;
+        }
+    }
+    
+    
+
     //*****************DEBUG FUNCS******************
     private void forceTest()
     {
         Debug.Log("Applying upward force");
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * 1000f);
-    } 
-    
-    
+    }
 }
