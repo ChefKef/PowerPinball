@@ -21,7 +21,8 @@ namespace FGScript {
 public class FGFighter
 {
         //consts
-        protected const float groundLocationY = -18; //TODO don't fucking do this
+        protected const float groundLocationY = -17.62f; //TODO don't fucking do this
+        protected const float wallLocationX = 11; //mirrored
     
         //Serialized Data
         protected Dictionary<string, FGAction> actions;
@@ -82,6 +83,8 @@ public class FGFighter
         private bool bffLaunch;
         private bool bffJump;
 
+        public Vector2 Joystick { get => joystick; }
+
         //Button callbacks
 #region Input
         public void MoveStick(Vector2 stick)
@@ -121,11 +124,14 @@ public class FGFighter
             actions = new Dictionary<string, FGAction>();
             this.renderer = renderer;
 
+            position = new Vector2(0, groundLocationY);
+            velocity = new Vector2();
+
             //Saves some time in testing.
-            actions["idle"] = FGAction.newDefaultAction();
-            actions["run"] = FGAction.newDefaultAction();
-            actions["crouch"] = FGAction.newDefaultAction();
-            actions["air"] = FGAction.newDefaultAction();
+            actions["idle"] = FGAction.newDefaultAction(1);
+            actions["run"] = FGAction.newDefaultAction(1);
+            actions["crouch"] = FGAction.newDefaultAction(1);
+            actions["air"] = FGAction.newDefaultAction(1);
 
             CurrentAction = actions["idle"];
             state = FGFighterState.idle;
@@ -312,6 +318,8 @@ public class FGFighter
 
             CurrentAction.FGAUpdate(this);
 
+            if(position.x > wallLocationX) position.x = wallLocationX;
+            if(position.x < -wallLocationX) position.x = -wallLocationX;
 
             oldJoystick = joystick;
             oldJump = jump;

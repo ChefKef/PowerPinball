@@ -8,19 +8,19 @@ public class HipsterLaunch : FGAction
     {
 
         hurtboxes[0] = new FGHurtbox[1];
-        hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.6f, 1, 1.6f));
+        hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.6f, 1, 1.6f));
         hurtboxes[2] = new FGHurtbox[1];
-        hurtboxes[2][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.7f, 1, 1.7f));
+        hurtboxes[2][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.7f, 1, 1.7f));
         hurtboxes[3] = new FGHurtbox[1];
-        hurtboxes[3][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 1.8f, 1, 1.8f));
+        hurtboxes[3][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 1.8f, 1, 1.8f));
         hurtboxes[4] = new FGHurtbox[1];
-        hurtboxes[4][0] = new FGHurtbox(new UnityEngine.Rect(-0.5f, 2.0f, 1, 2.0f));
+        hurtboxes[4][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 2.0f, 1, 2.0f));
 
 
         hitboxes[2] = new FGHitbox[1];
-        hitboxes[2][0] = new FGHitbox(new UnityEngine.Rect(-0.3f, 2.2f, 1.6f, 1.6f), new UnityEngine.Vector2(15f, 90) * 7);
+        hitboxes[2][0] = new FGHitbox(new UnityEngine.Rect(-0.3f, 2.2f, 1.6f, 1.6f), new UnityEngine.Vector2(15f, 90) * 3.3f);
         hitboxes[4] = new FGHitbox[1];
-        hitboxes[4][0] = new FGHitbox(new UnityEngine.Rect(0.2f, 2.4f, 0.6f, 1.2f), new UnityEngine.Vector2(10f, 50) * 7);
+        hitboxes[4][0] = new FGHitbox(new UnityEngine.Rect(0.2f, 2.4f, 0.6f, 1.2f), new UnityEngine.Vector2(10f, 50) * 3.3f);
         hitboxes[14] = new FGHitbox[0];
 
     }

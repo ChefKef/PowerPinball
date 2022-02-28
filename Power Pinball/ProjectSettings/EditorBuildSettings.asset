@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/John Scenes/BallTest.unity
     guid: 73f0b34ceda289041aca2a675f0cd324
   - enabled: 0
     path: Assets/Scenes/Choi Test/Title.unity
     guid: c171887897d06574b8033ae0edb90fb8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Choi Test/Main Menu.unity
     guid: 012bd45b0d8d3354dafc36b691aec91a
   - enabled: 0
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Choi Test/Lose.unity
     guid: 6458e6aae1d538946b999a41ecfe36c2
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/UI Integration Scene.unity
+    guid: b5073c5e3a44dbe47be2d77b0b52425d
   m_configObjects: {}

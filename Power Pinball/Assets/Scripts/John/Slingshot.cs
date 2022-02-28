@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Slingshot : MonoBehaviour
 {
+    /// <summary>
+    /// Base point value to be added to player's score when this component is
+    /// interacted with.
+    /// </summary>
+    [SerializeField] private int points;
+
+    [SerializeField] private GameObject ui;
+    
     private EdgeCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
@@ -50,6 +59,20 @@ public class Slingshot : MonoBehaviour
             ballDir = new Vector2(ballDir.x + (slingshotUp.x - ballDir.x) / angleManipulation, ballDir.y + (slingshotUp.y - ballDir.y) / angleManipulation);
             ballDir *= launchMagnitude;
             ballsManager.setVelocity(ballDir);
+
+            // Update player score.
+            GameManager.issuePoints(points, ballsManager.player);
+
+            // Request a TMPro object from the object pool and parent it to the
+            // UIManager GameObject in the Hierarchy.
+            GameObject pooledObject = HitScoreObjectPool.Instance.GetPooledObject();
+            pooledObject.transform.SetParent(ui.transform);
+
+            // Modify the text values so they correspond to the component's
+            // value and position onscreen.
+            HitScore hitScore = pooledObject.GetComponent<HitScore>();
+            hitScore.SetText(points.ToString());
+            hitScore.SetPosition(transform.position);
         }
     }
 }
