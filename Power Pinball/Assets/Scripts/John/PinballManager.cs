@@ -71,10 +71,12 @@ public class PinballManager : MonoBehaviour
                     if (curvedRail) //Change to a switch statement if more ramps get introduced.
                     {
                         //Issue points and update game state for curved rail here.
+                        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                     }
                     else
                     {
                         //Issue points and update game state for ramp rail here.
+                        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                     }
 
                 }
@@ -116,6 +118,7 @@ public class PinballManager : MonoBehaviour
     {
         if(points.Length > 0)
         {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -6);
             Debug.Log("Number of points found: " + points.Length);
             railPoints = points;
             nextPoint = 0;
