@@ -36,11 +36,13 @@ public class HipsterSpike : FGAction
         hurtboxes[39] = hurtboxes[4];
         hurtboxes[38] = hurtboxes[5];
 
-        //sprites[0][0] = Resources.Load<Sprite>("CustomCharacter/Slide_skin") as Sprite;
-        //sprites[0][1] = Resources.Load<Sprite>("CustomCharacter/Slide_pants") as Sprite;
-        //sprites[0][2] = Resources.Load<Sprite>("CustomCharacter/Slide_shoes") as Sprite;
-        //sprites[0][3] = Resources.Load<Sprite>("CustomCharacter/Slide_shirt") as Sprite;
-        //sprites[0][4] = Resources.Load<Sprite>("CustomCharacter/Slide_hair") as Sprite;
+        sprites[0] = new Sprite[5];
+        sprites[0][0] = Resources.Load<Sprite>("CustomCharacter/Slide_skin") as Sprite;
+        sprites[0][1] = Resources.Load<Sprite>("CustomCharacter/Slide_pants") as Sprite;
+        sprites[0][2] = Resources.Load<Sprite>("CustomCharacter/Slide_shoes") as Sprite;
+        sprites[0][3] = Resources.Load<Sprite>("CustomCharacter/Slide_shirt") as Sprite;
+        sprites[0][4] = Resources.Load<Sprite>("CustomCharacter/Slide_hair") as Sprite;
+        spriteOffset = new Vector2(6, 0);
 
 
     }
