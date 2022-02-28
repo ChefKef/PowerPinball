@@ -11,6 +11,7 @@ public class Bumper : MonoBehaviour
     [SerializeField] private int points;
 
     [SerializeField] private GameObject ui;
+    private SEAudioSource seAudioSource;
 
     private CircleCollider2D hitReg;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
@@ -18,6 +19,7 @@ public class Bumper : MonoBehaviour
     public float maximumLaunch = 600f; //Used to keep the ball from clipping out of bounds. Change only with exstensive testing. Going over 600 is asking for trouble.
     void Start()
     {
+        seAudioSource = GetComponent<SEAudioSource>();
         hitReg = GetComponent<CircleCollider2D>();
     }
 
@@ -49,6 +51,9 @@ public class Bumper : MonoBehaviour
             ballDir.Normalize();
             ballDir *= launchMagnitude;
             ballsManager.setVelocity(ballDir);
+
+            // Play SE.
+            seAudioSource.PlayAudio();
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
