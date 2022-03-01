@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &211332707
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 1191740999}
   - component: {fileID: 1191740998}
   - component: {fileID: 1191740997}
+  - component: {fileID: 1191741000}
   m_Layer: 0
   m_Name: Kickout
   m_TagString: Untagged
@@ -584,7 +585,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0072379867, y: -0.008139459}
@@ -649,14 +650,29 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191740996}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.2550242, w: 0.96693474}
+  m_LocalPosition: {x: 0, y: -20, z: 1}
   m_LocalScale: {x: 9.5, y: 9.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -29.55}
+--- !u!114 &1191741000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191740996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51149220ec8d8eb4ea2cca856353cea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdTime: 1.5
+  inhaleTime: 0.25
+  kickoutVelocity: 10000
 --- !u!1 &2086484399
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2086484400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalRotation.w

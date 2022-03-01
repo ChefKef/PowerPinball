@@ -55,7 +55,8 @@ public class PinballManager : MonoBehaviour
             if(holdTimer >= holdTime)
             {
                 holdBall = false;
-                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                toggleGravity(true);
+                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
             else
             {
@@ -100,7 +101,8 @@ public class PinballManager : MonoBehaviour
         holdBall = true;
         holdTimer = 0f;
         holdTime = time;
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
+        toggleGravity(false);
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
     }
 
     public void rideRail(Vector2[] points, GameManager.RailType rail, float totalAnimationTime)
@@ -121,7 +123,8 @@ public class PinballManager : MonoBehaviour
                 steepRail = false;
             }
             rampTimeCoefficient = points.Length / totalAnimationTime;
-            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
+            toggleGravity(false);
+            //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
         }
         else
         {
@@ -132,6 +135,8 @@ public class PinballManager : MonoBehaviour
     public void moveToOverTime(Vector2 target, float elapsed)
     {
         transform.position = new Vector3(transform.position.x + (target.x * elapsed), transform.position.y + (target.y * elapsed), transform.position.z);
+        //Debug.lo
+        //Debug.Log("Ball position:")
     }
 
     private void railUpdate()
@@ -153,7 +158,8 @@ public class PinballManager : MonoBehaviour
             else
             {
                 nextPoint = -1;
-                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
+                toggleGravity(true);
+                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
                 if (curvedRail) //Change to a switch statement if more ramps get introduced.
                 {
                     //Issue points and update game state for curved rail here.
@@ -174,8 +180,18 @@ public class PinballManager : MonoBehaviour
             previousTravelTime = ballTravelTime;
         }
     }
-    
-    
+
+    public void toggleGravity(bool gravityOn)
+    {
+        if (gravityOn)
+        {
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+        else
+        {
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        }
+    }
 
     //*****************DEBUG FUNCS******************
     private void forceTest()

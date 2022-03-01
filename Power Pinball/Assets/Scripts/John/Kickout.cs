@@ -10,8 +10,11 @@ public class Kickout : MonoBehaviour
 
     private bool gettingBall = false;
     private bool holdingBall = false;
+    private bool active = true;
     private float timer;
+    private float inactivityTime = 3f;
     private PinballManager ballsManager;
+    private Vector2 targetVector;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,7 @@ public class Kickout : MonoBehaviour
             }
             else
             {
-                ballsManager.moveToOverTime(transform.position, Time.deltaTime);
+                ballsManager.moveToOverTime(targetVector, Time.deltaTime / inhaleTime);
                 timer += Time.deltaTime;
             }
         }
@@ -49,20 +52,38 @@ public class Kickout : MonoBehaviour
                 timer += Time.deltaTime;
             }
         }
+        if(!active)
+        {
+            timer += Time.deltaTime;
+            if(timer >= inactivityTime)
+            {
+                timer = 0f;
+                active = true;
+            }
+        }
     }
 
     private void kickout()
     {
+        active = false;
+        timer = 0f;
+        Debug.Log("Launching ball!");
+        ballsManager.toggleGravity(true);
         ballsManager.applyForce(transform.up, kickoutVelocity);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PinballManager>())
+        if(active)
         {
-            gettingBall = true;
-            timer = 0f;
-            ballsManager = collision.gameObject.GetComponent<PinballManager>();
+            if (collision.gameObject.GetComponent<PinballManager>())
+            {
+                gettingBall = true;
+                timer = 0f;
+                ballsManager = collision.gameObject.GetComponent<PinballManager>();
+                targetVector = transform.position - ballsManager.transform.position;
+                ballsManager.toggleGravity(false);
+            }
         }
     }
 }
