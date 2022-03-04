@@ -17,6 +17,7 @@ public class FGAction
         public bool looping;                    //Whether or not this action "ends" at lastFrame
         public int loopFrame = 0;               //Which frame to return to at the end of a looping animation. default 0.
         public Sprite[][] sprites;              //The first sprite renders on bottom
+        public Vector2 spriteOffset;
         
         public int frame;
         public bool ended = false;

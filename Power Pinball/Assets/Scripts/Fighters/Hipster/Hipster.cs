@@ -1,4 +1,5 @@
 using FGScript;
+using UnityEngine;
 
 public class Hipster : FGFighter
 {
@@ -18,6 +19,13 @@ public class Hipster : FGFighter
         gravity = 0.04f;
 
         //(-0.4f, 2.45f, 1f, 2.45f)
+
+        actions["air"].sprites[0] = new Sprite[5];
+        actions["air"].sprites[0][0] = Resources.Load<Sprite>("CustomCharacter/Jump_skin") as Sprite;
+        actions["air"].sprites[0][1] = Resources.Load<Sprite>("CustomCharacter/Jump_Pants") as Sprite;
+        actions["air"].sprites[0][2] = Resources.Load<Sprite>("CustomCharacter/Jump_shoes") as Sprite;
+        actions["air"].sprites[0][3] = Resources.Load<Sprite>("CustomCharacter/Jump_shirt") as Sprite;
+        actions["air"].sprites[0][4] = Resources.Load<Sprite>("CustomCharacter/Jump_hair") as Sprite;
 
         actions["crouch"] = new FGAction(4, true, 3);
         actions["crouch"].hurtboxes[0] = new FGHurtbox[1];
@@ -40,6 +48,7 @@ public class Hipster : FGFighter
         actions["spike"] = new HipsterSpike();
 
         actions["launch"] = new HipsterLaunch();
+        actions["launch"].sprites[0] = actions["air"].sprites[0];
 
         actions["airPoke"] = actions["poke"];
 
