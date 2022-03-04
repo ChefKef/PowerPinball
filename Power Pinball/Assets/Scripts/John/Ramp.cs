@@ -43,6 +43,7 @@ public class Ramp : MonoBehaviour
             if(ballsManager.movementMagnitue() > minForce)
             {
                 ballsManager.rideRail(points, railType, 1f);
+                ballsManager.setVelocity(Vector2.zero);
             }
         }
     }
