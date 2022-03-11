@@ -14,16 +14,13 @@ public enum Customisables
 
 public class CharacterCustomisation : MonoBehaviour
 {
-    public static ColourProfile p1ColourProfile = new ColourProfile();
-    public static ColourProfile p2ColourProfile = new ColourProfile();
-
     [SerializeField] private TextMeshProUGUI currentCustomisableText;
     [SerializeField] private Slider rSlider;
     [SerializeField] private Slider gSlider;
     [SerializeField] private Slider bSlider;
     [SerializeField] private Image[] sprites;
 
-    private string[] customisables;
+    private Customisables[] customisables;
     private Customisables currentCustomisable;
 
     /// <summary>
@@ -37,7 +34,7 @@ public class CharacterCustomisation : MonoBehaviour
             % customisables.Length);
 
         // Load the colour and assign it to the sliders.
-        Color newColour = p1ColourProfile.profile[currentCustomisable];
+        Color newColour = ColourProfileManager.p1ColourProfile.profile[currentCustomisable];
         rSlider.value = newColour.r;
         gSlider.value = newColour.g;
         bSlider.value = newColour.b;
@@ -54,7 +51,7 @@ public class CharacterCustomisation : MonoBehaviour
             currentCustomisable = (Customisables)(customisables.Length - 1);
 
         // Load the colour and assign it to the sliders.
-        Color newColour = p1ColourProfile.profile[currentCustomisable];
+        Color newColour = ColourProfileManager.p1ColourProfile.profile[currentCustomisable];
         rSlider.value = newColour.r;
         gSlider.value = newColour.g;
         bSlider.value = newColour.b;
@@ -62,7 +59,7 @@ public class CharacterCustomisation : MonoBehaviour
 
     private void SaveChanges()
     {
-        p1ColourProfile.profile[currentCustomisable] = new Color(
+        ColourProfileManager.p1ColourProfile.profile[currentCustomisable] = new Color(
             rSlider.value,
             gSlider.value,
             bSlider.value);
@@ -71,21 +68,35 @@ public class CharacterCustomisation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        p1ColourProfile = new ColourProfile();
-
-        customisables = new string[] { "Hair", "Shirt", "Pants", "Shoes" };
+        customisables = new Customisables[] 
+        { 
+            Customisables.Hair, 
+            Customisables.Shirt, 
+            Customisables.Pants, 
+            Customisables.Shoes
+        };
         currentCustomisable = 0;
 
         rSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
         gSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
         bSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
+
+        Debug.Log(ColourProfileManager.p1ColourProfile);
+
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            sprites[i].color = ColourProfileManager.p1ColourProfile.profile[customisables[i]];
+        }
+
+        rSlider.value = sprites[0].color.r;
+        gSlider.value = sprites[0].color.g;
+        bSlider.value = sprites[0].color.b;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentCustomisableText.text = customisables[(int)currentCustomisable];
+        currentCustomisableText.text = customisables[(int)currentCustomisable].ToString();
         sprites[(int)currentCustomisable].color = new Color(
             rSlider.value,
             gSlider.value,
