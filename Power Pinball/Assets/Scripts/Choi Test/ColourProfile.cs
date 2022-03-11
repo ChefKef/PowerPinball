@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class ColourProfile : MonoBehaviour
 {
+    /// <summary>
+    /// Dictionary mapping enum of customisables to colours.
+    /// </summary>
     public Dictionary<Customisables, Color> profile;
 
+    /// <summary>
+    /// Constructor initialising customisable colours to black.
+    /// </summary>
     public ColourProfile()
     {
         profile = new Dictionary<Customisables, Color>()

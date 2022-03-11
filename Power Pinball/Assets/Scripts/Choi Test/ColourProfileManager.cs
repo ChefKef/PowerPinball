@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class ColourProfileManager : MonoBehaviour
 {
+    /// <summary>
+    /// P1's customisation choices.
+    /// </summary>
     public static ColourProfile p1ColourProfile = new ColourProfile();
+
+    /// <summary>
+    /// P2's customisation choices.
+    /// </summary>
     public static ColourProfile p2ColourProfile = new ColourProfile();
 
+    // Refer to StateManager for singleton implementation documentation.
+    #region Singleton Necessities
     private static ColourProfileManager instance;
 
-    #region Singleton Necessities
     public static ColourProfileManager Instance
     {
         get
