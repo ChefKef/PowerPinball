@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Choi Test/UI Integration Scene.unity
     guid: b5073c5e3a44dbe47be2d77b0b52425d
+  - enabled: 1
+    path: Assets/Scenes/Choi Test/Character Customisation.unity
+    guid: 8cfa9c5a575238f4ea77d4a3ae532cc8
   m_configObjects: {}
