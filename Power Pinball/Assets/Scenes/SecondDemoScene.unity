@@ -2217,7 +2217,7 @@ MonoBehaviour:
   overlay: {fileID: 82000000}
   leftMargin: 0
   bottomMargin: 0
-  roundLength: 5
+  roundLength: 30
 --- !u!114 &758697628
 MonoBehaviour:
   m_ObjectHideFlags: 0
