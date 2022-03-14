@@ -12,6 +12,11 @@ public class Menu : MonoBehaviour
         StateManager.Instance.SetState(GameStates.MainMenu);
     }
 
+    public void ToCharacterCustomisation()
+    {
+        StateManager.Instance.SetState(GameStates.CharacterCustomisation);
+    }
+
     public void ToGame()
     {
         //GameManager.Init();
