@@ -61,7 +61,14 @@ public class Hipster : FGFighter
 
         actions["airLaunch"] = actions["launch"];
 
-        actions["autoCombo2"] = actions["spike"];
+        actions["autoCombo2"] = new FGAction(25, false);
+        actions["autoCombo2"].hurtboxes[0] = new FGHurtbox[1];
+        actions["autoCombo2"].hurtboxes[0][0] = new FGHurtbox(new UnityEngine.Rect(-0.4f, 2.45f, 1, 2.45f));
+        actions["autoCombo2"].hitboxes[5] = new FGHitbox[1];
+        actions["autoCombo2"].hitboxes[5][0] = new FGHitbox(new UnityEngine.Rect(-0.2f, 1.5f, 1.7f, 1.5f), new UnityEngine.Vector2(20f, 30) * 1.5f);
+        actions["autoCombo2"].hitboxes[8] = new FGHitbox[0];
+
+
         actions["autoCombo3"] = actions["launch"];
 
 
