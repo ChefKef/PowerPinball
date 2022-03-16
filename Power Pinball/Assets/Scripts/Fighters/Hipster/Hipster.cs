@@ -61,6 +61,9 @@ public class Hipster : FGFighter
 
         actions["airLaunch"] = actions["launch"];
 
+        actions["autoCombo2"] = actions["spike"];
+        actions["autoCombo3"] = actions["launch"];
+
 
     }
 
