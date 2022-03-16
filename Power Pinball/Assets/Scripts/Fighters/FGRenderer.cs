@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -240,13 +241,17 @@ public class FGRenderer : MonoBehaviour
             if(sprite)
                 for (int i = 0; i < spritePool.Count; i++)
                 {
+                    Customisables customisableComponent;
                     if(i < action.CurrentSprite.Length)
                     {
                         spritePool[i].enabled = true;
                         spritePool[i].sprite = action.CurrentSprite[i];
                         if(fighter.facingLeft) spritePool[i].flipX = true;
                         else spritePool[i].flipX = false;
-                        spritePool[i].color = new Color(0, 1 / (i + 0.01f), 0.2f * i, 1);
+                        if (Enum.TryParse<Customisables>(action.CurrentSprite[i].name, true, out customisableComponent))
+                            spritePool[i].color = ColourProfileManager.p1ColourProfile.profile[customisableComponent];
+                                //0, 1 / (i + 0.01f), 0.2f * i, 1);
+                        //action.CurrentSprite[i].name
                         spritePool[i].transform.position = new Vector3(fighter.position.x * scale + (-spritePool[i].bounds.size.x/2 + action.spriteOffset.x) * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i);
                         spritePool[i].transform.localScale = new Vector3(1,1,1) * spriteScale;
 
