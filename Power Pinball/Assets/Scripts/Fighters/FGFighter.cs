@@ -297,7 +297,18 @@ public class FGFighter
                         else if ((poke && !oldPoke) || bffPoke)
                         {
                             state = FGFighterState.attack;
-                            CurrentAction = actions["poke"];
+                            if(CurrentAction == actions["poke"])
+                            {
+                                CurrentAction = actions["autoCombo2"];
+                            }
+                            else if(CurrentAction == actions["autoCombo2"])
+                            {
+                                CurrentAction = actions["autoCombo3"];
+                            }
+                            else
+                            {
+                                CurrentAction = actions["poke"];
+                            }
                             hit = false;
                         }
                         else if ((spike && !oldSpike) || bffSpike)
