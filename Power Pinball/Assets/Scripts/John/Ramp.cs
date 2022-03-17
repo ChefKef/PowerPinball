@@ -13,7 +13,15 @@ public class Ramp : MonoBehaviour
     void Start()
     {
         Vector2 childPoint;
-        GameObject railParent = GameObject.Find("RailPoints");
+        GameObject railParent;
+        if(railType == GameManager.RailType.curved)
+        {
+            railParent = GameObject.Find("CurvedRailPoints");
+        }
+        else
+        {
+            railParent = GameObject.Find("RailPoints");
+        }
         if(railParent)
         {
             Debug.Log("PARENT FOUND!");
