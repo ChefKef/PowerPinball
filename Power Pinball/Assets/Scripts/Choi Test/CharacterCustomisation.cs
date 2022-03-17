@@ -23,6 +23,21 @@ public class CharacterCustomisation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentCustomisableText;
 
     /// <summary>
+    /// Label displaying the numeric value of the R slider.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI rSliderValueLabel;
+
+    /// <summary>
+    /// Label displaying the numeric value of the R slider.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI gSliderValueLabel;
+
+    /// <summary>
+    /// Label displaying the numeric value of the R slider.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI bSliderValueLabel;
+
+    /// <summary>
     /// Slider controlling R value.
     /// </summary>
     [SerializeField] private Slider rSlider;
@@ -132,5 +147,8 @@ public class CharacterCustomisation : MonoBehaviour
             rSlider.value,
             gSlider.value,
             bSlider.value);
+        rSliderValueLabel.text = ((int)(rSlider.value * 255)).ToString();
+        gSliderValueLabel.text = ((int)(gSlider.value * 255)).ToString();
+        bSliderValueLabel.text = ((int)(bSlider.value * 255)).ToString();
     }
 }
