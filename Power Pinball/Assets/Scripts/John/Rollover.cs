@@ -13,6 +13,11 @@ public class Rollover : MonoBehaviour
     [SerializeField] private GameObject ui;
     private SEAudioSource seAudioSource;
 
+    // Custom board component variables.
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private float flashDuration;
+    private SpriteRenderer spriteRenderer;
+
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
     private bool active;
@@ -20,6 +25,7 @@ public class Rollover : MonoBehaviour
     void Start()
     {
         seAudioSource = GetComponent<SEAudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         counter = cooldown;
     }
 
@@ -63,7 +69,17 @@ public class Rollover : MonoBehaviour
                 HitScore hitScore = pooledObject.GetComponent<HitScore>();
                 hitScore.SetText(points.ToString());
                 hitScore.SetPosition(transform.position);
+
+                // Switch sprites so the component appears to flash.
+                StartCoroutine("Flash");
             }
         }
+    }
+
+    private IEnumerator Flash()
+    {
+        spriteRenderer.sprite = sprites[1];
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.sprite = sprites[0];
     }
 }
