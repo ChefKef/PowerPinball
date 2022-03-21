@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3442687922380447087}
   - component: {fileID: 3442687922380447084}
-  - component: {fileID: 3442687922380447085}
   - component: {fileID: 3442687922380447090}
   - component: {fileID: 3442687922380447091}
   - component: {fileID: 4482577265705157515}
   - component: {fileID: 278197545515358328}
+  - component: {fileID: 2077080563746715117}
   m_Layer: 0
   m_Name: Slingshot
   m_TagString: Untagged
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8839ce10f483b0048bda3c843cc258ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 852762028071adb4ab78191a4fcde9a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,28 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &3442687922380447085
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442687922380447088}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 1.0422866, y: 0.14956042}
-  - {x: -1.2189558, y: 0.112433374}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!50 &3442687922380447090
 Rigidbody2D:
   serializedVersion: 4
@@ -144,8 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19571e6282d05c948947c4a652c5c5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
+  points: 200
   ui: {fileID: 0}
+  sprites: []
+  flashDuration: 0
   elasticity: 5
   minimumLaunch: 50
   angleManipulation: 1.2
@@ -258,3 +238,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceGun: {fileID: 8300000, guid: 7b8b37c0a00a8d748a3e06db18e5ef87, type: 3}
+--- !u!60 &2077080563746715117
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442687922380447088}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 3}
+    newSize: {x: 2.52, y: 1.02}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.81, y: -1.3399999}
+      - {x: 0.84999996, y: -1.31}
+      - {x: 0.87, y: -1.28}
+      - {x: 0.87, y: -1.14}
+      - {x: 0.83, y: -0.84999996}
+      - {x: 0.76, y: -0.19999999}
+      - {x: 0.75, y: -0.04}
+      - {x: 0.74, y: 0.26999998}
+      - {x: 0.72999996, y: 0.59}
+      - {x: 0.71999997, y: 0.71999997}
+      - {x: 0.68, y: 0.97999996}
+      - {x: 0.63, y: 1.18}
+      - {x: 0.58, y: 1.25}
+      - {x: 0.48, y: 1.35}
+      - {x: 0.39999998, y: 1.39}
+      - {x: 0.24, y: 1.39}
+      - {x: 0.14999999, y: 1.36}
+      - {x: 0.08, y: 1.28}
+      - {x: 0, y: 0.85999995}
+      - {x: -0.06, y: 0.65}
+      - {x: -0.12, y: 0.51}
+      - {x: -0.16, y: 0.39999998}
+      - {x: -0.31, y: 0.06}
+      - {x: -0.47, y: -0.25}
+      - {x: -0.64, y: -0.53999996}
+      - {x: -0.75, y: -0.72999996}
+      - {x: -0.85999995, y: -0.88}
+      - {x: -0.94, y: -1.05}
+      - {x: -0.94, y: -1.24}
+      - {x: -0.84999996, y: -1.31}
+      - {x: -0.78999996, y: -1.35}
+      - {x: -0.75, y: -1.38}
+      - {x: -0.65999997, y: -1.39}
+      - {x: -0.08, y: -1.39}
+      - {x: 0.12, y: -1.37}
+      - {x: 0.53, y: -1.36}

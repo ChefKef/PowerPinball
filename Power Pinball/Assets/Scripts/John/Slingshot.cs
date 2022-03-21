@@ -14,7 +14,12 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private GameObject ui;
     private SEAudioSource seAudioSource;
 
-    private EdgeCollider2D hitReg;
+    // Custom board component variables.
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private float flashDuration;
+    private SpriteRenderer spriteRenderer;
+
+    private PolygonCollider2D hitReg;
     public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
     public float angleManipulation = 1.2f; //How much the angle is corrected. Closer to 1 is full angle correction, higher number = wilder launches.
@@ -22,7 +27,8 @@ public class Slingshot : MonoBehaviour
     void Start()
     {
         seAudioSource = GetComponent<SEAudioSource>();
-        hitReg = GetComponent<EdgeCollider2D>();
+        hitReg = GetComponent<PolygonCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         if (transform.localScale.y < 0) //If slingshot is flipped, mark it as so, and alter it's up vector accordingly.
         {
             isFlipped = true;
@@ -78,6 +84,16 @@ public class Slingshot : MonoBehaviour
             HitScore hitScore = pooledObject.GetComponent<HitScore>();
             hitScore.SetText(points.ToString());
             hitScore.SetPosition(transform.position);
+
+            // Switch sprites so the component appears to flash.
+            StartCoroutine("Flash");
         }
+    }
+
+    private IEnumerator Flash()
+    {
+        spriteRenderer.sprite = sprites[1];
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.sprite = sprites[0];
     }
 }

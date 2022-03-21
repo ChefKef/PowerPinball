@@ -13,6 +13,11 @@ public class Bumper : MonoBehaviour
     [SerializeField] private GameObject ui;
     private SEAudioSource seAudioSource;
 
+    // Custom board component variables.
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private float flashDuration;
+    private SpriteRenderer spriteRenderer;
+
     private CircleCollider2D hitReg;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
     public float minimumLaunch = 50f; //The minimum amount of force with witch the ball will be launched after hitting the bumper
@@ -21,6 +26,7 @@ public class Bumper : MonoBehaviour
     {
         seAudioSource = GetComponent<SEAudioSource>();
         hitReg = GetComponent<CircleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -68,6 +74,16 @@ public class Bumper : MonoBehaviour
             HitScore hitScore = pooledObject.GetComponent<HitScore>();
             hitScore.SetText(points.ToString());
             hitScore.SetPosition(transform.position);
+
+            // Switch sprites so the component appears to flash.
+            StartCoroutine("Flash");
         }
+    }
+
+    private IEnumerator Flash()
+    {
+        spriteRenderer.sprite = sprites[1];
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.sprite = sprites[0];
     }
 }
