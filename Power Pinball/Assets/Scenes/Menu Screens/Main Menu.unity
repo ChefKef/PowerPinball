@@ -448,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7995053211148988270, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToCharacterCustomisation
+      value: ToInstructions
       objectReference: {fileID: 0}
     - target: {fileID: 7995053211148988270, guid: 1be4fc98e81315442a90df7f9f9b4fde, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
