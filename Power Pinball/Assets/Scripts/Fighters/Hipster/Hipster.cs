@@ -58,7 +58,12 @@ public class Hipster : FGFighter
         actions["launch"] = new HipsterLaunch();
         actions["launch"].sprites[0] = actions["air"].sprites[0];
 
-        actions["airPoke"] = actions["poke"];
+        actions["airPoke"] = new FGAction(18, false);
+        actions["airPoke"].hurtboxes = actions["poke"].hurtboxes;
+        actions["airPoke"].hitboxes = actions["poke"].hitboxes;
+        actions["airPoke"].sprites[0] = actions["air"].sprites[0];
+        actions["airPoke"].sprites[3] = actions["poke"].sprites[3];
+        actions["airPoke"].sprites[6] = actions["air"].sprites[0];
 
         actions["airSpike"] = new FGAction(18, false);
         actions["airSpike"].hurtboxes[0] = new FGHurtbox[1];
@@ -66,9 +71,6 @@ public class Hipster : FGFighter
         actions["airSpike"].hitboxes[3] = new FGHitbox[1];
         actions["airSpike"].hitboxes[3][0] = new FGHitbox(new UnityEngine.Rect(0, 0.8f, 1.5f, 1.8f), new UnityEngine.Vector2(50, -50));
         actions["airSpike"].hitboxes[6] = new FGHitbox[0];
-        actions["airPoke"].sprites[0] = actions["air"].sprites[0];
-        actions["airPoke"].sprites[3] = actions["poke"].sprites[3];
-        actions["airPoke"].sprites[6] = actions["air"].sprites[0];
 
         actions["airLaunch"] = actions["launch"];
 
