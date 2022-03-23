@@ -43,6 +43,7 @@ public class FGFighter
         public bool hit; //generally: whether the attack we used connected. Set to true when it's possible to cancel into an action
         private bool _hitstop;
         public bool facingLeft;
+        public int comboCount;
     
         //Passthroughs
         public FGAction CurrentAction {

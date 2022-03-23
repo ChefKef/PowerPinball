@@ -118,6 +118,9 @@ public class FGRenderer : MonoBehaviour
 
                         hitDetected = action.CurrentHit[i];
 
+                        fighter.comboCount++;
+                        Debug.Log("Combo: " + fighter.comboCount + " hits!");
+
                         if (hitstop > 0) return hitstop;
                         Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
 
