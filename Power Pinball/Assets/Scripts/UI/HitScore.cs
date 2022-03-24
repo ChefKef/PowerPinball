@@ -60,7 +60,7 @@ public class HitScore : MonoBehaviour
     }
 
     /// <summary>
-    /// Return the akpha value to 1. Required, since the active state of the 
+    /// Return the alpha value to 1. Required, since the active state of the 
     /// object is dependent on the alpha value.
     /// </summary>
     public void ResetAlpha()

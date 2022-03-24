@@ -353,6 +353,10 @@ public class FGFighter
             CurrentAction.FGADrawHitboxes(renderer);
         }
 
-}
+        public void HideComboCount()
+        {
+            renderer.comboCounter.SetActive(false);
+        }
+    }
 
 }
