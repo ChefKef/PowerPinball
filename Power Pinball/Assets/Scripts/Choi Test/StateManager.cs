@@ -12,6 +12,7 @@ public enum GameStates
 {
     Title,
     MainMenu,
+    Instructions,
     CharacterCustomisation,
     Game,
     Win,
@@ -95,6 +96,9 @@ public class StateManager : MonoBehaviour
                 break;
             case GameStates.MainMenu:
                 SceneManager.LoadSceneAsync("Main Menu");
+                break;
+            case GameStates.Instructions:
+                SceneManager.LoadSceneAsync("Instructions");
                 break;
             case GameStates.CharacterCustomisation:
                 SceneManager.LoadSceneAsync("Character Customisation");
