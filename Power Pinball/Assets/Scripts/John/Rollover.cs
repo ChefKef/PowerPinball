@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rollover : MonoBehaviour
+public class Rollover : MonoBehaviour, IFlashable
 {
     /// <summary>
     /// Base point value to be added to player's score when this component is
@@ -76,7 +76,7 @@ public class Rollover : MonoBehaviour
         }
     }
 
-    private IEnumerator Flash()
+    public IEnumerator Flash()
     {
         spriteRenderer.sprite = sprites[1];
         yield return new WaitForSeconds(flashDuration);
