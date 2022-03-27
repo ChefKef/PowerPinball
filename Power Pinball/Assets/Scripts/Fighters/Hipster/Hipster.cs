@@ -44,13 +44,26 @@ public class Hipster : FGFighter
         actions["poke"].hitboxes[3] = new FGHitbox[1];
         actions["poke"].hitboxes[3][0] = new FGHitbox(new UnityEngine.Rect(0, 1.8f, 1.3f, 1), new UnityEngine.Vector2(2f, 4f));
         actions["poke"].hitboxes[6] = new FGHitbox[0];
+        actions["poke"].sprites[0] = actions["idle"].sprites[0];
+        actions["poke"].sprites[3] = new Sprite[5];
+        actions["poke"].sprites[3][0] = Resources.Load<Sprite>("CustomCharacter/Punch/Skin") as Sprite;
+        actions["poke"].sprites[3][1] = Resources.Load<Sprite>("CustomCharacter/Punch/Pants") as Sprite;
+        actions["poke"].sprites[3][2] = Resources.Load<Sprite>("CustomCharacter/Punch/Shoes") as Sprite;
+        actions["poke"].sprites[3][3] = Resources.Load<Sprite>("CustomCharacter/Punch/Shirt") as Sprite;
+        actions["poke"].sprites[3][4] = Resources.Load<Sprite>("CustomCharacter/Punch/Hair") as Sprite;
+        actions["poke"].sprites[6] = actions["idle"].sprites[0];
 
         actions["spike"] = new HipsterSpike();
 
         actions["launch"] = new HipsterLaunch();
         actions["launch"].sprites[0] = actions["air"].sprites[0];
 
-        actions["airPoke"] = actions["poke"];
+        actions["airPoke"] = new FGAction(18, false);
+        actions["airPoke"].hurtboxes = actions["poke"].hurtboxes;
+        actions["airPoke"].hitboxes = actions["poke"].hitboxes;
+        actions["airPoke"].sprites[0] = actions["air"].sprites[0];
+        actions["airPoke"].sprites[3] = actions["poke"].sprites[3];
+        actions["airPoke"].sprites[6] = actions["air"].sprites[0];
 
         actions["airSpike"] = new FGAction(18, false);
         actions["airSpike"].hurtboxes[0] = new FGHurtbox[1];

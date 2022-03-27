@@ -37,6 +37,12 @@ public class HipsterLaunch : FGAction
             parent.velocity = new UnityEngine.Vector2(0.05f * (parent.facingLeft ? -1 : 1), 0.55f);
         }
 
+        if (frame == 29)
+        {
+            parent.comboCount = 0;
+            parent.HideComboCount();
+        }
+
     }
 
 

@@ -19,10 +19,12 @@ public class FGRenderer : MonoBehaviour
         private List<BoxCollider2D> hitdetectPool;
         private List<Collider2D> collisions;
 
+        public GameObject comboCounter;
         public FGFighter fighter;
 
         private float scale = 8;
         private float spriteScale = 0.5f;
+        private ComboCounter comboCounterScript;
 
         public FGHitbox hitDetected;
 
@@ -60,6 +62,7 @@ public class FGRenderer : MonoBehaviour
             spritePool = new List<SpriteRenderer>();
             hitdetectPool = new List<BoxCollider2D>();
             collisions = new List<Collider2D>();
+            comboCounterScript = comboCounter.GetComponent<ComboCounter>();
         }
 
 
@@ -117,6 +120,11 @@ public class FGRenderer : MonoBehaviour
                         int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
 
                         hitDetected = action.CurrentHit[i];
+
+                        fighter.comboCount++;
+                        if (!comboCounter.activeInHierarchy) comboCounter.SetActive(true);
+                        comboCounterScript.SetText(fighter.comboCount);
+                        //Debug.Log("Combo: " + fighter.comboCount + " hits!");
 
                         if (hitstop > 0) return hitstop;
                         Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
@@ -271,6 +279,12 @@ public class FGRenderer : MonoBehaviour
 
         }
 
-}
+        private void Update()
+        {
+            // If visible, make the combo counter follow the player sprite.
+            if (comboCounter.activeInHierarchy)
+                comboCounterScript.SetPosition(spritePool[0].transform.position);
+        }
+    }
 
 }
