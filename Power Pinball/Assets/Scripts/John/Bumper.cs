@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bumper : MonoBehaviour, IFlashable
+public class Bumper : MonoBehaviour
 {
     /// <summary>
     /// Base point value to be added to player's score when this component is
@@ -80,7 +80,7 @@ public class Bumper : MonoBehaviour, IFlashable
         }
     }
 
-    public IEnumerator Flash()
+    private IEnumerator Flash()
     {
         spriteRenderer.sprite = sprites[1];
         yield return new WaitForSeconds(flashDuration);
