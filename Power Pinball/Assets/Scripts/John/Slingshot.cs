@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Slingshot : MonoBehaviour
+public class Slingshot : MonoBehaviour, IFlashable
 {
     /// <summary>
     /// Base point value to be added to player's score when this component is
@@ -90,7 +90,7 @@ public class Slingshot : MonoBehaviour
         }
     }
 
-    private IEnumerator Flash()
+    public IEnumerator Flash()
     {
         spriteRenderer.sprite = sprites[1];
         yield return new WaitForSeconds(flashDuration);
