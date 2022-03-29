@@ -228,8 +228,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.52577984, y: 0.8741867}
-    oldSize: {x: 2.52, y: 1.02}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 3}
     newSize: {x: 2.52, y: 1.02}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -793,11 +793,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654500062277646349, guid: bcb336c50a95a2a40be33ab6331bba1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 76.6
       objectReference: {fileID: 0}
     - target: {fileID: 5654500062277646349, guid: bcb336c50a95a2a40be33ab6331bba1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20
+      value: 38.2
       objectReference: {fileID: 0}
     - target: {fileID: 5654500062277646349, guid: bcb336c50a95a2a40be33ab6331bba1f, type: 3}
       propertyPath: m_LocalPosition.z

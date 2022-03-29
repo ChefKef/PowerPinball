@@ -285,6 +285,13 @@ public class FGRenderer : MonoBehaviour
             if (comboCounter.activeInHierarchy)
                 comboCounterScript.SetPosition(spritePool[0].transform.position);
         }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+            fighter.comboCount = 0;
+            this.comboCounter.SetActive(false);
+        }
+
     }
 
 }
