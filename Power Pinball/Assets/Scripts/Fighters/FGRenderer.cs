@@ -28,6 +28,8 @@ public class FGRenderer : MonoBehaviour
 
         public FGHitbox hitDetected;
 
+        private bool spiked = false;
+
         //We Need to "handle" Inputs here because this is the Unity object
         //In reality, we are passing them along to the Fighter
         #region Input
@@ -65,6 +67,10 @@ public class FGRenderer : MonoBehaviour
             comboCounterScript = comboCounter.GetComponent<ComboCounter>();
         }
 
+        private void FixedUpdate()
+        {
+            if (fighter.comboCount <= 0) spiked = false;
+        }
 
         public int CheckCollision()
         {
@@ -125,6 +131,8 @@ public class FGRenderer : MonoBehaviour
                         if (!comboCounter.activeInHierarchy) comboCounter.SetActive(true);
                         comboCounterScript.SetText(fighter.comboCount);
                         //Debug.Log("Combo: " + fighter.comboCount + " hits!");
+
+                        if (action.CurrentHit[i].velocity.y < 0) spiked = true;
 
                         if (hitstop > 0) return hitstop;
                         Vector2 ballDI = new Vector2(fighter.Joystick.x, 0) * 0.2f;
@@ -285,6 +293,22 @@ public class FGRenderer : MonoBehaviour
             if (comboCounter.activeInHierarchy)
                 comboCounterScript.SetPosition(spritePool[0].transform.position);
         }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!spiked)
+            {
+                fighter.comboCount = 0;
+                this.comboCounter.SetActive(false);
+                collision.attachedRigidbody.velocity = new Vector2(collision.attachedRigidbody.velocity.x, -collision.attachedRigidbody.velocity.y) * 0.5f;
+            }
+            else
+            {
+                collision.attachedRigidbody.velocity = new Vector2(collision.attachedRigidbody.velocity.x, -collision.attachedRigidbody.velocity.y);
+                spiked = false;
+            }
+        }
+
     }
 
 }
