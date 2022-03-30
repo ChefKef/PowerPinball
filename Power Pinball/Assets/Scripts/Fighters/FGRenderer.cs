@@ -300,6 +300,7 @@ public class FGRenderer : MonoBehaviour
             {
                 fighter.comboCount = 0;
                 this.comboCounter.SetActive(false);
+                collision.attachedRigidbody.velocity = new Vector2(collision.attachedRigidbody.velocity.x, -collision.attachedRigidbody.velocity.y) * 0.5f;
             }
             else
             {
