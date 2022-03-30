@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     /// Static Score property that persists between Scenes.
     /// </summary>
     public static int scoreP1 { get; private set; }
+    public static float multiplierP1 { get; set; }
     public static int scoreP2 { get; private set; }
+    public static float multiplierP2 { get; set; }
 
     public enum RailType
     {
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
         scoreP1 = 0;
+        multiplierP1 = 1;
+        multiplierP2 = 1;
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
@@ -120,11 +124,11 @@ public class GameManager : MonoBehaviour
     {
         if (player == 1)
         {
-            scoreP1 += points;
+            scoreP1 += (int)(points * multiplierP1);
         }
         if (player == 2)
         {
-            scoreP2 += points;
+            scoreP2 += (int)(points * multiplierP2);
         }
     }
 
