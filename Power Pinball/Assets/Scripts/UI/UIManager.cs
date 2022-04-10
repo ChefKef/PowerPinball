@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI multiplierText;
     [SerializeField] private TextMeshProUGUI roundTimerText;
     [SerializeField] private TextMeshProUGUI countdownTimerText;
     [SerializeField] private TextMeshProUGUI overlayScoreText;
@@ -60,6 +61,13 @@ public class UIManager : MonoBehaviour
         scoreText.rectTransform.position = new Vector3(
             scoreText.rectTransform.rect.width + leftMargin,
             scoreText.rectTransform.rect.height + bottomMargin);
+
+        // Multiplier text goes above the score.
+        multiplierText.rectTransform.position = new Vector3(
+            scoreText.rectTransform.rect.width + leftMargin,
+            scoreText.rectTransform.rect.height * 2 
+                + bottomMargin
+                + multiplierText.rectTransform.rect.height);
 
         // Do the same for the round timer.
         // Transforms of TMP's are at the centre of the textbox, not the top
@@ -134,3 +142,5 @@ public class UIManager : MonoBehaviour
         }
     }
 }
+
+// TODO: width of mask + width of scrolling text
