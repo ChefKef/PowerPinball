@@ -22,10 +22,19 @@ public class Rollover : MonoBehaviour, IFlashable
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
     private bool active;
+
+    /// <summary>
+    /// Distinguish between a component that is part of the menu background,
+    /// versus one on the actual gameplay screen.
+    /// </summary>
+    [SerializeField] private bool onMenu;
+
     // Start is called before the first frame update
     void Start()
     {
-        audioControllerScript = audioController.GetComponent<AudioController>();
+        if (!onMenu)
+            // Only bother grabbing the component if part of gameplay screen.
+            audioControllerScript = audioController.GetComponent<AudioController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         counter = cooldown;
     }

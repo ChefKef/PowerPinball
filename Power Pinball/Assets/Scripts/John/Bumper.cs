@@ -23,9 +23,18 @@ public class Bumper : MonoBehaviour, IFlashable
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
     public float minimumLaunch = 50f; //The minimum amount of force with witch the ball will be launched after hitting the bumper
     public float maximumLaunch = 600f; //Used to keep the ball from clipping out of bounds. Change only with exstensive testing. Going over 600 is asking for trouble.
+
+    /// <summary>
+    /// Distinguish between a component that is part of the menu background,
+    /// versus one on the actual gameplay screen.
+    /// </summary>
+    [SerializeField] private bool onMenu;
+
     void Start()
     {
-        audioControllerScript = audioController.GetComponent<AudioController>();
+        if (!onMenu) 
+            // Only bother grabbing the component if part of gameplay screen.
+            audioControllerScript = audioController.GetComponent<AudioController>();
         hitReg = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }

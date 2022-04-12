@@ -25,9 +25,18 @@ public class Slingshot : MonoBehaviour, IFlashable
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
     public float angleManipulation = 1.2f; //How much the angle is corrected. Closer to 1 is full angle correction, higher number = wilder launches.
     private bool isFlipped = false;
+
+    /// <summary>
+    /// Distinguish between a component that is part of the menu background,
+    /// versus one on the actual gameplay screen.
+    /// </summary>
+    [SerializeField] private bool onMenu;
+
     void Start()
     {
-        audioControllerScript = audioController.GetComponent<AudioController>();
+        if (!onMenu)
+            // Only bother grabbing the component if part of gameplay screen.
+            audioControllerScript = audioController.GetComponent<AudioController>();
         hitReg = GetComponent<PolygonCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (transform.localScale.y < 0) //If slingshot is flipped, mark it as so, and alter it's up vector accordingly.
