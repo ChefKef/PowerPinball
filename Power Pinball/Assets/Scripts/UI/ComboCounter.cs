@@ -14,7 +14,7 @@ public class ComboCounter : PlaceableUI
     ///// Speed at which text "wipes" upward.
     ///// </summary>
     //[SerializeField] private float moveUpSpeed;
-    
+
     public void SetText(int hits)
     {
         // Deal with singular vs plural shenanigans.

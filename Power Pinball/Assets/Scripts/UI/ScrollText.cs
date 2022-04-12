@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ScrollText : MonoBehaviour
+public class ScrollText : PlaceableUI
 {
     [SerializeField] private RectTransform mask;
     [SerializeField] private RectTransform textBox;
     [SerializeField] private float horizontalScrollSpeed;
+    [SerializeField] private GameObject refRect;
     private float maskWidth;
     private float textBoxWidth;
     private float initTextBoxX;
@@ -20,6 +21,7 @@ public class ScrollText : MonoBehaviour
         textBoxWidth = textBox.rect.width;
         initTextBoxX = textBox.position.x;
         scrolling = false;
+        //SetPosition(refRect.transform.position, mask);
     }
 
     // Update is called once per frame
@@ -34,9 +36,9 @@ public class ScrollText : MonoBehaviour
         {
             scrolling = true;
 
-            while (textBox.position.x < initTextBoxX + maskWidth + textBoxWidth)
+            while (textBox.position.x > initTextBoxX - 2.2f * (maskWidth + textBoxWidth))
             {
-                textBox.position += new Vector3(horizontalScrollSpeed, 0, 0);
+                textBox.position -= new Vector3(horizontalScrollSpeed, 0, 0);
                 yield return new WaitForSeconds(0.01f);
             };
 
