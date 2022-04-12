@@ -142,5 +142,3 @@ public class UIManager : MonoBehaviour
         }
     }
 }
-
-// TODO: width of mask + width of scrolling text

@@ -12,7 +12,8 @@ public class Slingshot : MonoBehaviour, IFlashable
     [SerializeField] private int points;
 
     [SerializeField] private GameObject ui;
-    private SEAudioSource seAudioSource;
+    [SerializeField] private GameObject audioController;
+    private AudioController audioControllerScript;
 
     // Custom board component variables.
     [SerializeField] private Sprite[] sprites;
@@ -26,7 +27,7 @@ public class Slingshot : MonoBehaviour, IFlashable
     private bool isFlipped = false;
     void Start()
     {
-        seAudioSource = GetComponent<SEAudioSource>();
+        audioControllerScript = audioController.GetComponent<AudioController>();
         hitReg = GetComponent<PolygonCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (transform.localScale.y < 0) //If slingshot is flipped, mark it as so, and alter it's up vector accordingly.
@@ -69,7 +70,7 @@ public class Slingshot : MonoBehaviour, IFlashable
             ballsManager.setVelocity(ballDir);
 
             // Play SE.
-            seAudioSource.PlayAudio();
+            audioControllerScript.PlayAudio(AudioClips.SpaceGun);
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);

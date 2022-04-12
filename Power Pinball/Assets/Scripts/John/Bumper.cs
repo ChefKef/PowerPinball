@@ -11,7 +11,8 @@ public class Bumper : MonoBehaviour, IFlashable
     [SerializeField] private int points;
 
     [SerializeField] private GameObject ui;
-    private SEAudioSource seAudioSource;
+    [SerializeField] private GameObject audioController;
+    private AudioController audioControllerScript;
 
     // Custom board component variables.
     [SerializeField] private Sprite[] sprites;
@@ -24,7 +25,7 @@ public class Bumper : MonoBehaviour, IFlashable
     public float maximumLaunch = 600f; //Used to keep the ball from clipping out of bounds. Change only with exstensive testing. Going over 600 is asking for trouble.
     void Start()
     {
-        seAudioSource = GetComponent<SEAudioSource>();
+        audioControllerScript = audioController.GetComponent<AudioController>();
         hitReg = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -59,7 +60,7 @@ public class Bumper : MonoBehaviour, IFlashable
             ballsManager.setVelocity(ballDir);
 
             // Play SE.
-            seAudioSource.PlayAudio();
+            audioControllerScript.PlayAudio(AudioClips.SpaceGun);
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
