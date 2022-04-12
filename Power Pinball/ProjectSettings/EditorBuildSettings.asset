@@ -26,9 +26,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Choi Test/UI Integration Scene.unity
     guid: b5073c5e3a44dbe47be2d77b0b52425d
-  - enabled: 1
-    path: Assets/Scenes/ThirdDemoScene.unity
-    guid: b3cbca9618c88494987096e2f7785aaa
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menu Screens/Character Customisation.unity
     guid: 8cfa9c5a575238f4ea77d4a3ae532cc8
@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu Screens/Instructions.unity
     guid: c0f7e7fe3e8e121448bd71c43cd8daed
   - enabled: 1
-    path: Assets/Scenes/ThirdDemoScene.unity
+    path: Assets/Scenes/SecondDemoScene.unity
     guid: 1a549dea68eebeb49bb126600f7e740e
+  - enabled: 1
+    path: Assets/Scenes/Temp.unity
+    guid: 1c1e328ad61eb434895bc79f84862e14
   m_configObjects: {}
