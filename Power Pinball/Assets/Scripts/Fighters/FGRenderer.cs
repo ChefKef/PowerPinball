@@ -30,6 +30,8 @@ public class FGRenderer : MonoBehaviour
 
         private bool spiked = false;
 
+        public AudioController AudioControllerScript { get; private set; }
+
         //We Need to "handle" Inputs here because this is the Unity object
         //In reality, we are passing them along to the Fighter
         #region Input
@@ -65,6 +67,7 @@ public class FGRenderer : MonoBehaviour
             hitdetectPool = new List<BoxCollider2D>();
             collisions = new List<Collider2D>();
             comboCounterScript = comboCounter.GetComponent<ComboCounter>();
+            AudioControllerScript = FindObjectOfType<AudioController>();
         }
 
         private void FixedUpdate()
@@ -126,6 +129,9 @@ public class FGRenderer : MonoBehaviour
                         int hitstop = Mathf.Min(Mathf.Max(3, (int)(action.CurrentHit[i].velocity.magnitude / 3.7f)), 23);
 
                         hitDetected = action.CurrentHit[i];
+
+                        // Play SFX.
+                        AudioControllerScript.PlayAudio(AudioClips.Impact);
 
                         fighter.comboCount++;
                         if (!comboCounter.activeInHierarchy) comboCounter.SetActive(true);

@@ -104,7 +104,7 @@ public class StateManager : MonoBehaviour
                 SceneManager.LoadSceneAsync("Character Customisation");
                 break;
             case GameStates.Game:
-                SceneManager.LoadSceneAsync("SecondDemoScene");
+                SceneManager.LoadSceneAsync("SecondDemoScene"/*"Temp"*/);
                 break;
             case GameStates.Win:
                 SceneManager.LoadSceneAsync("Win");

@@ -11,7 +11,8 @@ public class Rollover : MonoBehaviour, IFlashable
     [SerializeField] private int points; // 50
 
     [SerializeField] private GameObject ui;
-    private SEAudioSource seAudioSource;
+    [SerializeField] private GameObject audioController;
+    private AudioController audioControllerScript;
 
     // Custom board component variables.
     [SerializeField] private Sprite[] sprites;
@@ -21,10 +22,19 @@ public class Rollover : MonoBehaviour, IFlashable
     public float cooldown = .1f; //Time until the rollover can be activated again.
     private float counter;
     private bool active;
+
+    /// <summary>
+    /// Distinguish between a component that is part of the menu background,
+    /// versus one on the actual gameplay screen.
+    /// </summary>
+    [SerializeField] private bool onMenu;
+
     // Start is called before the first frame update
     void Start()
     {
-        seAudioSource = GetComponent<SEAudioSource>();
+        if (!onMenu)
+            // Only bother grabbing the component if part of gameplay screen.
+            audioControllerScript = audioController.GetComponent<AudioController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         counter = cooldown;
     }
@@ -54,7 +64,7 @@ public class Rollover : MonoBehaviour, IFlashable
                 active = false;
 
                 // Play SE.
-                seAudioSource.PlayAudio();
+                audioControllerScript.PlayAudio(AudioClips.SpaceGun);
 
                 // Update player score.
                 GameManager.issuePoints(points, ballsManager.player);

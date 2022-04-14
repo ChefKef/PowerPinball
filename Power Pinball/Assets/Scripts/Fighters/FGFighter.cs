@@ -212,12 +212,18 @@ public class FGFighter
 
                     break;
                 case FGFighterState.run:
+                    // Play footsteps SFX.
+                    renderer.AudioControllerScript.PlayAudio(AudioClips.Footsteps);
+
                     velocity = new Vector2(facingLeft ? Mathf.Max(velocity.x - groundAcceleration, -maxGroundSpeed) : Mathf.Min(velocity.x + groundAcceleration, maxGroundSpeed), groundLocationY);
                     position = new Vector2(position.x + velocity.x, groundLocationY);
 
+                    // State transition guards; note audio is stopped in each
+                    // case.
                     if (jump && !oldJump)
                     {
                         state = FGFighterState.air;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["air"];
                         velocity.x = maxAirSpeed * joystick.x;
                         velocity.y = jumpVelocity;
@@ -225,26 +231,31 @@ public class FGFighter
                     else if ((poke && !oldPoke) || bffPoke)
                     {
                         state = FGFighterState.attack;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["poke"];
                     }
                     else if ((spike && !oldSpike) || bffSpike)
                     {
                         state = FGFighterState.attack;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["spike"];
                     }
                     else if ((launch && !oldLaunch) || bffLaunch)
                     {
                         state = FGFighterState.attack;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["launch"];
                     }
                     else if (joystick.y == -1 && oldJoystick.y != -1)
                     {
                         state = FGFighterState.crouch;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["crouch"];
                     }
                     else if((!facingLeft && joystick.x != 1) || (facingLeft && joystick.x != -1))
                     {
                         state = FGFighterState.idle;
+                        renderer.AudioControllerScript.StopAudio();
                         CurrentAction = actions["idle"];
                     }
                     break;
