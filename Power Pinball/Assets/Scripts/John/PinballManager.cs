@@ -38,8 +38,7 @@ public class PinballManager : MonoBehaviour
         rb.angularVelocity = 0;
         transform.rotation = Quaternion.Euler(Vector2.zero);
 
-        // Launch ball upwards.
-        applyForce(transform.up, 1000f);
+        //DEBUG
     }
 
     void Start()
@@ -77,7 +76,7 @@ public class PinballManager : MonoBehaviour
     public float movementMagnitue()
     {
         //Debug.Log("Velocity: " + rb.velocity.x + ", " + rb.velocity.y);
-        //Debug.Log("Magnitude: " + rb.velocity.magnitude);
+        Debug.Log("Magnitude: " + rb.velocity.magnitude);
         return rb.velocity.magnitude;
     }
 
