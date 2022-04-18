@@ -44,7 +44,6 @@ public class Ramp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Ramp collision hit!");
         if (collision.gameObject.GetComponent<PinballManager>())
         {
             PinballManager ballsManager = collision.gameObject.GetComponent<PinballManager>();
