@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Slingshot : MonoBehaviour
+public class Slingshot : MonoBehaviour, IFlashable
 {
     /// <summary>
     /// Base point value to be added to player's score when this component is
@@ -12,7 +12,8 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private int points;
 
     [SerializeField] private GameObject ui;
-    private SEAudioSource seAudioSource;
+    [SerializeField] private GameObject audioController;
+    private AudioController audioControllerScript;
 
     // Custom board component variables.
     [SerializeField] private Sprite[] sprites;
@@ -24,9 +25,18 @@ public class Slingshot : MonoBehaviour
     public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
     public float angleManipulation = 1.2f; //How much the angle is corrected. Closer to 1 is full angle correction, higher number = wilder launches.
     private bool isFlipped = false;
+
+    /// <summary>
+    /// Distinguish between a component that is part of the menu background,
+    /// versus one on the actual gameplay screen.
+    /// </summary>
+    [SerializeField] private bool onMenu;
+
     void Start()
     {
-        seAudioSource = GetComponent<SEAudioSource>();
+        if (!onMenu)
+            // Only bother grabbing the component if part of gameplay screen.
+            audioControllerScript = audioController.GetComponent<AudioController>();
         hitReg = GetComponent<PolygonCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (transform.localScale.y < 0) //If slingshot is flipped, mark it as so, and alter it's up vector accordingly.
@@ -69,7 +79,7 @@ public class Slingshot : MonoBehaviour
             ballsManager.setVelocity(ballDir);
 
             // Play SE.
-            seAudioSource.PlayAudio();
+            audioControllerScript.PlayAudio(AudioClips.SpaceGun);
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
@@ -90,7 +100,7 @@ public class Slingshot : MonoBehaviour
         }
     }
 
-    private IEnumerator Flash()
+    public IEnumerator Flash()
     {
         spriteRenderer.sprite = sprites[1];
         yield return new WaitForSeconds(flashDuration);
