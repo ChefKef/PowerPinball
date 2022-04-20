@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI overlayScoreText;
     [SerializeField] private GameObject countdown;
     [SerializeField] private GameObject overlay;
+    [SerializeField] private GameObject howToPlayButton;
 
     /// <summary>
     /// How far to push the TMP rectangle right.
@@ -87,6 +88,7 @@ public class UIManager : MonoBehaviour
         gameOver = false;
 
         overlay.SetActive(false);
+        howToPlayButton.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -138,6 +140,7 @@ public class UIManager : MonoBehaviour
             {
                 overlayScoreText.text = "Final Score: " + GameManager.scoreP1;
                 overlay.SetActive(true);
+                howToPlayButton.SetActive(true);
             }
         }
     }
