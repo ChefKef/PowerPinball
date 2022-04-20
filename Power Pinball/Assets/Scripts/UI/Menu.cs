@@ -7,14 +7,29 @@ using UnityEngine;
 /// </summary>
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private GameObject instructionsPopUp;
+
+    private void Start()
+    {
+        HideInstructions();
+    }
+
     public void ToMainMenu()
     {
         StateManager.Instance.SetState(GameStates.MainMenu);
     }
 
-    public void ToInstructions()
+    public void ShowInstructions()
     {
-        StateManager.Instance.SetState(GameStates.Instructions);
+        //StateManager.Instance.SetState(GameStates.Instructions);
+        instructionsPopUp.SetActive(true);
+    }
+
+    public void HideInstructions()
+    {
+        //StateManager.Instance.SetState(GameStates.Instructions);
+        instructionsPopUp.SetActive(false);
+        //sd 
     }
 
     public void ToCharacterCustomisation()
