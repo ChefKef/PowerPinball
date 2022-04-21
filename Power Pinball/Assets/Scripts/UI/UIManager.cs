@@ -25,10 +25,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int bottomMargin;
 
-    /// <summary>
-    /// Duration of the round, in seconds.
-    /// </summary>
-    [SerializeField] private int roundLength;
+    ///// <summary>
+    ///// Duration of the round, in seconds.
+    ///// </summary>
+    //[SerializeField] private int roundLength;
 
     /// <summary>
     /// Tracks the time remaining in the round.
@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
             Screen.width / 2,
             Screen.height - roundTimerText.rectTransform.rect.height / 2);
 
-        roundTimer = roundLength;
+        roundTimer = (float)Customisation.roundLength;
         countdownTimer = CountdownLength;
 
         // Initialise text to the appropriate values before game start.
