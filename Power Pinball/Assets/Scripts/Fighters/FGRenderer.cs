@@ -100,7 +100,7 @@ public class FGRenderer : MonoBehaviour
                     if (i < action.CurrentHit.Length)
                     {
                         hitdetectPool[i].enabled = true;
-                        hitdetectPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5);
+                        hitdetectPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5) + this.transform.position;
                         hitdetectPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * 100 * scale;
 
                     }
@@ -202,7 +202,7 @@ public class FGRenderer : MonoBehaviour
                     {
                         hurtboxPool[i].enabled = true;
                         hurtboxPool[i].color = new Color(0, 0, 1, 0.5f);
-                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHurt[i].rect.y * scale, -5);
+                        hurtboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHurt[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHurt[i].rect.y * scale, -5) + this.transform.position;
                         hurtboxPool[i].transform.localScale = new Vector3(action.CurrentHurt[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHurt[i].rect.height, 1) * 100 * scale;
 
                     }
@@ -225,7 +225,7 @@ public class FGRenderer : MonoBehaviour
                     {
                         hitboxPool[i].enabled = true;
                         hitboxPool[i].color = new Color(1, 0, 0, 0.5f);
-                        hitboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5);
+                        hitboxPool[i].transform.position = new Vector3(fighter.position.x * scale + action.CurrentHit[i].rect.x * (fighter.facingLeft ? -1 : 1) * scale, fighter.position.y * scale + action.CurrentHit[i].rect.y * scale, -5) + this.transform.position;
                         hitboxPool[i].transform.localScale = new Vector3(action.CurrentHit[i].rect.width * (fighter.facingLeft ? -1 : 1), action.CurrentHit[i].rect.height, 1) * 100 * scale;
 
                     }
@@ -274,7 +274,7 @@ public class FGRenderer : MonoBehaviour
                             spritePool[i].color = ColourProfileManager.p1ColourProfile.profile[customisableComponent];
                                 //0, 1 / (i + 0.01f), 0.2f * i, 1);
                         //action.CurrentSprite[i].name
-                        spritePool[i].transform.position = new Vector3(fighter.position.x * scale + (-spritePool[i].bounds.size.x/2 + action.spriteOffset.x) * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i);
+                        spritePool[i].transform.position = new Vector3(fighter.position.x * scale + (-spritePool[i].bounds.size.x/2 + action.spriteOffset.x) * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i) + this.transform.position;
                         spritePool[i].transform.localScale = new Vector3(1,1,1) * spriteScale;
 
                     }
