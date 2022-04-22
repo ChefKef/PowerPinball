@@ -118,8 +118,8 @@ MonoBehaviour:
   ui: {fileID: 0}
   audioController: {fileID: 0}
   sprites:
-  - {fileID: 21300000, guid: 939293be934f7a34b9d84c3b202183e7, type: 3}
-  - {fileID: 21300000, guid: 647a159dc0c9a6447906e778fb8e68d7, type: 3}
+  - {fileID: 21300000, guid: 19ebbb7beb4cb944aa0ba074c94f6f7a, type: 3}
+  - {fileID: 21300000, guid: ab4de000c93141044b5e26d5aad005a1, type: 3}
   flashDuration: 0.2
   elasticity: 5
   minimumLaunch: 50
