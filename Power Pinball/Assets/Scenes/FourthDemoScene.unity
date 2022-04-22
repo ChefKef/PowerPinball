@@ -1167,7 +1167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 129
+      value: -27.57
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6919,7 +6919,6 @@ MonoBehaviour:
   player1Pinball: {fileID: 1140381248}
   player2Pinball: {fileID: 138615954}
   ui: {fileID: 758697626}
-  pinball: {fileID: 1140381248}
 --- !u!4 &1295022036
 Transform:
   m_ObjectHideFlags: 0
@@ -6998,7 +6997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 129
+      value: -27.57
       objectReference: {fileID: 0}
     - target: {fileID: 4292922640626825684, guid: 3c01fd889b0bed64cb4c4294d4addbd7, type: 3}
       propertyPath: m_LocalPosition.z
