@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public static float eventTimerP1 { get; private set; }
     public static EventType currentEventP2 { get; private set; }
     public static float eventTimerP2 { get; private set; }
+    public static int bumperHitsP1 { get; set; }
+    public static int bumperHitsP2 { get; set; }
 
     public enum RailType
     {
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
         scoreP1 = 0;
         multiplierP1 = 1;
         multiplierP2 = 1;
+        bumperHitsP1 = 3;
+        bumperHitsP2 = 3;
 
         //Character initialization
         //Specifically called in Start() not Awake() to wait for any data to get passed in from hypothetical singleton
@@ -158,23 +162,23 @@ public class GameManager : MonoBehaviour
             switch (et)
             {
                 case EventType.hitBumpers:
-                    eventTimerP1 = 15f;
+                    eventTimerP1 = 20f;
                     break;
                 case EventType.leftRamp:
-                    eventTimerP1 = 5f;
+                    eventTimerP1 = 10f;
                     break;
             }
         }
         else //Create event for player 2
         {
-            currentEventP1 = et;
+            currentEventP2 = et;
             switch (et)
             {
                 case EventType.hitBumpers:
-                    eventTimerP2 = 15f;
+                    eventTimerP2 = 20f;
                     break;
                 case EventType.leftRamp:
-                    eventTimerP2 = 5f;
+                    eventTimerP2 = 10f;
                     break;
             }
         }

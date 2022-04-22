@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Rollover : MonoBehaviour, IFlashable
 {
+    public float cooldown = .1f; //Time until the rollover can be activated again.
+    public int player;
     /// <summary>
     /// Base point value to be added to player's score when this component is
     /// interacted with.
@@ -19,7 +21,7 @@ public class Rollover : MonoBehaviour, IFlashable
     [SerializeField] private float flashDuration;
     private SpriteRenderer spriteRenderer;
 
-    public float cooldown = .1f; //Time until the rollover can be activated again.
+   
     private float counter;
     private bool active;
 

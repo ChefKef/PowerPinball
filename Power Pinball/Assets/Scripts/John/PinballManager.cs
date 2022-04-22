@@ -37,8 +37,6 @@ public class PinballManager : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
         transform.rotation = Quaternion.Euler(Vector2.zero);
-
-        //DEBUG
     }
 
     void Start()
@@ -55,7 +53,6 @@ public class PinballManager : MonoBehaviour
             {
                 holdBall = false;
                 toggleGravity(true);
-                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
             else
             {
@@ -75,8 +72,6 @@ public class PinballManager : MonoBehaviour
 
     public float movementMagnitue()
     {
-        //Debug.Log("Velocity: " + rb.velocity.x + ", " + rb.velocity.y);
-        Debug.Log("Magnitude: " + rb.velocity.magnitude);
         return rb.velocity.magnitude;
     }
 
@@ -101,7 +96,6 @@ public class PinballManager : MonoBehaviour
         holdTimer = 0f;
         holdTime = time;
         toggleGravity(false);
-        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
     }
 
     public void rideRail(Vector2[] points, GameManager.RailType rail, float totalAnimationTime)
@@ -123,7 +117,6 @@ public class PinballManager : MonoBehaviour
             }
             rampTimeCoefficient = points.Length / totalAnimationTime;
             toggleGravity(false);
-            //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic; //'Turn off' gravity
         }
         else
         {
@@ -134,8 +127,6 @@ public class PinballManager : MonoBehaviour
     public void moveToOverTime(Vector2 target, float elapsed)
     {
         transform.position = new Vector3(transform.position.x + (target.x * elapsed), transform.position.y + (target.y * elapsed), transform.position.z);
-        //Debug.lo
-        //Debug.Log("Ball position:")
     }
 
     private void railUpdate()
@@ -152,24 +143,29 @@ public class PinballManager : MonoBehaviour
             {
                 nextPoint++;
                 distanceToNextPoint = railPoints[nextPoint] - (Vector2)transform.position;
-                //Debug.Log("Distance between points: (" + distanceToNextPoint.x + ", " + distanceToNextPoint.y + ")");
             }
             else
             {
                 nextPoint = -1;
                 toggleGravity(true);
-                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //'Turn on' gravity
                 if (curvedRail) //Change to a switch statement if more ramps get introduced.
                 {
-                    //Issue points and update game state for curved rail here.
+                    GameManager.EventType et = (player == 1) ? GameManager.currentEventP1 : GameManager.currentEventP2;
+                    if(et == GameManager.EventType.leftRamp)
+                    {
+                        GameManager.EventComplete(et, player);
+                    }
                     transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                 }
                 else
                 {
-                    //Issue points and update game state for ramp rail here.
+                    GameManager.EventType et = (player == 1) ? GameManager.currentEventP1 : GameManager.currentEventP2;
+                    if(et == GameManager.EventType.NO_EVENT)
+                    {
+                        GameManager.BeginEvent(GameManager.EventType.leftRamp, player);
+                    }
                     transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                 }
-
             }
         }
         else
@@ -190,13 +186,5 @@ public class PinballManager : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         }
-    }
-
-    //*****************DEBUG FUNCS******************
-    private void forceTest()
-    {
-        Debug.Log("Applying upward force");
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.up * 1000f);
     }
 }

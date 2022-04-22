@@ -34,7 +34,8 @@ public class KnockdownManager : MonoBehaviour
             {
                 transform.GetChild(b).GetComponent<Knockdowns>().ResetKnockdown();
             }
-            if(player == 1)
+            GameManager.issuePoints(500, player);
+            if (player == 1)
             {
                 GameManager.multiplierP1 += baseMultiplierIncrease;
                 baseMultiplierIncrease *= .9f;
@@ -44,7 +45,6 @@ public class KnockdownManager : MonoBehaviour
                 GameManager.multiplierP2 += baseMultiplierIncrease;
                 baseMultiplierIncrease *= .9f;
             }
-            
         }
     }
 }

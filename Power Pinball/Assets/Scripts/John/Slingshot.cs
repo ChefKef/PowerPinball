@@ -5,6 +5,10 @@ using TMPro;
 
 public class Slingshot : MonoBehaviour, IFlashable
 {
+    public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
+    public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
+    public float angleManipulation = 1.2f; //How much the angle is corrected. Closer to 1 is full angle correction, higher number = wilder launches.
+    public int player;
     /// <summary>
     /// Base point value to be added to player's score when this component is
     /// interacted with.
@@ -21,9 +25,7 @@ public class Slingshot : MonoBehaviour, IFlashable
     private SpriteRenderer spriteRenderer;
 
     private PolygonCollider2D hitReg;
-    public float elasticity = 2.5f; //How much rebound a shot will have when hitting the slingshot.
-    public float minimumLaunch = 30f; //The minimum amount of force with which the ball will be launched after hitting the slingshot.
-    public float angleManipulation = 1.2f; //How much the angle is corrected. Closer to 1 is full angle correction, higher number = wilder launches.
+    
     private bool isFlipped = false;
 
     /// <summary>

@@ -6,6 +6,7 @@ public class Ramp : MonoBehaviour
 {
     public float minForce;
     public GameManager.RailType railType;
+    public int player;
 
     //Private vars
     private Vector2[] points;

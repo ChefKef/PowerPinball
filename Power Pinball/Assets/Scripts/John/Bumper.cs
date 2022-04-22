@@ -20,6 +20,7 @@ public class Bumper : MonoBehaviour, IFlashable
     private SpriteRenderer spriteRenderer;
 
     private CircleCollider2D hitReg;
+    protected bool moving = false;
     public float elasticity = 5f; //How much rebound a shot will have when hitting the bumper.
     public float minimumLaunch = 50f; //The minimum amount of force with witch the ball will be launched after hitting the bumper
     public float maximumLaunch = 600f; //Used to keep the ball from clipping out of bounds. Change only with exstensive testing. Going over 600 is asking for trouble.
@@ -73,6 +74,31 @@ public class Bumper : MonoBehaviour, IFlashable
 
             // Update player score.
             GameManager.issuePoints(points, ballsManager.player);
+
+            if(moving)
+            {
+                GameManager.EventType et = (ballsManager.player == 1) ? GameManager.currentEventP1 : GameManager.currentEventP2;
+                if (et == GameManager.EventType.hitBumpers)
+                {
+                    if(ballsManager.player == 1)
+                    {
+                        GameManager.bumperHitsP1--;
+                        if(GameManager.bumperHitsP1 == 0)
+                        {
+                            GameManager.EventComplete(GameManager.EventType.hitBumpers, 1);
+                        }
+                    }
+                    else
+                    {
+                        GameManager.bumperHitsP2--;
+                        if (GameManager.bumperHitsP2 == 0)
+                        {
+                            GameManager.EventComplete(GameManager.EventType.hitBumpers, 2);
+                        }
+                    }
+                }
+
+            }
 
             // Request a TMPro object from the object pool and parent it to the
             // UIManager GameObject in the Hierarchy.
