@@ -302,6 +302,7 @@ public class FGRenderer : MonoBehaviour
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            if(collision.attachedRigidbody.velocity.y > 0) return;
             if (!spiked)
             {
                 fighter.comboCount = 0;
