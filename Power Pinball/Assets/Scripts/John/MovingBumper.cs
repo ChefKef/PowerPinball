@@ -13,6 +13,7 @@ public class MovingBumper : Bumper
     // Start is called before the first frame update
     void Start()
     {
+        moving = true;
         anchor = transform.position;
         transform.position = new Vector3(anchor.x + (Mathf.Sin(Mathf.Deg2Rad * deg) * radius), anchor.y + (Mathf.Cos(Mathf.Deg2Rad * deg) * radius), anchor.z);
     }
