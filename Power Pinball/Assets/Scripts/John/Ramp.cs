@@ -17,11 +17,11 @@ public class Ramp : MonoBehaviour
         GameObject railParent;
         if(railType == GameManager.RailType.curved)
         {
-            railParent = GameObject.Find("CurvedRailPoints");
+            railParent = this.transform.parent.Find("CurvedRailPoints").gameObject;
         }
         else
         {
-            railParent = GameObject.Find("RailPoints");
+            railParent = this.transform.parent.Find("RailPoints").gameObject;
         }
         if(railParent)
         {

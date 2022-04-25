@@ -90,12 +90,12 @@ public class FGFighter
 #region Input
         public void MoveStick(Vector2 stick)
         {
-            if (stick.x == 0) joystick.x = 0;
+            if (Mathf.Abs(stick.x) < 0.2f) joystick.x = 0;
             else if (stick.x > 0) joystick.x = 1;
             else joystick.x = -1;
 
-            if (stick.y == 0) joystick.y = 0;
-            else if (stick.y > 0) joystick.y = 1;
+            if (Mathf.Abs(stick.y) < 0.2f) joystick.y = 0;
+            else if (stick.y >= 0.2) joystick.y = 1;
             else joystick.y = -1;
         }
         public void PokeBtn(bool btn)
