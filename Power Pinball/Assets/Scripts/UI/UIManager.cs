@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Tracks the time remaining in the round.
     /// </summary>
-    private float roundTimer;
+    public float roundTimer;
 
     // TODO: Change back to 3; load time between pressing play and the game actually starting is counted.
     // What a joke.
@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
             Screen.width / 2,
             Screen.height - roundTimerText.rectTransform.rect.height / 2);
 
-        roundTimer = (float)Customisation.roundLength;
+        //roundTimer = (float)Customisation.roundLength;
         countdownTimer = CountdownLength;
 
         // Initialise text to the appropriate values before game start.

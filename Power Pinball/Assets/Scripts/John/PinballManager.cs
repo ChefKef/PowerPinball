@@ -29,7 +29,7 @@ public class PinballManager : MonoBehaviour
     public void Init()
     {
         // Move pinball to spawn location.
-        transform.position = startPos;
+        //transform.position = startPos;
 
         rb = GetComponent<Rigidbody2D>();
         

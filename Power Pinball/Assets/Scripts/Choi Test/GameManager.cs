@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     //Game-Loop Data
     [SerializeField] public FGRenderer player1Renderer, player2Renderer;
-    [SerializeField] private GameObject player1Pinball;
+    [SerializeField] private GameObject player1Pinball, player2Pinball;
     FGFighter player1, player2;
     int p1Hitstop, p2Hitstop;
 
@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ui;
     private UIManager uiManager;
 
-    [SerializeField] private GameObject pinball;
-    private PinballManager pinballManager;
+    private PinballManager pinballManager1;
+    private PinballManager pinballManager2;
 
     /// <summary>
     /// Initialisation method.
@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         uiManager = ui.GetComponent<UIManager>();
-        pinballManager = pinball.GetComponent<PinballManager>();
+        pinballManager1 = player1Pinball.GetComponent<PinballManager>();
+        pinballManager2 = player2Pinball.GetComponent<PinballManager>();
 
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
@@ -72,11 +73,10 @@ public class GameManager : MonoBehaviour
         player1Renderer.fighter = player1;
         player1.FGUpdate();
         player1.FGDraw();
-        //player2 = new Hipster();
-        //player2Renderer.fighter = player2;
+        player2 = new Hipster(player2Renderer);
+        player2Renderer.fighter = player2;
 
-        player1.position.x = -6;
-        //player2.position.x = 6;
+        player2.facingLeft = true;
 
         // Wait until the countdown completes.
         Time.timeScale = 0;
@@ -122,16 +122,28 @@ public class GameManager : MonoBehaviour
 
         if (p2Hitstop <= 0)
         {
-            //player2.FGUpdate();
-            //p2Hitstop += player2Renderer.CheckCollision();
+            player2.FGUpdate();
+            p2Hitstop += player2Renderer.CheckCollision();
+            if (p2Hitstop > 0)
+                player2Pinball.GetComponent<Rigidbody2D>().simulated = false;
         }
         else
+        {
             p2Hitstop--;
+            if (p2Hitstop == 0)
+            {
+                Vector2 ballDI = new Vector2(player2.Joystick.x, 0) * 0.2f;
+
+                player2Pinball.GetComponent<Rigidbody2D>().velocity = new Vector2(player2Renderer.hitDetected.velocity.x * (player2.facingLeft ? -1 : 1), player2Renderer.hitDetected.velocity.y) + (ballDI * player2Renderer.hitDetected.velocity.magnitude);
+                player2Pinball.GetComponent<Rigidbody2D>().simulated = true;
+                player2.Hitstop = false;
+            }
+        }
 
         player1.FGDraw();
         player1.FGDrawHitboxes();
-        //player2.FGDraw();
-        //player2.FGDrawHitboxes();
+        player2.FGDraw();
+        player2.FGDrawHitboxes();
 
     }
 
@@ -149,7 +161,8 @@ public class GameManager : MonoBehaviour
 
     public void Rematch()
     {
-        pinballManager.Init();
+        pinballManager1.Init();
+        pinballManager2.Init();
         Init();
         uiManager.Init();
     }
