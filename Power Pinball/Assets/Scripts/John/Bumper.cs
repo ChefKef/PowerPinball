@@ -31,7 +31,7 @@ public class Bumper : MonoBehaviour, IFlashable
     /// </summary>
     [SerializeField] private bool onMenu;
 
-    void Start()
+    protected virtual void Start()
     {
         if (!onMenu) 
             // Only bother grabbing the component if part of gameplay screen.
@@ -46,7 +46,7 @@ public class Bumper : MonoBehaviour, IFlashable
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.GetComponent<PinballManager>())
         {

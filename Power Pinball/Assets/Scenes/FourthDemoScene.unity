@@ -3002,6 +3002,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1318424183}
     m_Modifications:
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 758697626}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: audioController
+      value: 
+      objectReference: {fileID: 1270192256}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 19ebbb7beb4cb944aa0ba074c94f6f7a, type: 3}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: ab4de000c93141044b5e26d5aad005a1, type: 3}
     - target: {fileID: 243003647773238964, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
       propertyPath: m_Name
       value: Moving Bumper
@@ -9211,6 +9231,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1706135488}
     m_Modifications:
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 758697626}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: audioController
+      value: 
+      objectReference: {fileID: 1270192256}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 19ebbb7beb4cb944aa0ba074c94f6f7a, type: 3}
+    - target: {fileID: 1126520143, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: ab4de000c93141044b5e26d5aad005a1, type: 3}
     - target: {fileID: 243003647773238964, guid: 397eb3a44b6b97941911a134d9f68f11, type: 3}
       propertyPath: m_Name
       value: Moving Bumper
