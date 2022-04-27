@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
     private RectTransform canvasRect;
     [SerializeField] private TextMeshProUGUI roundTimerText;
     [SerializeField] private TextMeshProUGUI countdownTimerText;
-    [SerializeField] private TextMeshProUGUI overlayScoreText;
+    [SerializeField] private TextMeshProUGUI overlayScoreTextP1;
+    [SerializeField] private TextMeshProUGUI overlayScoreTextP2;
     [SerializeField] private GameObject countdown;
     [SerializeField] private GameObject overlay;
     [SerializeField] private GameObject howToPlayButton;
@@ -95,12 +96,16 @@ public class UIManager : MonoBehaviour
             Screen.width / 2,
             Screen.height - roundTimerText.rectTransform.rect.height / 2);
 
-        //roundTimer = (float)Customisation.roundLength;
+        // TODO: comment out here for time values from customisation/inspector
+        roundTimer = (float)Customisation.roundLength;
+
         countdownTimer = CountdownLength;
 
         // Initialise text to the appropriate values before game start.
-        p1ScoreText.text = "Score: 0";
-        p2ScoreText.text = "Score: 0";
+        p1ScoreText.text = "0";
+        p2ScoreText.text = "0";
+        p1MultiplierText.text = "1.0X";
+        p2MultiplierText.text = "1.0X";
         roundTimerText.text = ((int)roundTimer).ToString();
 
         isCountingDown = true;
@@ -149,8 +154,10 @@ public class UIManager : MonoBehaviour
                 // TODO: add case where game ends once score target is reached
                 else gameOver = true;
 
-                p1ScoreText.text = "Score: " + GameManager.scoreP1;
-                p2ScoreText.text = "Score: " + GameManager.scoreP2;
+                p1ScoreText.text = GameManager.scoreP1.ToString();
+                p2ScoreText.text = GameManager.scoreP2.ToString();
+                p1MultiplierText.text = GameManager.multiplierP1.ToString("F1") + "X";
+                p2MultiplierText.text = GameManager.multiplierP2.ToString("F1") + "X";
 
                 // Only show the remaining time as an integer.
                 roundTimerText.text = ((int)roundTimer).ToString();
@@ -158,7 +165,8 @@ public class UIManager : MonoBehaviour
             // Show game over overlay.
             else
             {
-                overlayScoreText.text = "Final Score: " + GameManager.scoreP1;
+                overlayScoreTextP1.text = "P1: " + GameManager.scoreP1;
+                overlayScoreTextP2.text = "P2: " + GameManager.scoreP2;
                 overlay.SetActive(true);
                 howToPlayButton.SetActive(true);
             }
