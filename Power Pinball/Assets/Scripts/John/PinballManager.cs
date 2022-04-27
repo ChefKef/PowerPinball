@@ -5,7 +5,7 @@ using UnityEngine;
 public class PinballManager : MonoBehaviour
 {
     //Private vars
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     private Vector2[] railPoints;
     private int nextPoint = -1;
     private float ballTravelTime = 0f;
@@ -21,6 +21,7 @@ public class PinballManager : MonoBehaviour
     public int player = 1;
     public bool curvedRail = false;
     public bool steepRail = false;
+    public GameObject phantomBall;
     [SerializeField] private Vector2 startPos; // (33, 129)
 
     /// <summary>
@@ -28,9 +29,6 @@ public class PinballManager : MonoBehaviour
     /// </summary>
     public void Init()
     {
-        // Move pinball to spawn location.
-        //transform.position = startPos;
-
         rb = GetComponent<Rigidbody2D>();
         
         // Reset linear/angular velocity AND rotation.
@@ -45,7 +43,7 @@ public class PinballManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if(holdBall)
         {
@@ -100,10 +98,10 @@ public class PinballManager : MonoBehaviour
 
     public void rideRail(Vector2[] points, GameManager.RailType rail, float totalAnimationTime)
     {
+        Debug.Log(gameObject.name + "'s current rb state: " + rb.bodyType);
         if(points.Length > 0)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -6);
-            Debug.Log("Number of points found: " + points.Length);
             railPoints = points;
             nextPoint = 0;
             distanceToNextPoint = points[0] - (Vector2)transform.position;
@@ -185,6 +183,20 @@ public class PinballManager : MonoBehaviour
         else
         {
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        }
+    }
+
+    public void spawnPhantoms(int balls)
+    {
+        if(balls > 0)
+        {
+            for (int a = 0; a < balls; a++)
+            {
+                GameObject theBall = Instantiate(phantomBall, transform.position, Quaternion.identity * Quaternion.Euler(0, Random.Range(-10f, 10f), 0));
+                theBall.GetComponent<Rigidbody2D>().velocity = transform.GetComponent<Rigidbody2D>().velocity;
+                theBall.GetComponent<Rigidbody2D>().AddForce(new Vector2(20 * Random.Range(-10f, 10f), 0));
+                //yield return new WaitForSeconds(.1f); //Pause for 1/10 of a second.
+            }
         }
     }
 }

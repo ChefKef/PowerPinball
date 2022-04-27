@@ -29,7 +29,6 @@ public class KnockdownManager : MonoBehaviour
         }
         if(allDown)
         {
-            Debug.Log("All knockdowns are down!");
             for(int b = 0; b < childrenCount; b++)
             {
                 transform.GetChild(b).GetComponent<Knockdowns>().ResetKnockdown();

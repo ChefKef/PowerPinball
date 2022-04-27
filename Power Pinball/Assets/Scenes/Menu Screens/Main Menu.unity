@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 0
   railType: 0
+  player: 0
 --- !u!61 &13599413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -492,12 +493,16 @@ PrefabInstance:
       value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
+      propertyPath: elasticity
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: flashDuration
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: maximumLaunch
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584669, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: m_Name
@@ -1235,12 +1240,16 @@ PrefabInstance:
       value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
+      propertyPath: elasticity
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: flashDuration
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: maximumLaunch
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584669, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: m_Name
@@ -1524,12 +1533,16 @@ PrefabInstance:
       value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
+      propertyPath: elasticity
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: flashDuration
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: maximumLaunch
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584669, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: m_Name
@@ -2359,6 +2372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 0
   railType: 0
+  player: 0
 --- !u!61 &571805980
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6332,12 +6346,16 @@ PrefabInstance:
       value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
+      propertyPath: elasticity
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: flashDuration
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: maximumLaunch
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584669, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: m_Name

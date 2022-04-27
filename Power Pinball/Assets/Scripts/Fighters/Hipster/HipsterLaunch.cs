@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FGScript;
+using UnityEngine;
 
 public class HipsterLaunch : FGAction
 {
@@ -35,6 +36,7 @@ public class HipsterLaunch : FGAction
         {
             parent.state = FGFighterState.airAttack;
             parent.velocity = new UnityEngine.Vector2(0.05f * (parent.facingLeft ? -1 : 1), 0.55f);
+            parent.renderer.spawnPhantoms(parent.comboCount);
         }
 
         if (frame == 29)
@@ -42,8 +44,5 @@ public class HipsterLaunch : FGAction
             parent.comboCount = 0;
             parent.HideComboCount();
         }
-
     }
-
-
 }

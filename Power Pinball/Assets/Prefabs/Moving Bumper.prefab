@@ -80,9 +80,9 @@ MonoBehaviour:
   audioController: {fileID: 0}
   sprites: []
   flashDuration: 0
-  elasticity: 5
+  elasticity: 3.5
   minimumLaunch: 50
-  maximumLaunch: 600
+  maximumLaunch: 400
   onMenu: 0
   radius: 5
   period: 2

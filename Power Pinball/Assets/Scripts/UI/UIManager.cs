@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
             Screen.height - roundTimerText.rectTransform.rect.height / 2);
 
         // TODO: comment out here for time values from customisation/inspector
-        roundTimer = (float)Customisation.roundLength;
+        //roundTimer = (float)Customisation.roundLength;
 
         countdownTimer = CountdownLength;
 

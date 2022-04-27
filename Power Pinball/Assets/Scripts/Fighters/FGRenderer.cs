@@ -115,7 +115,6 @@ public class FGRenderer : MonoBehaviour
                 {
                     if(hitdetectPool[i].IsTouchingLayers(7) && !fighter.hit)
                     {
-                        //Debug.Log("Collision");
                         ContactFilter2D filter = new ContactFilter2D();
                         filter.SetLayerMask(7);
                         collisions.Clear();
@@ -136,7 +135,6 @@ public class FGRenderer : MonoBehaviour
                         fighter.comboCount++;
                         if (!comboCounter.activeInHierarchy) comboCounter.SetActive(true);
                         comboCounterScript.SetText(fighter.comboCount);
-                        //Debug.Log("Combo: " + fighter.comboCount + " hits!");
 
                         if (action.CurrentHit[i].velocity.y < 0) spiked = true;
 
@@ -315,7 +313,30 @@ public class FGRenderer : MonoBehaviour
                 spiked = false;
             }
         }
+        public void spawnPhantoms(int comboCount)
+        {
+            bool isPlayerOne = (transform.position.x < 0) ? true : false; //Change later
+            if (comboCount > 1)
+            {
+                if (isPlayerOne)
+                {
+                    Debug.Log("Creating multiball for player 1");
+                    GameObject pinball = GameObject.Find("Pinball");
+                    if (pinball != null)
+                    {
+                        pinball.GetComponent<PinballManager>().spawnPhantoms(comboCount - 1);
+                    }
+                    else
+                    {
+                        Debug.Log("Pinball is null.");
+                    }
+                }
+                else
+                {
+                    GameObject.Find("P2Pinball").GetComponent<PinballManager>().spawnPhantoms(comboCount - 1);
+                }
+            }
 
+        }
     }
-
 }
