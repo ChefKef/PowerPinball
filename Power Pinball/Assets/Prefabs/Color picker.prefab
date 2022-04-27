@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1880276666601959580}
   - component: {fileID: 1880276666601959578}
   - component: {fileID: 1880276666601959581}
-  - component: {fileID: 1880276666601959579}
   m_Layer: 5
   m_Name: Color picker
   m_TagString: Untagged
@@ -77,16 +76,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1880276666601959579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880276666601959583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3ff511a986a5c4e8dc1a7939e7b981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorPickerShader: {fileID: 4800000, guid: 1fe34ac173a0455499fd722bc6744230, type: 3}
