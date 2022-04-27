@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 1f / 60.0f; //enforce 60 FPS
 
         scoreP1 = 0;
+        scoreP2 = 0;
         multiplierP1 = 1;
         multiplierP2 = 1;
         bumperHitsP1 = 3;

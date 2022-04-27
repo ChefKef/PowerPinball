@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI multiplierText;
+    [SerializeField] private TextMeshProUGUI p1ScoreText;
+    [SerializeField] private TextMeshProUGUI p1MultiplierText;
+    [SerializeField] private TextMeshProUGUI p2ScoreText;
+    [SerializeField] private TextMeshProUGUI p2MultiplierText;
+    private RectTransform canvasRect;
     [SerializeField] private TextMeshProUGUI roundTimerText;
     [SerializeField] private TextMeshProUGUI countdownTimerText;
-    [SerializeField] private TextMeshProUGUI overlayScoreText;
+    [SerializeField] private TextMeshProUGUI overlayScoreTextP1;
+    [SerializeField] private TextMeshProUGUI overlayScoreTextP2;
     [SerializeField] private GameObject countdown;
     [SerializeField] private GameObject overlay;
     [SerializeField] private GameObject howToPlayButton;
@@ -19,6 +23,11 @@ public class UIManager : MonoBehaviour
     /// How far to push the TMP rectangle right.
     /// </summary>
     [SerializeField] private int leftMargin;
+
+    /// <summary>
+    /// How far to push the TMP rectangle left.
+    /// </summary>
+    [SerializeField] private int rightMargin;
 
     /// <summary>
     /// How far to push the TMP rectangle up.
@@ -57,18 +66,28 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void Init()
     {
+        canvasRect = GetComponent<Canvas>().GetComponent<RectTransform>();
+
         // Leverage width and height of scoreText's rectangle to ensure it fits
         // wholly onscreen.
-        scoreText.rectTransform.position = new Vector3(
-            scoreText.rectTransform.rect.width + leftMargin,
-            scoreText.rectTransform.rect.height + bottomMargin);
+        p1ScoreText.rectTransform.position = new Vector3(
+            p1ScoreText.rectTransform.rect.width + leftMargin,
+            p1ScoreText.rectTransform.rect.height + bottomMargin);
+        p2ScoreText.rectTransform.position = new Vector3(
+            canvasRect.rect.width * 2/* + p2ScoreText.rectTransform.rect.width + leftMargin*/,
+            p2ScoreText.rectTransform.rect.height + bottomMargin);
 
         // Multiplier text goes above the score.
-        multiplierText.rectTransform.position = new Vector3(
-            scoreText.rectTransform.rect.width + leftMargin,
-            scoreText.rectTransform.rect.height * 2 
+        p1MultiplierText.rectTransform.position = new Vector3(
+            p1ScoreText.rectTransform.rect.width + leftMargin,
+            p1ScoreText.rectTransform.rect.height * 2 
                 + bottomMargin
-                + multiplierText.rectTransform.rect.height);
+                + p1MultiplierText.rectTransform.rect.height);
+        p2MultiplierText.rectTransform.position = new Vector3(
+            canvasRect.rect.width * 2 /*+ p2ScoreText.rectTransform.rect.width + leftMargin*/,
+            p2ScoreText.rectTransform.rect.height * 2
+                + bottomMargin
+                + p2MultiplierText.rectTransform.rect.height);
 
         // Do the same for the round timer.
         // Transforms of TMP's are at the centre of the textbox, not the top
@@ -77,11 +96,16 @@ public class UIManager : MonoBehaviour
             Screen.width / 2,
             Screen.height - roundTimerText.rectTransform.rect.height / 2);
 
-        //roundTimer = (float)Customisation.roundLength;
+        // TODO: comment out here for time values from customisation/inspector
+        roundTimer = (float)Customisation.roundLength;
+
         countdownTimer = CountdownLength;
 
         // Initialise text to the appropriate values before game start.
-        scoreText.text = "Score: 0";
+        p1ScoreText.text = "0";
+        p2ScoreText.text = "0";
+        p1MultiplierText.text = "1.0X";
+        p2MultiplierText.text = "1.0X";
         roundTimerText.text = ((int)roundTimer).ToString();
 
         isCountingDown = true;
@@ -130,7 +154,10 @@ public class UIManager : MonoBehaviour
                 // TODO: add case where game ends once score target is reached
                 else gameOver = true;
 
-                scoreText.text = "Score: " + GameManager.scoreP1;
+                p1ScoreText.text = GameManager.scoreP1.ToString();
+                p2ScoreText.text = GameManager.scoreP2.ToString();
+                p1MultiplierText.text = GameManager.multiplierP1.ToString("F1") + "X";
+                p2MultiplierText.text = GameManager.multiplierP2.ToString("F1") + "X";
 
                 // Only show the remaining time as an integer.
                 roundTimerText.text = ((int)roundTimer).ToString();
@@ -138,7 +165,8 @@ public class UIManager : MonoBehaviour
             // Show game over overlay.
             else
             {
-                overlayScoreText.text = "Final Score: " + GameManager.scoreP1;
+                overlayScoreTextP1.text = "P1: " + GameManager.scoreP1;
+                overlayScoreTextP2.text = "P2: " + GameManager.scoreP2;
                 overlay.SetActive(true);
                 howToPlayButton.SetActive(true);
             }

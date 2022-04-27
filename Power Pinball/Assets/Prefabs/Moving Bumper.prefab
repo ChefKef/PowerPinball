@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7985836258848584669, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
       propertyPath: m_Name
-      value: Bumper
+      value: Moving Bumper
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7985836258848584657, guid: 5a07faf499c8db34fa28c73c6b413197, type: 3}
@@ -75,12 +75,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48c14970ca3e22d44af2d0da78253d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
+  points: 200
   ui: {fileID: 0}
+  audioController: {fileID: 0}
   sprites: []
   flashDuration: 0
   elasticity: 5
   minimumLaunch: 50
   maximumLaunch: 600
+  onMenu: 0
   radius: 5
   period: 2
