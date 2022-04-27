@@ -6,7 +6,7 @@ public class ColorPreview : MonoBehaviour
 {
     public Graphic previewGraphic;
 
-    public ColorPicker colorPicker;
+    public ColorPickerP1 colorPicker;
 
     private void Start()
     {
