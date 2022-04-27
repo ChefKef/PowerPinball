@@ -68,8 +68,6 @@ public class Slingshot : MonoBehaviour, IFlashable
             Vector2 centerPos = gameObject.transform.position;
             Vector2 ballDir = new Vector2(collisionPos.x - centerPos.x, collisionPos.y - centerPos.y);
             ballDir.Normalize();
-            Debug.Log("Launch direction:" + ballDir.x + ", " + ballDir.y);
-            Debug.Log("Transform up: " + transform.up);
             Vector2 slingshotUp = transform.up.normalized;
             if(isFlipped)
             {

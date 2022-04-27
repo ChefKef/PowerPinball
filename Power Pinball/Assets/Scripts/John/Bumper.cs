@@ -61,7 +61,6 @@ public class Bumper : MonoBehaviour, IFlashable
             {
                 launchMagnitude = maximumLaunch;
             }
-            Debug.Log("Launch magnitude: " + launchMagnitude);
             Vector3 ballPos = collision.gameObject.transform.position;
             Vector3 bumperPos = gameObject.transform.position;
             Vector2 ballDir = new Vector2(ballPos.x - bumperPos.x, ballPos.y - bumperPos.y);

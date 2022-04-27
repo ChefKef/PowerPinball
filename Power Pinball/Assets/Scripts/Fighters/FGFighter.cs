@@ -65,7 +65,7 @@ public class FGFighter
         public FGHitbox[][] Hitboxes { get => CurrentAction.hitboxes; }
     
         //Unity crap
-        protected FGRenderer renderer;
+        public FGRenderer renderer { get; protected set; }
     
         //Buttons and input
         protected Vector2 joystick; //Digital, values should be -1 0 or 1.

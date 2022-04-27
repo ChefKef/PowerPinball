@@ -68,7 +68,6 @@ public class Kickout : MonoBehaviour
     {
         active = false;
         timer = 0f;
-        Debug.Log("Launching ball!");
         ballsManager.toggleGravity(true);
         ballsManager.applyForce(transform.up, kickoutVelocity);
         GameManager.issuePoints(points, ballsManager.player);

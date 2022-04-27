@@ -25,13 +25,10 @@ public class Ramp : MonoBehaviour
         }
         if(railParent)
         {
-            Debug.Log("PARENT FOUND!");
             points = new Vector2[railParent.transform.childCount];
-            Debug.Log("Number of points: " + railParent.transform.childCount);
         }
         for(int a = 0; a < points.Length; a++)
         {
-            Debug.Log("Creating point " + a);
             childPoint = railParent.transform.GetChild(a).position;
             points[a] = new Vector2(childPoint.x, childPoint.y);
         }
@@ -51,7 +48,6 @@ public class Ramp : MonoBehaviour
             if(ballsManager.movementMagnitue() > minForce)
             {
                 ballsManager.rideRail(points, railType, 1f);
-                ballsManager.setVelocity(Vector2.zero);
             }
         }
     }

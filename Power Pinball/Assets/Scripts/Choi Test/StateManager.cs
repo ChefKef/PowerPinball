@@ -87,7 +87,6 @@ public class StateManager : MonoBehaviour
         // TODO: load new scenes here.
         GameState = newState;
         //OnStateChange.Invoke();
-        //Debug.Log("Score: " + ScoreManager.Score);
 
         switch (newState)
         {
