@@ -170,16 +170,19 @@ public class GameManager : MonoBehaviour
 
     public static void BeginEvent(EventType et, int player = 1)
     {
-        if(player == 1) //Create event for player 1
+        GameObject UI = GameObject.Find("UI");
+        if (player == 1) //Create event for player 1
         {
             currentEventP1 = et;
             switch (et)
             {
                 case EventType.hitBumpers:
                     eventTimerP1 = 20f;
+                    UI.GetComponent<ScrollText>().Scroll("Hit the moving bumper 3 times!");
                     break;
                 case EventType.leftRamp:
                     eventTimerP1 = 10f;
+                    UI.GetComponent<ScrollText>().Scroll("Ride the left rail!");
                     break;
             }
         }
@@ -190,9 +193,11 @@ public class GameManager : MonoBehaviour
             {
                 case EventType.hitBumpers:
                     eventTimerP2 = 20f;
+                    UI.GetComponent<ScrollText>().Scroll("Hit the moving bumper 3 times!");
                     break;
                 case EventType.leftRamp:
                     eventTimerP2 = 10f;
+                    UI.GetComponent<ScrollText>().Scroll("Ride the left rail!");
                     break;
             }
         }
@@ -237,17 +242,20 @@ public class GameManager : MonoBehaviour
 
     public static void EventComplete(EventType et, int player)
     {
+        GameObject UI = GameObject.Find("UI");
         switch (et)
         {
             case EventType.hitBumpers:
                 if (player == 1)
                 {
                     issuePoints(1000, 1);
+                    UI.GetComponent<ScrollText>().Scroll("Well done!");
                     //Visual feedback
                 }
                 else
                 {
                     issuePoints(1000, 2);
+                    UI.GetComponent<ScrollText>().Scroll("Well done!");
                     //Visual feedback
                 }
                 break;
@@ -256,12 +264,14 @@ public class GameManager : MonoBehaviour
                 {
                     issuePoints(250, 1);
                     multiplierP1 += .75f;
+                    UI.GetComponent<ScrollText>().Scroll("Well done!");
                     //Visual feedback
                 }
                 else
                 {
                     issuePoints(250, 2);
                     multiplierP2 += .75f;
+                    UI.GetComponent<ScrollText>().Scroll("Well done!");
                     //Visual feedback
                 }
                 break;
