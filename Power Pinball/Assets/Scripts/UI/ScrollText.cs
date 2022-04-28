@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class ScrollText : PlaceableUI
 {
@@ -52,10 +53,11 @@ public class ScrollText : PlaceableUI
         //if (Input.GetAxis("Submit") > 0) StartCoroutine(Scroll());
     }
 
-    private IEnumerator Scroll()
+    public IEnumerator Scroll(string text)
     {
         if (!scrolling)
         {
+            textBox.GetComponent<TextMeshProUGUI>().text = text;
             scrolling = true;
 
             // Scroll text R to L until it is out of view again.
@@ -81,6 +83,6 @@ public class ScrollText : PlaceableUI
     /// <param name="input"></param>
     public void OnScrollText(InputValue input)
     {
-        StartCoroutine(Scroll());
+        StartCoroutine(Scroll(""));
     }
 }
