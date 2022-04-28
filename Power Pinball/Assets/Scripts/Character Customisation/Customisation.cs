@@ -23,25 +23,22 @@ public enum RoundLengths
 
 public class Customisation : MonoBehaviour
 {
-    /// <summary>
-    /// Text describing the part currently being customised.
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI currentCustomisableText;
+    // Text describing the part currently being customised.
+    [SerializeField] private TextMeshProUGUI currentCustomisableTextP1;
+    [SerializeField] private TextMeshProUGUI currentCustomisableTextP2;
 
     /// <summary>
     /// Text describing the current selected round length.
     /// </summary>
     [SerializeField] private TextMeshProUGUI currentRoundLengthText;
 
-    /// <summary>
-    /// Sprites for the customisable parts.
-    /// </summary>
-    [SerializeField] private Image[] sprites;
+    // Sprites for the customisable parts.
+    [SerializeField] private Image[] spritesP1;
+    [SerializeField] private Image[] spritesP2;
 
-    /// <summary>
-    /// Third-party colour picker.
-    /// </summary>
-    [SerializeField] private ColorPicker colourPicker;
+    // Third-party colour pickers.
+    [SerializeField] private ColorPickerP1 colourPickerP1;
+    [SerializeField] private ColorPickerP2 colourPickerP2;
 
     public static RoundLengths roundLength = RoundLengths.Sixty;
 
@@ -87,53 +84,82 @@ public class Customisation : MonoBehaviour
         Customisables.Shoes
     };
     
-    /// <summary>
-    /// The current part being customsied.
-    /// </summary>
-    private Customisables currentCustomisable;
+    // The current part being customsied.
+    private Customisables currentCustomisableP1;
+    private Customisables currentCustomisableP2;
 
     /// <summary>
     /// Cycle next in the customisables array.
     /// </summary>
-    public void NextCustomisable()
+    public void NextCustomisable(int player)
     {
-        // Circular array implementation.
-        currentCustomisable = (Customisables)(
-            ((int)currentCustomisable + 1) 
-            % customisables.Length);
-
         // Load the colour and assign it to the sliders.
-        Color newColour = ColourProfileManager.p1ColourProfile.profile[currentCustomisable];
-        colourPicker.color = newColour;
+        switch (player)
+        {
+            case 1:
+                // Circular array implementation.
+                currentCustomisableP1 = (Customisables)(
+                    ((int)currentCustomisableP1 + 1) 
+                    % customisables.Length);
 
-        // Update text label.
-        currentCustomisableText.text = customisables[(int)currentCustomisable].ToString();
+                Color newColourP1 = ColourProfileManager.p1ColourProfile.profile[currentCustomisableP1];
+                colourPickerP1.color = newColourP1;
 
-        //rSlider.value = newColour.r;
-        //gSlider.value = newColour.g;
-        //bSlider.value = newColour.b;
+                // Update text label.
+                currentCustomisableTextP1.text = customisables[(int)currentCustomisableP1].ToString();
+                
+                break;
+            case 2:
+                // Circular array implementation.
+                currentCustomisableP2 = (Customisables)(
+                    ((int)currentCustomisableP2 + 1)
+                    % customisables.Length);
+
+                Color newColourP2 = ColourProfileManager.p2ColourProfile.profile[currentCustomisableP2];
+                colourPickerP2.color = newColourP2;
+
+                // Update text label.
+                currentCustomisableTextP2.text = customisables[(int)currentCustomisableP2].ToString();
+
+                break;
+        }
     }
 
     /// <summary>
     /// Cycle previous in the customisables array.
     /// </summary>
-    public void PreviousCustomisable()
+    public void PreviousCustomisable(int player)
     {
-        // Circular array implementation.
-        // Account for the fact that -1 % y = -1 (ugh).
-        if (--currentCustomisable < 0) 
-            currentCustomisable = (Customisables)(customisables.Length - 1);
-
         // Load the colour and assign it to the sliders.
-        Color newColour = ColourProfileManager.p1ColourProfile.profile[currentCustomisable];
-        colourPicker.color = newColour;
+        switch (player)
+        {
+            case 1:
+                // Circular array implementation.
+                // Account for the fact that -1 % y = -1 (ugh).
+                if (--currentCustomisableP1 < 0) 
+                    currentCustomisableP1 = (Customisables)(customisables.Length - 1);
 
-        // Update text label.
-        currentCustomisableText.text = customisables[(int)currentCustomisable].ToString();
+                Color newColourP1 = ColourProfileManager.p1ColourProfile.profile[currentCustomisableP1];
+                colourPickerP1.color = newColourP1;
 
-        //rSlider.value = newColour.r;
-        //gSlider.value = newColour.g;
-        //bSlider.value = newColour.b;
+                // Update text label.
+                currentCustomisableTextP1.text = customisables[(int)currentCustomisableP1].ToString();
+
+                break;
+            case 2:
+                // Circular array implementation.
+                // Account for the fact that -1 % y = -1 (ugh).
+                if (--currentCustomisableP2 < 0)
+                    currentCustomisableP2 = (Customisables)(customisables.Length - 1);
+
+                Color newColourP2 = ColourProfileManager.p2ColourProfile.profile[currentCustomisableP2];
+                colourPickerP2.color = newColourP2;
+
+                // Update text label.
+                currentCustomisableTextP2.text = customisables[(int)currentCustomisableP2].ToString();
+
+                break;
+        }
     }
 
     public void ChangeRoundLength()
@@ -153,32 +179,37 @@ public class Customisation : MonoBehaviour
     }
 
     /// <summary>
-    /// Commit colour choices to the ColourProfile.
+    /// Commit colour choices to the ColourProfile for P1.
     /// </summary>
-    private void SaveChanges(Color colour)
+    private void SaveChangesP1(Color colour)
     {
-        ColourProfileManager.p1ColourProfile.profile[currentCustomisable] = colour;
-            //rSlider.value,
-            //gSlider.value,
-            //bSlider.value);
+        ColourProfileManager.p1ColourProfile.profile[currentCustomisableP1] = colour;
+    }
+
+    /// <summary>
+    /// Commit colour choices to the ColourProfile for P2.
+    /// </summary>
+    private void SaveChangesP2(Color colour)
+    {
+        ColourProfileManager.p2ColourProfile.profile[currentCustomisableP2] = colour;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentCustomisable = 0;
-
-        //// Commit changes when slider values are changed.
-        //rSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
-        //gSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
-        //bSlider.onValueChanged.AddListener(delegate { SaveChanges(); });
+        currentCustomisableP1 = 0;
+        currentCustomisableP2 = 0;
 
         // Commit changes when colour picker values are changed.
-        colourPicker.onColorChanged += SaveChanges;
+        colourPickerP1.onColorChanged += SaveChangesP1;
+        colourPickerP2.onColorChanged += SaveChangesP2;
 
         // Load ColourProfile and display colours on the sprite.
-        for (int i = 0; i < sprites.Length; i++)
-            sprites[i].color = ColourProfileManager.p1ColourProfile.profile[customisables[i]];
+        for (int i = 0; i < spritesP1.Length; i++)
+            spritesP1[i].color = ColourProfileManager.p1ColourProfile.profile[customisables[i]];
+        
+        for (int i = 0; i < spritesP2.Length; i++)
+            spritesP2[i].color = ColourProfileManager.p2ColourProfile.profile[customisables[i]];
 
         //// Initialise the slider colours to match the first item in the array.
         //rSlider.value = sprites[0].color.r;
@@ -186,10 +217,12 @@ public class Customisation : MonoBehaviour
         //bSlider.value = sprites[0].color.b;
 
         // Initialise the colour picker to match the first array element's colour.
-        colourPicker.color = sprites[0].color;
+        colourPickerP1.color = spritesP1[0].color;
+        colourPickerP2.color = spritesP2[0].color;
 
         // Initialise text labels.
-        currentCustomisableText.text = customisables[(int)currentCustomisable].ToString();
+        currentCustomisableTextP1.text = customisables[(int)currentCustomisableP1].ToString();
+        currentCustomisableTextP2.text = customisables[(int)currentCustomisableP2].ToString();
         currentRoundLengthText.text = ((int)roundLength).ToString() + "s";
     }
 
@@ -197,12 +230,7 @@ public class Customisation : MonoBehaviour
     void Update()
     {
         // Update sprite colours each frame.
-        sprites[(int)currentCustomisable].color = colourPicker.color;/*new Color(
-            rSlider.value,
-            gSlider.value,
-            bSlider.value);*/
-        //rSliderValueLabel.text = ((int)(rSlider.value * 255)).ToString();
-        //gSliderValueLabel.text = ((int)(gSlider.value * 255)).ToString();
-        //bSliderValueLabel.text = ((int)(bSlider.value * 255)).ToString();
+        spritesP1[(int)currentCustomisableP1].color = colourPickerP1.color;
+        spritesP2[(int)currentCustomisableP2].color = colourPickerP2.color;
     }
 }

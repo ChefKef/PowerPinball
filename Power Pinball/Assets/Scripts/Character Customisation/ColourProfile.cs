@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColourProfile : MonoBehaviour
+public class ColourProfile
 {
     /// <summary>
     /// Dictionary mapping enum of customisables to colours.

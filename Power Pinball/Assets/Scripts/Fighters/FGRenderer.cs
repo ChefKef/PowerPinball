@@ -32,6 +32,8 @@ public class FGRenderer : MonoBehaviour
 
         public AudioController AudioControllerScript { get; private set; }
 
+        [SerializeField] private int playerNumber;
+
         //We Need to "handle" Inputs here because this is the Unity object
         //In reality, we are passing them along to the Fighter
         #region Input
@@ -268,8 +270,20 @@ public class FGRenderer : MonoBehaviour
                         spritePool[i].sprite = action.CurrentSprite[i];
                         if(fighter.facingLeft) spritePool[i].flipX = true;
                         else spritePool[i].flipX = false;
-                        if (Enum.TryParse<Customisables>(action.CurrentSprite[i].name, true, out customisableComponent))
-                            spritePool[i].color = ColourProfileManager.p1ColourProfile.profile[customisableComponent];
+
+                        switch (playerNumber)
+                        {
+                            case 1:
+                                if (Enum.TryParse<Customisables>(action.CurrentSprite[i].name, true, out customisableComponent))
+                                    spritePool[i].color = ColourProfileManager.p1ColourProfile.profile[customisableComponent];
+                                break;
+                            case 2:
+                                if (Enum.TryParse<Customisables>(action.CurrentSprite[i].name, true, out customisableComponent))
+                                    spritePool[i].color = ColourProfileManager.p2ColourProfile.profile[customisableComponent];
+                                break;
+                        }
+
+                        
                                 //0, 1 / (i + 0.01f), 0.2f * i, 1);
                         //action.CurrentSprite[i].name
                         spritePool[i].transform.position = new Vector3(fighter.position.x * scale + (-spritePool[i].bounds.size.x/2 + action.spriteOffset.x) * (fighter.facingLeft ? -1 : 1), fighter.position.y * scale + spritePool[i].bounds.size.y, 0 - 0.1f*i) + this.transform.position;
