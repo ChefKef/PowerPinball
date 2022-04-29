@@ -17,8 +17,8 @@ public enum Customisables
 
 public enum RoundLengths
 {
-    Sixty = 1/*60*/,
-    Ninety = 2/*90*/
+    Sixty = /*1*/60,
+    Ninety = /*2*/90
 }
 
 public class Customisation : MonoBehaviour
